@@ -1,4 +1,4 @@
-/* {
+* {
   box-sizing: border-box;
 }
 
@@ -23,8 +23,8 @@ a,
 }
 
 .main {
-  min-height: 90vh; /* Keep this as it is or adjust it if you want less space */
-  /*display: flex;
+  min-height: 90vh; 
+  display: flex;
   flex-direction: column;
   justify-content: flex-start; 
   align-items: center;
@@ -42,22 +42,23 @@ a,
 
 .text2 {
   font-size: 4vw;
-  margin: 0; /* remove all top/bottom margin */
-  /*padding: 0; 
-  color: #bbbbbb;
+  margin-top: 2vh;
+  color: #bbb;
   max-width: 90vw;
+  /* Add this ↓ to reduce spacing under text2 */
+  margin-bottom: 2vh;
 }
 
 .more-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5vw;
-  margin-top: 0; 
-  padding-top: 0.25vh; 
+  gap: 2vw;
+  /* Reduce vertical spacing from top (was 6vh) */
+  margin: 2vh auto 2vh;
   text-align: center;
   font-size: 1.25rem;
-  line-height: 1.6;
+  line-height: 2;
   animation: fadeIn 2s ease-in;
 }
 
