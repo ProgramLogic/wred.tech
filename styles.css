@@ -47,3 +47,15 @@ a,
 .divider {
   color: #ccc;
 }
+
+.more-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2vw;
+  margin: 3vh auto 2vh; /* Changed from 6vh to 3vh to bring it closer to text2 */
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 2;
+  animation: fadeIn 2s ease-in;
+}
