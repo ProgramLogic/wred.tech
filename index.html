@@ -7,47 +7,62 @@
     <style>
       body {
         margin: 0;
-        background-color: black;
+        background-color: #000;
         color: whitesmoke;
-        font-family: sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
 
       .main {
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Align from the top */
+        justify-content: flex-start;
         align-items: center;
-        padding-top: 80px; /* Add space below the top */
+        padding-top: 100px;
+        text-align: center;
       }
 
       .text {
-        font-size: 50px;
+        font-size: 3.2rem;
+        font-weight: bold;
+        border-bottom: 2px solid #ff3c00;
+        padding-bottom: 10px;
       }
 
       .text2 {
-        font-size: 24px;
+        font-size: 1.4rem;
         margin-top: 20px;
+        color: #bbbbbb;
       }
 
       .more-content {
-        margin-top: -60px; 
+        margin-top: 80px;
         text-align: center;
-        font-size: 24px;
-        line-height: 1.6;
+        font-size: 1.25rem;
+        line-height: 2;
+      }
+
+      .more-content p {
+        margin: 10px 0;
+        transition: color 0.3s ease;
+      }
+
+      .more-content p:hover {
+        color: #ff3c00;
+        cursor: default;
       }
     </style>
   </head>
   <body>
     <div class="main">
-      <u class="text">Welcome, I am Wred</u>
-      <div class="text2">Computers, Drawing, Web Dev (Frontend)</div>
+      <div class="text">Hello, I am Wred</div>
+      <div class="text2">Computers • Drawing • Frontend Web Dev • Computer Engineering • Electrical Engineering</div>
     </div>
     <div class="more-content">
-      <p>Projects:</p>
-      <p>Skills:</p>
-      <p>Goals:</p>
-      <p>Majors:</p>
+      <p>Projects</p>
+      <p>Skills</p>
+      <p>Goals</p>
+      <p>Majors</p>
     </div>
   </body>
 </html>
