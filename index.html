@@ -7,19 +7,40 @@
     <style>
       body {
         margin: 0;
-        height: 100vh;
         background-color: black;
         color: whitesmoke;
+        font-family: sans-serif;
+      }
+
+      .main {
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       .text {
         font-size: 50px;
       }
+
+      .more-content {
+        padding: 100px 20px;
+        text-align: center;
+        font-size: 24px;
+        line-height: 1.6;
+      }
     </style>
   </head>
-  <body class="main">
-    <a class="text">Welcome, I am Wred</a>
+  <body>
+    <div class="main">
+      <div class="text">Welcome, I am Wred</div>
+    </div>
+    <div class="more-content">
+      <p>This is additional scrollable content.</p>
+      <p>Scroll down to explore more of the page.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+      <p>Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
+      <p>...</p>
+    </div>
   </body>
 </html>
