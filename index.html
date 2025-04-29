@@ -19,6 +19,7 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: whitesmoke;
         overflow-x: hidden;
+        scroll-behavior: smooth;
       }
 
       body::before {
@@ -158,6 +159,18 @@
       .close:hover {
         color: white;
       }
+
+      .section {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        margin-bottom: 4rem;
+        padding: 4rem;
+        text-align: center;
+      }
+
+      .section.visible {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -221,6 +234,21 @@
       </div>
     </div>
 
+    <div class="section" id="section1">
+      <h2>Section 1</h2>
+      <p>This is the first section of the page. Scroll down to see more sections.</p>
+    </div>
+
+    <div class="section" id="section2">
+      <h2>Section 2</h2>
+      <p>This is the second section of the page. Scroll down for more content.</p>
+    </div>
+
+    <div class="section" id="section3">
+      <h2>Section 3</h2>
+      <p>This is the third section. The content will animate when you scroll.</p>
+    </div>
+
     <script>
       const buttons = document.querySelectorAll(".section-btn");
       const modals = document.querySelectorAll(".modal");
@@ -246,6 +274,21 @@
           }
         });
       });
+
+      // Scroll animation
+      window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll(".section");
+        const triggerPoint = window.innerHeight / 5 * 4;
+
+        sections.forEach(section => {
+          if (section.getBoundingClientRect().top < triggerPoint) {
+            section.classList.add("visible");
+          }
+        });
+      });
+
+      // Initial trigger for visible sections
+      window.dispatchEvent(new Event("scroll"));
     </script>
   </body>
 </html>
