@@ -26,13 +26,57 @@ a,
   min-height: 90vh; /* Keep this as it is or adjust it if you want less space */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Changed from center to flex-start to align the content at the top */
+  justify-content: flex-start; /* Align the content at the top */
   align-items: center;
-  padding: 0 5vw 0; /* Removed the top padding to make the content start at the top */
+  padding: 0 5vw 0; /* Remove the top padding to make the content start at the top */
   text-align: center;
   animation: fadeIn 1.5s ease-in;
 }
 
+.text {
+  font-size: 8vw;
+  font-weight: bold;
+  border-bottom: 3px solid #ff3c00;
+  padding-bottom: 1vh;
+}
+
+.text2 {
+  font-size: 4vw;
+  margin: 0; /* remove all top/bottom margin */
+  padding: 0; /* make sure no padding */
+  color: #bbbbbb;
+  max-width: 90vw;
+}
+
+.more-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5vw;
+  margin-top: 0; /* zero margin above */
+  padding-top: 0.25vh; /* small space so it doesn't touch */
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  animation: fadeIn 2s ease-in;
+}
+
+.section-btn {
+  background: #111;
+  border: 2px solid #ff3c00;
+  color: #ff3c00;
+  padding: 1vh 2vw;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.section-btn:hover {
+  background: #ff3c00;
+  color: #000;
+  transform: translateY(-2px);
+}
 
 .navigation {
   display: flex;
@@ -56,14 +100,13 @@ a,
   color: #ccc;
 }
 
-.more-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2vw;
-  margin: 2vh auto 2vh; /* Changed from 6vh to 3vh to bring it closer to text2 */
-  text-align: center;
-  font-size: 1.25rem;
-  line-height: 2;
-  animation: fadeIn 2s ease-in;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
