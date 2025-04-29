@@ -1,4 +1,4 @@
-* {
+/* {
   box-sizing: border-box;
 }
 
@@ -24,11 +24,11 @@ a,
 
 .main {
   min-height: 90vh; /* Keep this as it is or adjust it if you want less space */
-  display: flex;
+  /*display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align the content at the top */
+  justify-content: flex-start; 
   align-items: center;
-  padding: 0 5vw 0; /* Remove the top padding to make the content start at the top */
+  padding: 0 5vw 0; 
   text-align: center;
   animation: fadeIn 1.5s ease-in;
 }
@@ -43,7 +43,7 @@ a,
 .text2 {
   font-size: 4vw;
   margin: 0; /* remove all top/bottom margin */
-  padding: 0; /* make sure no padding */
+  /*padding: 0; 
   color: #bbbbbb;
   max-width: 90vw;
 }
@@ -53,8 +53,8 @@ a,
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5vw;
-  margin-top: 0; /* zero margin above */
-  padding-top: 0.25vh; /* small space so it doesn't touch */
+  margin-top: 0; 
+  padding-top: 0.25vh; 
   text-align: center;
   font-size: 1.25rem;
   line-height: 1.6;
