@@ -23,8 +23,16 @@ a,
 }
 
 .main {
-  background-color: rgb(255, 0, 0);
+  min-height: 90vh; /* Keep this as it is or adjust it if you want less space */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Changed from center to flex-start to align the content at the top */
+  align-items: center;
+  padding: 0 5vw 0; /* Removed the top padding to make the content start at the top */
+  text-align: center;
+  animation: fadeIn 1.5s ease-in;
 }
+
 
 .navigation {
   display: flex;
