@@ -5,6 +5,10 @@
     <link rel="icon" href="logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>wred.tech</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <style>
       * {
         box-sizing: border-box;
@@ -12,27 +16,51 @@
 
       body {
         margin: 0;
-        background-color: #000;
-        color: whitesmoke;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: whitesmoke;
+        overflow-x: hidden;
+      }
+
+      /* Animated background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(120deg, #000000, #1a1a1a, #2b2b2b);
+        background-size: 600% 600%;
+        animation: bgmove 15s ease infinite;
+        z-index: -1;
+      }
+
+      @keyframes bgmove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
       .main {
-        min-height: 100vh;
+        min-height: 90vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        padding-top: 12vh;
-        padding-left: 5vw;
-        padding-right: 5vw;
+        padding: 10vh 5vw 0;
         text-align: center;
+        animation: fadeIn 1.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .text {
-        font-size: 7vw;
+        font-size: 8vw;
         font-weight: bold;
-        border-bottom: 2px solid #ff3c00;
+        border-bottom: 3px solid #ff3c00;
         padding-bottom: 1vh;
       }
 
@@ -44,23 +72,35 @@
       }
 
       .more-content {
-        margin-top: 6vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2vw;
+        margin: 6vh auto 2vh;
         text-align: center;
-        font-size: 4vw;
+        font-size: 1.25rem;
         line-height: 2;
+        animation: fadeIn 2s ease-in;
       }
 
-      .more-content p {
-        margin: 1vh 0;
-        transition: color 0.3s ease;
-      }
-
-      .more-content p:hover {
+      .section-btn {
+        background: #111;
+        border: 2px solid #ff3c00;
         color: #ff3c00;
+        padding: 1vh 2vw;
+        border-radius: 8px;
         cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
       }
 
-      /* Modal Styles */
+      .section-btn:hover {
+        background: #ff3c00;
+        color: #000;
+        transform: translateY(-2px);
+      }
+
+      /* Modal */
       .modal {
         display: none;
         position: fixed;
@@ -69,73 +109,53 @@
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.85);
+        padding-top: 8vh;
       }
 
       .modal-content {
         background-color: #111;
-        margin: 20vh auto;
-        padding: 5vw;
-        border: 1px solid #ff3c00;
+        margin: auto;
+        padding: 2rem;
+        border: 2px solid #ff3c00;
         width: 90%;
-        max-width: 500px;
-        text-align: left;
-        border-radius: 8px;
-        color: whitesmoke;
+        max-width: 600px;
+        border-radius: 12px;
+        animation: popin 0.5s ease;
+      }
+
+      @keyframes popin {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
       }
 
       .modal-content h2 {
-        font-size: 5vw;
-        margin-bottom: 2vh;
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
       }
 
-      .modal-content a {
+      .modal-content a,
+      .modal-content ul {
+        font-size: 1.1rem;
         color: #ff3c00;
-        text-decoration: none;
-        display: block;
-        font-size: 4vw;
-        margin: 2vh 0;
-        word-break: break-all;
+        margin: 0.5rem 0;
+      }
+
+      .modal-content ul {
+        padding-left: 1rem;
+        color: #ccc;
       }
 
       .close {
-        color: #aaa;
+        color: #ff3c00;
         float: right;
-        font-size: 6vw;
+        font-size: 1.6rem;
         font-weight: bold;
         cursor: pointer;
       }
 
       .close:hover {
-        color: #fff;
-      }
-
-      /* Media Query for larger screens */
-      @media (min-width: 768px) {
-        .text {
-          font-size: 3.2rem;
-        }
-
-        .text2 {
-          font-size: 1.4rem;
-        }
-
-        .more-content {
-          font-size: 1.25rem;
-        }
-
-        .modal-content h2 {
-          font-size: 1.5rem;
-        }
-
-        .modal-content a {
-          font-size: 1rem;
-        }
-
-        .close {
-          font-size: 2rem;
-        }
+        color: white;
       }
     </style>
   </head>
@@ -148,40 +168,83 @@
     </div>
 
     <div class="more-content">
-      <p id="projects-btn">Projects</p>
-      <p>Skills</p>
-      <p>Goals</p>
-      <p>Majors</p>
+      <div class="section-btn" data-modal="projects"><i class="fas fa-laptop-code"></i> Projects</div>
+      <div class="section-btn" data-modal="skills"><i class="fas fa-tools"></i> Skills</div>
+      <div class="section-btn" data-modal="goals"><i class="fas fa-bullseye"></i> Goals</div>
+      <div class="section-btn" data-modal="majors"><i class="fas fa-graduation-cap"></i> Majors</div>
     </div>
 
-    <!-- Modal -->
-    <div id="projects-modal" class="modal">
+    <!-- Modals -->
+    <div id="projects" class="modal">
       <div class="modal-content">
-        <span class="close" id="close-modal">&times;</span>
+        <span class="close">&times;</span>
         <h2>My Projects</h2>
         <a href="https://thetopbake.onrender.com" target="_blank">TheTopBake</a>
         <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Phone to Computer Frontend</a>
       </div>
     </div>
 
+    <div id="skills" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Skills</h2>
+        <ul>
+          <li>Frontend Development (HTML, CSS, JavaScript, React)</li>
+          <li>UI/UX Design</li>
+          <li>Graphic Drawing</li>
+          <li>Computer Hardware Knowledge</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="goals" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Goals</h2>
+        <ul>
+          <li>Build my own computers and operating system</li>
+          <li>Create full-stack web apps</li>
+          <li>Master C++ and Rust</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="majors" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Majors</h2>
+        <ul>
+          <li>Computer Engineering</li>
+          <li>Electrical Engineering</li>
+        </ul>
+      </div>
+    </div>
+
     <script>
-      const modal = document.getElementById("projects-modal");
-      const btn = document.getElementById("projects-btn");
-      const close = document.getElementById("close-modal");
+      const buttons = document.querySelectorAll(".section-btn");
+      const modals = document.querySelectorAll(".modal");
+      const closes = document.querySelectorAll(".close");
 
-      btn.onclick = () => {
-        modal.style.display = "block";
-      };
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const modal = document.getElementById(btn.dataset.modal);
+          modal.style.display = "block";
+        });
+      });
 
-      close.onclick = () => {
-        modal.style.display = "none";
-      };
+      closes.forEach(closeBtn => {
+        closeBtn.addEventListener("click", () => {
+          closeBtn.parentElement.parentElement.style.display = "none";
+        });
+      });
 
-      window.onclick = (event) => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      };
+      window.addEventListener("click", event => {
+        modals.forEach(modal => {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      });
     </script>
   </body>
 </html>
