@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>wred.tech</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         background-color: #000;
@@ -18,51 +23,165 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        padding-top: 100px;
+        padding-top: 12vh;
+        padding-left: 5vw;
+        padding-right: 5vw;
         text-align: center;
       }
 
       .text {
-        font-size: 3.2rem;
+        font-size: 7vw;
         font-weight: bold;
         border-bottom: 2px solid #ff3c00;
-        padding-bottom: 10px;
+        padding-bottom: 1vh;
       }
 
       .text2 {
-        font-size: 1.4rem;
-        margin-top: 20px;
+        font-size: 4vw;
+        margin-top: 2vh;
         color: #bbbbbb;
+        max-width: 90vw;
       }
 
       .more-content {
-        margin-top: 80px;
+        margin-top: 6vh;
         text-align: center;
-        font-size: 1.25rem;
+        font-size: 4vw;
         line-height: 2;
       }
 
       .more-content p {
-        margin: 10px 0;
+        margin: 1vh 0;
         transition: color 0.3s ease;
       }
 
       .more-content p:hover {
         color: #ff3c00;
-        cursor: default;
+        cursor: pointer;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-content {
+        background-color: #111;
+        margin: 20vh auto;
+        padding: 5vw;
+        border: 1px solid #ff3c00;
+        width: 90%;
+        max-width: 500px;
+        text-align: left;
+        border-radius: 8px;
+        color: whitesmoke;
+      }
+
+      .modal-content h2 {
+        font-size: 5vw;
+        margin-bottom: 2vh;
+      }
+
+      .modal-content a {
+        color: #ff3c00;
+        text-decoration: none;
+        display: block;
+        font-size: 4vw;
+        margin: 2vh 0;
+        word-break: break-all;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 6vw;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover {
+        color: #fff;
+      }
+
+      /* Media Query for larger screens */
+      @media (min-width: 768px) {
+        .text {
+          font-size: 3.2rem;
+        }
+
+        .text2 {
+          font-size: 1.4rem;
+        }
+
+        .more-content {
+          font-size: 1.25rem;
+        }
+
+        .modal-content h2 {
+          font-size: 1.5rem;
+        }
+
+        .modal-content a {
+          font-size: 1rem;
+        }
+
+        .close {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
   <body>
     <div class="main">
       <div class="text">Hello, I am Wred</div>
-      <div class="text2">Computers • Drawing • Frontend Web Dev • Computer Engineering • Electrical Engineering</div>
+      <div class="text2">
+        Computers • Drawing • Frontend Web Dev • Computer Engineering • Electrical Engineering
+      </div>
     </div>
+
     <div class="more-content">
-      <p>Projects</p>
+      <p id="projects-btn">Projects</p>
       <p>Skills</p>
       <p>Goals</p>
       <p>Majors</p>
     </div>
+
+    <!-- Modal -->
+    <div id="projects-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-modal">&times;</span>
+        <h2>My Projects</h2>
+        <a href="https://thetopbake.onrender.com" target="_blank">TheTopBake</a>
+        <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Phone to Computer Frontend</a>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("projects-modal");
+      const btn = document.getElementById("projects-btn");
+      const close = document.getElementById("close-modal");
+
+      btn.onclick = () => {
+        modal.style.display = "block";
+      };
+
+      close.onclick = () => {
+        modal.style.display = "none";
+      };
+
+      window.onclick = (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
   </body>
 </html>
