@@ -17,7 +17,9 @@
   left: -110px;
   top: calc(50% + 80px);
   transform: translateY(-50%);
-  width: 185px; 
+  width: auto; /* Let content determine width naturally */
+  min-width: 185px; /* Minimum width for consistency */
+  max-width: 220px; /* Maximum width to prevent excessive size */
   background: #111;
   color: #ff3c00;
   border: 2px solid #ff3c00;
@@ -29,6 +31,9 @@
   text-decoration: none;
   transition: all 0.3s ease;
   z-index: 99;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow */
 }
 
 .blog-link:hover {
@@ -39,6 +44,7 @@
 .blog-link i {
   font-size: 1.8rem;
   margin-right: 10px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 .blog-link span {
@@ -244,7 +250,7 @@
 
   <a href="blog.html" target="_blank" class="blog-link">
     <i class="fa fa-blog"></i>
-    <span>Blog</span>
+    <span>About Myself</span>
   </a>
 
   <div class="main">
