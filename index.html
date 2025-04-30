@@ -52,19 +52,14 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes popin {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
     /* Main Intro Section */
     .main {
-      min-height: 80vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 5vh 5vw 0;
+      padding: 5vh 5vw;
       text-align: center;
       animation: fadeIn 1.5s ease-in;
       max-width: 1400px;
@@ -80,118 +75,84 @@
       white-space: nowrap;
     }
 
-    .text2 {
-      font-size: 3vw;
-      margin-top: 2vh;
-      color: #bbb;
-      max-width: 90vw;
-    }
-
-    /* Buttons Section */
-    .more-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2vw;
-      margin: 6vh auto 2vh;
-      text-align: center;
-      font-size: 1.25rem;
-      line-height: 2;
-      animation: fadeIn 2s ease-in;
-    }
-
-    .section-btn {
-      background: #111;
-      border: 2px solid #ff3c00;
-      color: #ff3c00;
-      padding: 1vh 2vw;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 160px;
-    }
-
-    .section-btn i {
-      margin-right: 8px;
-    }
-
-    .section-btn:hover {
-      background: #ff3c00;
-      color: #000;
-      transform: translateY(-2px);
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding-top: 8vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      overflow-y: auto;
-    }
-
-    .modal-content {
-      background: #111;
-      color: #ccc;
-      border: 2px solid #ff3c00;
-      border-radius: 12px;
-      margin: auto;
-      padding: 2rem;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      animation: popin 0.5s ease;
-    }
-
-    .modal-content h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-    }
-
-    .modal-content a,
-    .modal-content ul {
-      font-size: 1.1rem;
-      color: #ff3c00;
-    }
-
-    .modal-content ul {
-      padding-left: 1rem;
-      color: #ccc;
-    }
-
-    .close {
-      float: right;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #ff3c00;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: white;
-    }
-
-    /* Scroll Sections */
+    /* Section Styles */
     .section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5vh 5vw;
+      max-width: 1000px;
+      margin: 0 auto;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
-      margin-bottom: 4rem;
-      padding: 4rem;
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+      transform: translateY(50px);
       text-align: center;
     }
 
     .section.visible {
       opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: #ff3c00;
+      border-bottom: 2px solid #ff3c00;
+      padding-bottom: 0.5rem;
+    }
+
+    .section ul {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 2;
+    }
+
+    .section li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section li i {
+      margin-right: 10px;
+      color: #ff3c00;
+    }
+
+    .section a {
+      display: inline-block;
+      color: #ff3c00;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+
+    .section a:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: #ff3c00;
+      font-size: 2rem;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
     }
 
     /* Responsive Adjustments */
@@ -199,20 +160,14 @@
       .text {
         font-size: 96px;
       }
-      .text2 {
-        font-size: 36px;
-      }
     }
 
     @media (max-width: 768px) {
       .text {
         font-size: 12vw;
       }
-      .text2 {
-        font-size: 5vw;
-      }
-      .section-btn {
-        min-width: 140px;
+      .section h2 {
+        font-size: 2.5rem;
       }
     }
   </style>
@@ -222,93 +177,54 @@
   <!-- Intro Section -->
   <div class="main">
     <div class="text">Hello, I am Wred</div>
-  </div>
-
-  <!-- Buttons -->
-  <div class="more-content">
-    <div class="section-btn" data-modal="projects"><i class="fas fa-laptop-code"></i> Projects</div>
-    <div class="section-btn" data-modal="skills"><i class="fas fa-tools"></i> Skills</div>
-    <div class="section-btn" data-modal="goals"><i class="fas fa-bullseye"></i> Goals</div>
-    <div class="section-btn" data-modal="majors"><i class="fas fa-graduation-cap"></i> Majors</div>
-  </div>
-
-  <!-- Modals -->
-  <div id="projects" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>My Projects</h2>
-      <a href="https://thetopbake.onrender.com" target="_blank">TheTopBake</a><br />
-      <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Phone to Computer Frontend</a>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
     </div>
   </div>
 
-  <div id="skills" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Skills</h2>
-      <ul>
-        <li>Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)</li>
-        <li>Backend Programming: Python</li>
-      </ul>
-    </div>
+  <!-- Projects Section -->
+  <div id="projects" class="section">
+    <h2><i class="fas fa-laptop-code"></i> Projects</h2>
+    <a href="https://thetopbake.onrender.com" target="_blank">TheTopBake <i class="fas fa-external-link-alt"></i></a>
+    <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Phone to Computer Frontend <i class="fas fa-external-link-alt"></i></a>
   </div>
 
-  <div id="goals" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Goals</h2>
-      <ul>
-        <li>Build my own Consumer Electronics Company</li>
-        <li>Create full-stack web apps</li>
-        <li>Master C++ and Rust</li>
-        <li>Learn Computer Engineering, Electrical Engineering, and Computer Science</li>
-      </ul>
-    </div>
+  <!-- Skills Section -->
+  <div id="skills" class="section">
+    <h2><i class="fas fa-tools"></i> Skills</h2>
+    <ul>
+      <li><i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)</li>
+      <li><i class="fas fa-terminal"></i> Backend Programming: Python</li>
+    </ul>
   </div>
 
-  <div id="majors" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Majors</h2>
-      <ul>
-        <li>Computer Engineering</li>
-        <li>Electrical Engineering</li>
-      </ul>
-    </div>
+  <!-- Goals Section -->
+  <div id="goals" class="section">
+    <h2><i class="fas fa-bullseye"></i> Goals</h2>
+    <ul>
+      <li><i class="fas fa-microchip"></i> Build my own Consumer Electronics Company</li>
+      <li><i class="fas fa-globe"></i> Create full-stack web apps</li>
+      <li><i class="fas fa-code-branch"></i> Master C++ and Rust</li>
+      <li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering, and Computer Science</li>
+    </ul>
+  </div>
+
+  <!-- Majors Section -->
+  <div id="majors" class="section">
+    <h2><i class="fas fa-graduation-cap"></i> Majors</h2>
+    <ul>
+      <li><i class="fas fa-microchip"></i> Computer Engineering</li>
+      <li><i class="fas fa-bolt"></i> Electrical Engineering</li>
+    </ul>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll(".section-btn");
-    const modals = document.querySelectorAll(".modal");
-    const closes = document.querySelectorAll(".close");
-
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.getElementById(btn.dataset.modal).style.display = "block";
-      });
-    });
-
-    closes.forEach(close => {
-      close.addEventListener("click", () => {
-        close.closest(".modal").style.display = "none";
-      });
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener("click", event => {
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      });
-    });
-
     // Fade in sections on scroll
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add("visible");
       });
-    });
+    }, { threshold: 0.2 });
 
     document.querySelectorAll(".section").forEach(sec => observer.observe(sec));
   </script>
