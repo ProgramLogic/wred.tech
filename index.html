@@ -24,6 +24,11 @@
     }
 
     /* Animated Background */
+    body {
+      background-color: #1a1a1a;
+      position: relative;
+    }
+
     body::before {
       content: "";
       position: fixed;
@@ -54,14 +59,16 @@
 
     /* Main Intro Section */
     .main {
-      min-height: 90vh;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 10vh 5vw 0;
+      padding: 5vh 5vw 0;
       text-align: center;
       animation: fadeIn 1.5s ease-in;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .text {
@@ -69,10 +76,12 @@
       font-weight: bold;
       border-bottom: 3px solid #ff3c00;
       padding-bottom: 1vh;
+      margin-bottom: 2vh;
+      white-space: nowrap;
     }
 
     .text2 {
-      font-size: 4vw;
+      font-size: 3vw;
       margin-top: 2vh;
       color: #bbb;
       max-width: 90vw;
@@ -100,6 +109,14 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+    }
+
+    .section-btn i {
+      margin-right: 8px;
     }
 
     .section-btn:hover {
@@ -176,6 +193,28 @@
     .section.visible {
       opacity: 1;
     }
+
+    /* Responsive Adjustments */
+    @media (min-width: 1200px) {
+      .text {
+        font-size: 96px;
+      }
+      .text2 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .text {
+        font-size: 12vw;
+      }
+      .text2 {
+        font-size: 5vw;
+      }
+      .section-btn {
+        min-width: 140px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -242,22 +281,6 @@
     </div>
   </div>
 
-  <!-- Scroll Sections -->
-  <div class="section" id="section1">
-    <h2>Section 1</h2>
-    <p>This is the first section of the page. Scroll down to see more sections.</p>
-  </div>
-
-  <div class="section" id="section2">
-    <h2>Section 2</h2>
-    <p>This is the second section of the page. Scroll down for more content.</p>
-  </div>
-
-  <div class="section" id="section3">
-    <h2>Section 3</h2>
-    <p>This is the third section. The content will animate when you scroll.</p>
-  </div>
-
   <script>
     const buttons = document.querySelectorAll(".section-btn");
     const modals = document.querySelectorAll(".modal");
@@ -272,6 +295,15 @@
     closes.forEach(close => {
       close.addEventListener("click", () => {
         close.closest(".modal").style.display = "none";
+      });
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener("click", event => {
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
       });
     });
 
