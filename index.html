@@ -12,38 +12,70 @@
       box-sizing: border-box;
     }
     
-    .github-link {
-      position: fixed;
-      left: -110px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #111;
-      color: #ff3c00;
-      border: 2px solid #ff3c00;
-      border-left: none;
-      padding: 15px 15px 15px 20px;
-      border-radius: 0 8px 8px 0;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
+    .blog-link {
+  position: fixed;
+  left: -110px;
+  top: calc(50% + 80px);
+  transform: translateY(-50%);
+  width: 185px; /* Set fixed width for both */
+  background: #111;
+  color: #ff3c00;
+  border: 2px solid #ff3c00;
+  border-left: none;
+  padding: 15px 15px 15px 20px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
 
-    .github-link:hover {
-      left: 0;
-      background: #222;
-    }
-    
-    .github-link i {
-      font-size: 1.8rem;
-      margin-right: 10px;
-    }
-    
-    .github-link span {
-      font-weight: bold;
-    }
+.blog-link:hover {
+  left: 0;
+  background: #222;
+}
 
+.blog-link i {
+  font-size: 1.8rem;
+  margin-right: 10px;
+}
+
+.blog-link span {
+  font-weight: bold;
+}
+
+.github-link {
+  position: fixed;
+  left: -110px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111;
+  color: #ff3c00;
+  border: 2px solid #ff3c00;
+  border-left: none;
+  padding: 15px 15px 15px 20px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.github-link:hover {
+  left: 0;
+  background: #222;
+}
+
+.github-link i {
+  font-size: 1.8rem;
+  margin-right: 10px;
+}
+
+.github-link span {
+  font-weight: bold;
+}
     html, body {
       margin: 0;
       padding: 0;
@@ -208,6 +240,11 @@
   <a href="https://github.com/ProgramLogic" target="_blank" class="github-link">
     <i class="fab fa-github"></i>
     <span>ProgramLogic</span>
+  </a>
+
+  <a href="blog.html" target="_blank" class="blog-link">
+    <i class="fa fa-blog"></i>
+    <span>Blog</span>
   </a>
 
   <div class="main">
