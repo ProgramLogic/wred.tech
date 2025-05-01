@@ -12,6 +12,46 @@
       box-sizing: border-box;
     }
     
+    
+    .ablog-link {
+  position: fixed;
+  left: -110px;
+  top: calc(50% + 150px);
+  transform: translateY(-50%);
+  width: auto; /* Let content determine width naturally */
+  min-width: 185px; /* Minimum width for consistency */
+  max-width: 220px; /* Maximum width to prevent excessive size */
+  background: #111;
+  color: #ff3c00;
+  border: 2px solid #ff3c00;
+  border-left: none;
+  padding: 15px 15px 15px 20px;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 99;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow */
+}
+
+.ablog-link:hover {
+  left: 0;
+  background: #222;
+}
+
+.ablog-link i {
+  font-size: 1.8rem;
+  margin-right: 10px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.ablog-link span {
+  font-weight: bold;
+}
+
 
     .blog-link {
   position: fixed;
@@ -256,7 +296,7 @@
 
   <a href="blog.html" target="_blank" class="ablog-link">
     <i class="fa fa-blog"></i>
-    <span>Blog</span>
+    <span>Memoir</span>
   </a>
 
 
