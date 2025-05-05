@@ -360,7 +360,6 @@
     <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Computer to Phone Frontend <i class="fas fa-external-link-alt"></i></a>
   </div>
 
-
   <div id="skills" class="section">
     <h2>
       <i class="fas fa-tools"></i> Skills
@@ -370,23 +369,66 @@
         <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
       </li>
       <div>
-        <i class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px;" onclick="changeImage('left')"></i>
-        <i class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px;" onclick="changeImage('right')"></i>
+        <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px;" onclick="changeImage('left')"></i>
+        <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px;" onclick="changeImage('right')"></i>
       </div>
       <li>
         <i class="fas fa-code"></i> Backend Programming: Python
       </li>
     </ul>
-    
+  
     <div id="imageContainer">
-      <img id="imageDisplay" src="python.png">
+      <img id="imageDisplayPython" src="python.png" style="width: 100px; height: auto;">
+      <img id="imageDisplayJS" src="js.png" style="width: 100px; height: auto; display: none;">
+      <img id="imageDisplayJS" src="html.png" style="width: 100px; height: auto; display: none;">
+      <img id="imageDisplayJS" src="css.png" style="width: 100px; height: auto; display: none;">
+      <img id="imageDisplayJS" src="tcss.png" style="width: 100px; height: auto; display: none;">
+      <img id="imageDisplayJS" src="react.png" style="width: 100px; height: auto; display: none;">
     </div>
   </div>
   
+  <script>
+    let currentImage = 'python';
+  
+    function changeImage(direction) {
+      const pythonImage = document.getElementById('imageDisplayPython');
+      const jsImage = document.getElementById('imageDisplayJS');
+      const arrowLeft = document.getElementById('arrowLeft');
+      const arrowRight = document.getElementById('arrowRight');
+  
+      if (direction === 'right') {
+        if (currentImage === 'python') {
+          pythonImage.style.display = 'none';
+          jsImage.style.display = 'block';
+          currentImage = 'js';
+          arrowRight.style.color = 'black'; // Reset right arrow to default color
+        } else if (currentImage === 'js') {
+          // If on the last image, change right arrow to red
+          arrowRight.style.color = 'red';
+        }
+      } else if (direction === 'left') {
+        if (currentImage === 'js') {
+          jsImage.style.display = 'none';
+          pythonImage.style.display = 'block';
+          currentImage = 'python';
+          arrowRight.style.color = 'black'; // Reset right arrow to default color when going back
+        }
+        // The left arrow will always remain white, no color change
+      }
+  
+      // After moving right or left, check if we're at the end
+      if (currentImage === 'js') {
+        arrowRight.style.color = 'red'; // No more images, right arrow turns red
+      } else {
+        arrowRight.style.color = 'white'; // Reset to black if there's still a next image
+      }
+    }
+  </script>
   
   
-
-
+  
+  
+  
   <div id="goals" class="section">
     <h2><i class="fas fa-bullseye"></i> Goals</h2>
     <ul>
