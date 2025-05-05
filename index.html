@@ -353,81 +353,85 @@
     </div>
   </div>
 
-
   <div id="projects" class="section">
-    <h2><i class="fas fa-laptop-code"> <i class="fas fa-microchip"></i></i> Projects</h2>
-    <a href="https://thetopbake.onrender.com" target="_blank">TheTopBake <i class="fas fa-external-link-alt"></i></a>
-    <a href="https://frontendphonetocomputer.onrender.com" target="_blank">Computer to Phone Frontend <i class="fas fa-external-link-alt"></i></a>
+    <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+    <ul>
+      <!--<li><i class="fas fa-microchip"></i> Build my own Consumer Electronics Company</li> -->
+      <li>
+        <i class="fas fa-external-link"></i>
+        <a href="https://thetopbake.onrender.com/" target="_blank" rel="noopener noreferrer">TheTopBake</a>
+      </li>
+      <li>
+        <i class="fas fa-external-link"></i>
+        <a href="https://frontendphonetocomputer.onrender.com/" target="_blank" rel="noopener noreferrer">FrontendComputerToPhone</a>
+      </li>
+      
+    </ul>
   </div>
 
-  <div id="skills" class="section">
-    <h2>
-      <i class="fas fa-tools"></i> Skills
-    </h2>
-    <ul>
-      <li>
-        <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
-      </li>
-      <div>
-        <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px;" onclick="changeImage('left')"></i>
-        <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px;" onclick="changeImage('right')"></i>
-      </div>
-      <li>
-        <i class="fas fa-code"></i> Backend Programming: Python
-      </li>
-    </ul>
-  
-    <div id="imageContainer">
-      <img id="imageDisplayPython" src="python.png" style="width: 100px; height: auto;">
-      <img id="imageDisplayJS" src="js.png" style="width: 100px; height: auto; display: none;">
-      <img id="imageDisplayJS" src="html.png" style="width: 100px; height: auto; display: none;">
-      <img id="imageDisplayJS" src="css.png" style="width: 100px; height: auto; display: none;">
-      <img id="imageDisplayJS" src="tcss.png" style="width: 100px; height: auto; display: none;">
-      <img id="imageDisplayJS" src="react.png" style="width: 100px; height: auto; display: none;">
+<div id="skills" class="section">
+  <h2>
+    <i class="fas fa-tools"></i> Skills
+  </h2>
+  <ul>
+    <li>
+      <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
+    </li>
+    <div>
+      <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px; color: white;" onclick="changeImage('left')"></i>
+      <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px; color: white;" onclick="changeImage('right')"></i>
     </div>
+    <li>
+      <i class="fas fa-code"></i> Backend Programming: Python
+    </li>
+  </ul>
+
+  <div id="imageContainer">
+    <img class="skillImage" src="python.png" style="width: 150px; height: 150px;">
+    <img class="skillImage" src="js.png" style="width: 150px; height: 150px; display: none;">
+    <img class="skillImage" src="html.png" style="width: 150px; height: 150px; display: none;">
+    <img class="skillImage" src="css.png" style="width: 150px; height: 150px; display: none;">
+    <img class="skillImage" src="tcss.png" style="width: 150px; height: 150px; display: none;">
+    <img class="skillImage" src="react.png" style="width: 150px; height: 150px; display: none;">
   </div>
-  
-  <script>
-    let currentImage = 'python';
-  
-    function changeImage(direction) {
-      const pythonImage = document.getElementById('imageDisplayPython');
-      const jsImage = document.getElementById('imageDisplayJS');
-      const arrowLeft = document.getElementById('arrowLeft');
-      const arrowRight = document.getElementById('arrowRight');
-  
-      if (direction === 'right') {
-        if (currentImage === 'python') {
-          pythonImage.style.display = 'none';
-          jsImage.style.display = 'block';
-          currentImage = 'js';
-          arrowRight.style.color = 'black'; // Reset right arrow to default color
-        } else if (currentImage === 'js') {
-          // If on the last image, change right arrow to red
-          arrowRight.style.color = 'red';
-        }
-      } else if (direction === 'left') {
-        if (currentImage === 'js') {
-          jsImage.style.display = 'none';
-          pythonImage.style.display = 'block';
-          currentImage = 'python';
-          arrowRight.style.color = 'black'; // Reset right arrow to default color when going back
-        }
-        // The left arrow will always remain white, no color change
-      }
-  
-      // After moving right or left, check if we're at the end
-      if (currentImage === 'js') {
-        arrowRight.style.color = 'red'; // No more images, right arrow turns red
-      } else {
-        arrowRight.style.color = 'white'; // Reset to black if there's still a next image
-      }
+</div>
+
+<script>
+  const images = document.querySelectorAll('.skillImage');
+  const arrowLeft = document.getElementById('arrowLeft');
+  const arrowRight = document.getElementById('arrowRight');
+  let currentIndex = 0;
+
+  function updateDisplay() {
+    images.forEach((img, index) => {
+      img.style.display = index === currentIndex ? 'block' : 'none';
+    });
+
+    // Right arrow turns red only if we're at the last image
+    if (currentIndex === images.length - 1) {
+      arrowRight.style.color = 'red';
+    } else {
+      arrowRight.style.color = 'white';
     }
-  </script>
-  
-  
-  
-  
+
+    // Left arrow always white (per your request)
+    arrowLeft.style.color = 'white';
+  }
+
+  function changeImage(direction) {
+    if (direction === 'right' && currentIndex < images.length - 1) {
+      currentIndex++;
+    } else if (direction === 'left' && currentIndex > 0) {
+      currentIndex--;
+    }
+
+    updateDisplay();
+  }
+
+  // Initial setup
+  updateDisplay();
+</script>
+
   
   <div id="goals" class="section">
     <h2><i class="fas fa-bullseye"></i> Goals</h2>
