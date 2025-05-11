@@ -119,3 +119,16 @@ a,
 }
 
 
+
+.menu-item {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  margin-right: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menu-item:hover {
+  color: white;
+  text-decoration: none;
+}
