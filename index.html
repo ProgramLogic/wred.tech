@@ -1,568 +1,791 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="Logo-8.png" />
-  <title>wred.tech</title>
+  <title>wred.tech </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+  
   <style>
-    
     * {
       box-sizing: border-box;
-    }
-    
-    .gmail-link {
-  position: fixed;
-  left: -110px;
-  top: calc(50% + 223px);
-  transform: translateY(-50%);
-  width: auto; /* Let content determine width naturally */
-  min-width: 185px; /* Minimum width for consistency */
-  max-width: 220px; /* Maximum width to prevent excessive size */
-  background: #111;
-  color: #ff3c00;
-  border: 2px solid #ff3c00;
-  border-left: none;
-  padding: 15px 15px 15px 20px;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  z-index: 99;
-  white-space: nowrap; /* Prevent text wrapping */
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Show ellipsis for overflow */
-}
-
-.gmail-link:hover {
-  left: 0;
-  background: #222;
-}
-
-.gmail-link i {
-  font-size: 1.8rem;
-  margin-right: 10px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
-}
-
-.gmail-link span {
-  font-weight: bold;
-}
-
-    
-    .ablog-link {
-  position: fixed;
-  left: -110px;
-  top: calc(50% + 152px);
-  transform: translateY(-50%);
-  width: auto; /* Let content determine width naturally */
-  min-width: 185px; /* Minimum width for consistency */
-  max-width: 220px; /* Maximum width to prevent excessive size */
-  background: #111;
-  color: #ff3c00;
-  border: 2px solid #ff3c00;
-  border-left: none;
-  padding: 15px 15px 15px 20px;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  z-index: 99;
-  white-space: nowrap; /* Prevent text wrapping */
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Show ellipsis for overflow */
-}
-
-.ablog-link:hover {
-  left: 0;
-  background: #222;
-}
-
-.ablog-link i {
-  font-size: 1.8rem;
-  margin-right: 10px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
-}
-
-.ablog-link span {
-  font-weight: bold;
-}
-
-
-    .blog-link {
-  position: fixed;
-  left: -110px;
-  top: calc(50% + 81px);
-  transform: translateY(-50%);
-  width: auto; /* Let content determine width naturally */
-  min-width: 185px; /* Minimum width for consistency */
-  max-width: 220px; /* Maximum width to prevent excessive size */
-  background: #111;
-  color: #ff3c00;
-  border: 2px solid #ff3c00;
-  border-left: none;
-  padding: 15px 15px 15px 20px;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  z-index: 99;
-  white-space: nowrap; /* Prevent text wrapping */
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Show ellipsis for overflow */
-}
-
-.blog-link:hover {
-  left: 0;
-  background: #222;
-}
-
-.blog-link i {
-  font-size: 1.8rem;
-  margin-right: 10px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
-}
-
-.blog-link span {
-  font-weight: bold;
-}
-
-.github-link {
-  position: fixed;
-  left: -110px;
-  top: calc(50% + 10px);
-  transform: translateY(-50%);
-  background: #111;
-  color: #ff3c00;
-  border: 2px solid #ff3c00;
-  border-left: none;
-  padding: 15px 15px 15px 20px;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  z-index: 100;
-}
-
-.github-link:hover {
-  left: 0;
-  background: #222;
-}
-
-.github-link i {
-  font-size: 1.8rem;
-  margin-right: 10px;
-}
-
-.github-link span {
-  font-weight: bold;
-}
-    html, body {
       margin: 0;
       padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-color: #000;
+      color: white;
+    }
+
+    .desktop {
+      position: relative;
       width: 100%;
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: whitesmoke;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #3972b5 0%, #e18250 50%, #a954a5 100%);
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      transition: filter 0.5s ease;
     }
 
-    
-    body {
-      background-color: #1a1a1a;
-      position: relative;
-    }
-
-    body::before {
+    .desktop::before {
       content: "";
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: linear-gradient(120deg, #000, #1a1a1a, #2b2b2b);
-      background-size: 600% 600%;
-      animation: bgmove 15s ease infinite;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
+      z-index: 1;
     }
 
-    @keyframes bgmove {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+    .desktop.blur {
+      filter: blur(8px);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    
-    .main {
-      min-height: 100vh;
+    /* macOS menu bar */
+    .menu-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 24px;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      padding: 0 15px;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+
+    .menu-bar .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-bar .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-bar .apple-logo {
+      font-size: 16px;
+      margin-right: 15px;
+    }
+
+    .menu-item {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      color: white;
+    }
+
+    .status-icons {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Dock styling */
+    .dock-container {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 70px;
+      padding: 5px 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      z-index: 100;
+    }
+
+    .dock-item {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
       justify-content: center;
       align-items: center;
-      padding: 5vh 5vw;
-      text-align: center;
-      animation: fadeIn 1.5s ease-in;
-      max-width: 1400px;
-      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .text {
-      font-size: 8vw;
-      font-weight: bold;
-      border-bottom: 3px solid #ff3c00;
-      padding-bottom: 1vh;
-      margin-bottom: 2vh;
+    .dock-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .dock-item:hover {
+      transform: scale(1.2) translateY(-10px);
+    }
+
+    .dock-item::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .dock-item.active::after {
+      opacity: 1;
+    }
+
+    /* App label */
+    .app-label {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
       white-space: nowrap;
     }
 
-    
-    .section {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 5vh 5vw;
-      max-width: 1000px;
-      margin: 0 auto;
-      opacity: 0;
-      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-      transform: translateY(50px);
-      text-align: center;
-    }
-
-    .section.visible {
+    .dock-item:hover .app-label {
       opacity: 1;
-      transform: translateY(0);
     }
 
-    .section h2 {
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      color: #ff3c00;
-      border-bottom: 2px solid #ff3c00;
-      padding-bottom: 0.5rem;
+    /* Content sections */
+    .content-section {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 80%;
+      max-width: 1000px;
+      height: 80%;
+      background-color: rgba(30, 30, 30, 0.85);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 12px;
+      z-index: 500;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
     }
 
-    .section ul {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 2;
+    .content-section.active {
+      display: flex;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
     }
 
-    .section li {
-      margin-bottom: 1rem;
+    .content-section.closing {
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+    }
+
+    .window-header {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .section li i {
+    .window-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .window-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .close-button {
+      background-color: #ff5f57;
+    }
+
+    .minimize-button {
+      background-color: #febc2e;
+    }
+
+    .maximize-button {
+      background-color: #28c940;
+    }
+
+    .window-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      color: white;
+    }
+
+    /* Section specific styling */
+    .section-header {
+      margin-bottom: 20px;
+      color: #ff3c00;
+      font-size: 24px;
+      border-bottom: 2px solid #ff3c00;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-header i {
+      margin-right: 10px;
+    }
+
+    .section-content {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .section-content ul {
+      list-style-type: none;
+      margin-top: 15px;
+    }
+
+    .section-content li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-content li i {
       margin-right: 10px;
       color: #ff3c00;
     }
 
-    .section a {
-      display: inline-block;
+    .section-content a {
       color: #ff3c00;
       text-decoration: none;
-      font-size: 1.2rem;
-      margin: 10px 0;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
-    .section a:hover {
+    .section-content a:hover {
       color: white;
-      transform: translateY(-2px);
+      text-decoration: underline;
     }
 
+    /* External links */
+    .external-links {
+      position: fixed;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-    .scroll-indicator {
-      position: absolute;
-      bottom: 5vh;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: bounce 2s infinite;
+    .external-link {
+      display: flex;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
       color: #ff3c00;
-      font-size: 2rem;
+      border: 2px solid #ff3c00;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-      40% { transform: translateY(-20px) translateX(-50%); }
-      60% { transform: translateY(-10px) translateX(-50%); }
+    .external-link:hover {
+      background-color: rgba(30, 30, 30, 0.8);
+      transform: translateX(5px);
     }
 
-    
-    @media (min-width: 1200px) {
-      .text {
-        font-size: 96px;
+    .external-link i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    /* Animation keyframes */
+    @keyframes popIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
       }
     }
 
+    @keyframes popOut {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-      .text {
-        font-size: 12vw;
-      }
-      .section h2 {
-        font-size: 2.5rem;
+      .dock-container {
+        width: 95%;
+        overflow-x: auto;
+        justify-content: flex-start;
       }
       
+      .content-section {
+        width: 95%;
+        height: 90%;
+      }
+      
+      .external-links {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  
-  <a href="https://github.com/ProgramLogic" target="_blank" class="github-link">
-    <i class="fab fa-github"></i>
-    <span>ProgramLogic</span>
-  </a>
-
-  <a href="me.html" target="_blank" class="blog-link">
-    <i class="fa fa-t"></i>
-    <span>About Myself</span>
-  </a>
-
-  <a href="blog.html" target="_blank" class="ablog-link">
-    <i class="fa fa-blog"></i>
-    <span>NoteBook</span>
-  </a>
-
-  <a href="mailto:wredthecoder@gmail.com" class="gmail-link">
-    <i class="fa fa-address-book"></i>
-    <span>Contact Me</span>
-  </a>
-  
-  <div class="main">
-    <!--<img src="Logo-8.ico" >-->
-    <div class="text">Hello, I am Wred</div>
-    <div class="text5">
-      Tech Enthusiast, Innovator, Passionate Reader, Computer Programmer/Computer Scientist, and future learner of Electrical Engineering
-    </div>
-    <div class="scroll-indicator">
-      <i class="fas fa-chevron-down"></i>
-    </div>
-  </div>
-  
-
-  <div id="projects" class="section">
-    <h2><i class="fas fa-project-diagram"></i> Engineering Now</h2>
-    <ul>
-      <!--<li><i class="fas fa-microchip"></i> Build my own Consumer Electronics Company</li> -->
-      <li>
-        <i class="fas fa-external-link"></i>
-        <a href="https://thetopbake.onrender.com/" target="_blank" rel="noopener noreferrer">TheTopBake</a>
-      </li>
-      <div>
-        <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px; color: white;" onclick="changeImage('left')"></i>
-        <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px; color: white;" onclick="changeImage('right')"></i>
+  <!-- MacOS Desktop -->
+  <div class="desktop">
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+      <div class="left">
+        <div class="apple-logo"><i class="fab fa-apple"></i></div>
+        <div class="menu-item">Finder</div>
+        <div class="menu-item">File</div>
+        <div class="menu-item">Edit</div>
+        <div class="menu-item">View</div>
+        <div class="menu-item">Go</div>
+        <div class="menu-item">Window</div>
+        <div class="menu-item">Help</div>
       </div>
-      <li>
-        <i class="fas fa-external-link"></i>
-        <a href="https://frontendphonetocomputer.onrender.com/" target="_blank" rel="noopener noreferrer">FrontendComputerToPhone</a>
-      </li>
-      
-    </ul>
-  </div>
-
-<div id="skills" class="section">
-  <h2>
-    <i class="fas fa-tools"></i> Skills
-  </h2>
-  <ul>
-    <li>
-      <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
-    </li>
-    <div>
-      <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px; color: white;" onclick="changeImage('left')"></i>
-      <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px; color: white;" onclick="changeImage('right')"></i>
+      <div class="right">
+        <div class="status-icons">
+          <i class="fas fa-wifi"></i>
+        </div>
+        <div class="status-icons">
+          <i class="fas fa-battery-full"></i>
+        </div>
+        <div class="status-icons" id="clock">12:00 PM</div>
+      </div>
     </div>
-    <li>
-      <i class="fas fa-code"></i> Backend Programming: Python
-    </li>
-  </ul>
 
-  <div id="imageContainer">
-    <img class="skillImage" src="python.png" style="width: 150px; height: 150px;">
-    <img class="skillImage" src="js.png" style="width: 150px; height: 150px; display: none;">
-    <img class="skillImage" src="html.png" style="width: 150px; height: 150px; display: none;">
-    <img class="skillImage" src="css.png" style="width: 150px; height: 150px; display: none;">
-    <img class="skillImage" src="tcss.png" style="width: 150px; height: 150px; display: none;">
-    <img class="skillImage" src="react.png" style="width: 150px; height: 150px; display: none;">
+    <!-- External Links -->
+    <div class="external-links">
+      <a href="https://github.com/ProgramLogic" target="_blank" class="external-link">
+        <i class="fab fa-github"></i>
+        <span>GitHub</span>
+      </a>
+      <a href="me.html" target="_blank" class="external-link">
+        <i class="fa fa-t"></i>
+        <span>About Me</span>
+      </a>
+      <a href="blog.html" target="_blank" class="external-link">
+        <i class="fa fa-blog"></i>
+        <span>NoteBook</span>
+      </a>
+      <a href="mailto:wredthecoder@gmail.com" class="external-link">
+        <i class="fa fa-address-book"></i>
+        <span>Contact Me</span>
+      </a>
+    </div>
+
+    <!-- Dock -->
+    <div class="dock-container">
+      <div class="dock-item" data-section="about">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff3c00, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-user-circle" style="font-size: 30px; color: white;"></i>
+        </div>
+        <div class="app-label">WredID</div>
+      </div>
+      <div class="dock-item" data-section="projects">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #2196F3, #00BCD4); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-project-diagram" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">ProjectHub</div>
+      </div>
+      <div class="dock-item" data-section="skills">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8BC34A, #4CAF50); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-code" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">DevTools</div>
+      </div>
+      <div class="dock-item" data-section="goals">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF5722, #F44336); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-bullseye" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">Targets</div>
+      </div>
+      <div class="dock-item" data-section="majors">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #9C27B0, #673AB7); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-graduation-cap" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">EduPath</div>
+      </div>
+      <div class="dock-item" data-section="building">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #607D8B, #455A64); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-tools" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">BuildKit</div>
+      </div>
+      <div class="dock-item" data-section="learning">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF9800, #FFC107); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-brain" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">LearnLab</div>
+      </div>
+      <div class="dock-item" data-section="more">
+        <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #009688, #00796B); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-rocket" style="font-size: 28px; color: white;"></i>
+        </div>
+        <div class="app-label">FutureDev</div>
+      </div>
+    </div>
   </div>
-</div>
 
-<script>
-  const images = document.querySelectorAll('.skillImage');
-  const arrowLeft = document.getElementById('arrowLeft');
-  const arrowRight = document.getElementById('arrowRight');
-  let currentIndex = 0;
+  <!-- Section Windows -->
+  <!-- About Me Section -->
+  <div id="about" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">WredID</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-user"></i> Hello, I am Wred
+      </div>
+      <div class="section-content">
+        <p>Tech Enthusiast, Innovator, Passionate Reader, Computer Programmer/Computer Scientist, and future learner of Electrical Engineering</p>
+      </div>
+    </div>
+  </div>
 
-  function updateDisplay() {
-    images.forEach((img, index) => {
-      img.style.display = index === currentIndex ? 'block' : 'none';
+  <!-- Projects Section -->
+  <div id="projects" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">ProjectHub</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-project-diagram"></i> Engineering Now
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <i class="fas fa-external-link"></i>
+            <a href="https://thetopbake.onrender.com/" target="_blank" rel="noopener noreferrer">TheTopBake</a>
+          </li>
+          <li>
+            <i class="fas fa-external-link"></i>
+            <a href="https://frontendphonetocomputer.onrender.com/" target="_blank" rel="noopener noreferrer">FrontendComputerToPhone</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills Section -->
+  <div id="skills" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">DevTools</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-tools"></i> Skills
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
+          </li>
+          <li>
+            <i class="fas fa-code"></i> Backend Programming: Python
+          </li>
+        </ul>
+        <div style="margin-top: 20px; text-align: center;">
+          <img src="/api/placeholder/150/150" alt="Skill Icon" style="width: 150px; height: 150px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goals Section -->
+  <div id="goals" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Targets</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-bullseye"></i> Goals
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-globe"></i> Create full-stack web apps</li>
+          <li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Majors Section -->
+  <div id="majors" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">EduPath</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-graduation-cap"></i> Majors
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <a href="https://www.usu.edu/degrees-majors/computer-science_bs" target="_blank">
+              <i class="fas fa-code"></i> Computer Science
+            </a>
+          </li>
+          <li>
+            <a href="https://www.usu.edu/degrees-majors/electrical-engineering_bs" target="_blank">
+              <i class="fas fa-bolt"></i> Electrical Engineering
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Building With Section -->
+  <div id="building" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Building With</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-tools"></i> Building with
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-code"></i> Visual Studio Code</li>
+          <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Now Section -->
+  <div id="learning" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Learning Now</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-graduation-cap"></i> Learning Now
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
+          <li><i class="fas fa-code"></i> Website Design/Programming</li>
+        </ul>
+        <div style="margin-top: 20px; text-align: center;">
+          <img src="/api/placeholder/400/300" alt="Learning Image" style="max-width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Engineering More Section -->
+  <div id="more" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Engineering More</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-cogs"></i> Engineering More
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-microchip"></i> Create electronic devices</li>
+          <li><i class="fas fa-code"></i> Code Prodicode my IDE</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update clock
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Convert 0 to 12
+      
+      document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+    }
+    
+    // Update clock immediately and then every minute
+    updateClock();
+    setInterval(updateClock, 60000);
+
+    // Handle dock item clicks
+    document.querySelectorAll('.dock-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const sectionId = this.getAttribute('data-section');
+        openSection(sectionId);
+        
+        // Add active indicator
+        document.querySelectorAll('.dock-item').forEach(di => di.classList.remove('active'));
+        this.classList.add('active');
+      });
     });
 
-    // Right arrow turns red only if we're at the last image
-    if (currentIndex === images.length - 1) {
-      arrowRight.style.color = 'red';
-    } else {
-      arrowRight.style.color = 'white';
-    }
-
-    // Left arrow always white (per your request)
-    arrowLeft.style.color = 'white';
-  }
-
-  function changeImage(direction) {
-    if (direction === 'right' && currentIndex < images.length - 1) {
-      currentIndex++;
-    } else if (direction === 'left' && currentIndex > 0) {
-      currentIndex--;
-    }
-
-    updateDisplay();
-  }
-
-  // Initial setup
-  updateDisplay();
-</script>
-
-  
-  <div id="goals" class="section">
-    <h2><i class="fas fa-bullseye"></i> Goals</h2>
-    <ul>
-      <!--<li><i class="fas fa-microchip"></i> Build my own Consumer Electronics Company</li> -->
-      <li><i class="fas fa-globe"></i> Create full-stack web apps</li>
-      <li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering</li>
-    </ul>
-  </div>
-
-
-  <div id="majors" class="section">
-    <h2><i class="fas fa-graduation-cap"></i> Majors</h2>
-    <ul>
-      <li>
-        <a href="https://www.usu.edu/degrees-majors/computer-science_bs" target="_blank">
-          <i class="fas fa-code"></i> Computer Science
-        </a>
-      </li>
-      <li>
-        <a href="https://www.usu.edu/degrees-majors/electrical-engineering_bs" target="_blank">
-          <i class="fas fa-bolt"></i> Electrical Engineering
-        </a>
-      </li>
-    </ul>
-  </div>
-  
-
-  <div id="building" class="section">
-    <h2><i class="fas fa-tools "></i> Building with</h2> 
-    <ul>
-      <li><i class="fas fa-code"></i>Visual Studio Code</li>
-     <!-- <div>
-        <i id="arrowLeft" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px; color: white;" onclick="changeImage('left')"></i>
-        <i id="arrowRight" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px; color: white;" onclick="changeImage('right')"></i>
-      </div>-->
-      <li><i class="fas fa-microchip"></i>Elegoo Mega 2560 Starter Kit</li>
-    </ul>
-  </div>
-
-  <div id="learning" class="section">
-    <h2><i class="fas fa-graduation-cap "></i> Learning Now</h2> 
-    <ul>
-      <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
-      <div>
-        <i id="arrowLeftLearning" class="fas fa-arrow-left" style="cursor:pointer; margin: 0 5px; color: white;" onclick="changeLearningImage('left')"></i>
-        <i id="arrowRightLearning" class="fas fa-arrow-right" style="cursor:pointer; margin-left: 5px; color: white;" onclick="changeLearningImage('right')"></i>
-      </div>
-      <li><i class="fas fa-code"></i> Website Design/Programming</li>
-    </ul>
-  
-    <div id="learningImageContainer">
-      <img class="learningImage" src="IMG_8966.jpg" style="width: 500px; height: auto;">
-      <!--<img class="learningImage" src="Screenshot 2025-05-05 at 6.41.09 PM.png" style="width: 700px; height: auto; display: none;">-->
-      <!--<img class="learningImage" src="programming.png" style="width: 300px; height: auto; display: none;">-->
-    </div>
-  </div>
-  
-  <script>
-    const learningImages = document.querySelectorAll('.learningImage');
-    const arrowLeftLearning = document.getElementById('arrowLeftLearning');
-    const arrowRightLearning = document.getElementById('arrowRightLearning');
-    let currentLearningIndex = 0;
-  
-    function updateLearningDisplay() {
-      learningImages.forEach((img, index) => {
-        img.style.display = index === currentLearningIndex ? 'block' : 'none';
+    // Handle window controls
+    document.querySelectorAll('.close-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const section = this.closest('.content-section');
+        closeSection(section.id);
+        
+        // Remove active indicator from dock
+        document.querySelectorAll('.dock-item').forEach(di => {
+          if (di.getAttribute('data-section') === section.id) {
+            di.classList.remove('active');
+          }
+        });
       });
-  
-      // Arrow behavior
-      if (currentLearningIndex === learningImages.length - 1) {
-        arrowRightLearning.style.color = 'red';
-      } else {
-        arrowRightLearning.style.color = 'white';
-      }
-  
-      arrowLeftLearning.style.color = 'white'; // Always white
-    }
-  
-    function changeLearningImage(direction) {
-      if (direction === 'right' && currentLearningIndex < learningImages.length - 1) {
-        currentLearningIndex++;
-      } else if (direction === 'left' && currentLearningIndex > 0) {
-        currentLearningIndex--;
-      }
-  
-      updateLearningDisplay();
-    }
-  
-    // Initial setup
-    updateLearningDisplay();
-  </script>
-  
+    });
 
-  <div id="building-more" class="section">
-    <h2><i class="fas fa-cogs"></i> Engineering More</h2>
-    <ul>
-      <li><i class="fas fa-microchip"></i> Create electronic devices</li>
-      <li><i class="fas fa-code"></i>Code Prodicode my IDE</li>
-      <!--<li><i class="fas fa-microchip"></i> Build a personal AI assistant for hardware and software integration</li>
-      <li><i class="fas fa-cogs"></i> Prototype and manufacture my own line of consumer electronics</li>
-      <li><i class="fas fa-code-branch"></i> Expand my proficiency in C++ and Rust by developing performance-intensive applications</li>-->
-    </ul>
-  </div>
-  
-  
-
-  <script>
-    
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+    // Function to open a section with macOS-like animation
+    function openSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+      // Close any open sections first
+      document.querySelectorAll('.content-section.active').forEach(openSection => {
+        if (openSection.id !== sectionId) {
+          closeSection(openSection.id);
+        }
       });
-    }, { threshold: 0.2 });
+      
+      // Add slight blur to desktop
+      desktop.classList.add('blur');
+      
+      // Show and animate the section
+      section.style.display = 'flex';
+      section.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+      
+      // After animation completes, add active class
+      setTimeout(() => {
+        section.classList.add('active');
+        section.style.animation = '';
+      }, 300);
+    }
 
-    document.querySelectorAll(".section").forEach(sec => observer.observe(sec));
+    // Function to close a section with macOS-like animation
+    function closeSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+      // Apply closing animation
+      section.classList.add('closing');
+      section.classList.remove('active');
+      
+      // After animation completes, hide the section
+      setTimeout(() => {
+        section.style.display = 'none';
+        section.classList.remove('closing');
+        
+        // Remove desktop blur if no sections are open
+        const openSections = document.querySelectorAll('.content-section.active');
+        if (openSections.length === 0) {
+          desktop.classList.remove('blur');
+        }
+      }, 300);
+    }
   </script>
-
-<footer>
-  © 2025 Wred Harris · All rights reserved
-</footer>
-
 </body>
 </html>
