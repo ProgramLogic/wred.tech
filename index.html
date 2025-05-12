@@ -379,6 +379,43 @@
         display: none;
       }
     }
+    .apple-dropdown {
+  position: absolute;
+  top: 24px;
+  left: 15px;
+  background-color: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 8px 0;
+  width: 180px;
+  font-size: 13px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: none;
+  z-index: 1001;
+}
+
+.apple-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.apple-dropdown li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.apple-dropdown li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.apple-dropdown hr {
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
   </style>
 </head>
 <body>
@@ -388,7 +425,26 @@
     <!-- Menu Bar -->
     <div class="menu-bar">
       <div class="left">
-        <div class="apple-logo"><i class="fab fa-apple"></i></div>
+        <div class="apple-logo dropdown-trigger"><i class="fab fa-apple"></i></div>
+<div class="apple-dropdown">
+  <ul>
+    <li>About This Mac</li>
+    <li>System Settings...</li>
+    <li>App Store...</li>
+    <hr>
+    <li>Recent Items</li>
+    <hr>
+    <li>Force Quit...</li>
+    <hr>
+    <li>Sleep</li>
+    <li>Restart...</li>
+    <li>Shut Down...</li>
+    <hr>
+    <li>Lock Screen</li>
+    <li>Log Out</li>
+  </ul>
+</div>
+
         <a class="menu-item" href="https://github.com/ProgramLogic" target="_blank">GitHub</a>
         <a class="menu-item" href="me.html" target="_blank">About Me</a>
         <a class="menu-item" href="blog.html" target="_blank">NoteBook</a>
@@ -764,7 +820,23 @@
           desktop.classList.remove('blur');
         }
       }, 300);
+      
     }
+    
   </script>
+  <script>
+    const appleLogo = document.querySelector('.dropdown-trigger');
+    const dropdownMenu = document.querySelector('.apple-dropdown');
+  
+    appleLogo.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent click from bubbling to body
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    document.body.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+  </script>
+  
 </body>
 </html>
