@@ -420,6 +420,7 @@
 </head>
 <body>
 
+  
   <!-- MacOS Desktop -->
   <div class="desktop">
     <!-- Menu Bar -->
@@ -882,6 +883,7 @@
     }
     
   </script>
+
   <script>
     const appleLogo = document.querySelector('.dropdown-trigger');
     const dropdownMenu = document.querySelector('.apple-dropdown');
@@ -895,6 +897,305 @@
       dropdownMenu.style.display = 'none';
     });
   </script>
-  
+    <!-- Custom Context Menu -->
+  <div id="custom-context-menu"
+       style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+    <div id="create-file" style="cursor:pointer;">Create File…</div>
+  </div>
+
+  <script>
+    (function() {
+      const desktop = document.querySelector('.desktop');
+      const menu    = document.getElementById('custom-context-menu');
+      const create  = document.getElementById('create-file');
+
+      // =========================
+      // 1) CONTEXT MENU HANDLING
+      // =========================
+
+      // Disable the native right-click menu on the desktop
+      desktop.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        menu.style.top     = `${e.clientY}px`;
+        menu.style.left    = `${e.clientX}px`;
+        menu.style.display = 'block';
+      });
+
+      // Hide our menu when clicking anywhere else
+      document.addEventListener('click', () => {
+        menu.style.display = 'none';
+      });
+
+
+      // ==================================
+      // 2) FILE STORAGE (localStorage API)
+      // ==================================
+
+      function getIndex() {
+        return JSON.parse(localStorage.getItem('file_index') || '[]');
+      }
+
+      function setIndex(idx) {
+        localStorage.setItem('file_index', JSON.stringify(idx));
+      }
+
+      function saveFile(name, content) {
+        // Save content
+        localStorage.setItem(`file_${name}`, content);
+        // Update index
+        const idx = getIndex();
+        idx.push({ name, created: Date.now() });
+        setIndex(idx);
+      }
+
+      function loadFile(name) {
+        return localStorage.getItem(`file_${name}`) || '';
+      }
+
+
+      // =========================
+      // 3) CREATE FILE INTERFACE
+      // =========================
+
+      create.addEventListener('click', () => {
+        const name = prompt('Enter file name:');
+        if (!name) return;
+        // Prevent overwriting existing
+        if (localStorage.getItem(`file_${name}`) !== null) {
+          alert('A file with that name already exists.');
+          return;
+        }
+        const content = prompt('Enter file contents (optional):', '');
+        saveFile(name, content);
+        renderFiles();
+        menu.style.display = 'none';
+      });
+
+
+      // =================================
+      // 4) RENDERING ICONS ON THE “DESKTOP”
+      // =================================
+
+      function renderFiles() {
+        // Remove old icons
+        document.querySelectorAll('.file-icon').forEach(el => el.remove());
+
+        // Create new ones
+        const idx = getIndex();
+        idx.forEach(({ name }) => {
+          const icon = document.createElement('div');
+          icon.className = 'file-icon';
+          Object.assign(icon.style, {
+            position:  'absolute',
+            top:       '20px',
+            left:      '20px',
+            width:     '60px',
+            height:    '60px',
+            background:'rgba(255,255,255,0.1)',
+            color:     '#fff',
+            display:   'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            borderRadius:'4px',
+            cursor:    'pointer',
+            userSelect:'none'
+          });
+          icon.textContent = name;
+
+          // Double-click opens an alert with content
+          icon.addEventListener('dblclick', () => {
+            const c = loadFile(name);
+            alert(`📄 ${name}\n\n${c}`);
+          });
+
+          // Optionally: implement drag-to-move, right-click to rename/delete, etc.
+
+          desktop.appendChild(icon);
+        });
+      }
+
+      // INITIAL RENDER
+      renderFiles();
+
+    })();
+  </script>
+<!-- File Open Modal -->
+<div id="file-modal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+    background:#222; color:#fff; padding:20px; border-radius:8px; z-index:3000; width:300px;">
+  <h3 id="modal-filename"></h3>
+  <pre id="modal-content" style="white-space:pre-wrap; max-height:200px; overflow:auto;"></pre>
+  <button onclick="document.getElementById('file-modal').style.display='none'"
+          style="margin-top:10px;">Close</button>
+</div>
+
+<!-- Right-click file menu -->
+<div id="file-context-menu"
+     style="position:absolute; display:none; background:#333; color:#fff; padding:6px; border-radius:4px;
+     z-index:2000;">
+  <div id="rename-file" style="padding:4px; cursor:pointer;">Rename</div>
+  <div id="delete-file" style="padding:4px; cursor:pointer;">Delete</div>
+</div>
+
+<!-- Create File Menu -->
+<div id="custom-context-menu"
+     style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+  <div id="create-file" style="cursor:pointer;">Create File…</div>
+</div>
+
+<script>
+(function() {
+  const desktop = document.querySelector('.desktop');
+  const createMenu = document.getElementById('custom-context-menu');
+  const fileMenu = document.getElementById('file-context-menu');
+  const createBtn = document.getElementById('create-file');
+  let rightClickedFile = null;
+
+  // ==== Storage Layer ====
+
+  function getIndex() {
+    return JSON.parse(localStorage.getItem('file_index') || '[]');
+  }
+
+  function setIndex(idx) {
+    localStorage.setItem('file_index', JSON.stringify(idx));
+  }
+
+  function saveFile(name, content) {
+    localStorage.setItem(`file_${name}`, content);
+    const idx = getIndex();
+    idx.push({ name, created: Date.now() });
+    setIndex(idx);
+  }
+
+  function renameFile(oldName, newName) {
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+
+    const idx = getIndex().map(f => f.name === oldName ? { ...f, name: newName } : f);
+    setIndex(idx);
+  }
+
+  function deleteFile(name) {
+    localStorage.removeItem(`file_${name}`);
+    const idx = getIndex().filter(f => f.name !== name);
+    setIndex(idx);
+  }
+
+  function loadFile(name) {
+    return localStorage.getItem(`file_${name}`) || '';
+  }
+
+  // ==== Render Files ====
+
+  function renderFiles() {
+    document.querySelectorAll('.file-icon').forEach(el => el.remove());
+    const idx = getIndex();
+    let x = 20, y = 20;
+
+    idx.forEach(({ name }, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'file-icon';
+      Object.assign(wrapper.style, {
+        position: 'absolute', top: `${y}px`, left: `${x}px`,
+        width: '80px', height: '80px', textAlign: 'center',
+        cursor: 'pointer', color: '#fff', userSelect: 'none'
+      });
+
+      const icon = document.createElement('div');
+      icon.innerHTML = '📄';
+      icon.style.fontSize = '32px';
+
+      const label = document.createElement('div');
+      label.textContent = name;
+      label.style.fontSize = '12px';
+      label.style.marginTop = '4px';
+      label.style.overflowWrap = 'break-word';
+
+      wrapper.appendChild(icon);
+      wrapper.appendChild(label);
+
+      // Double-click to open
+      wrapper.addEventListener('dblclick', () => {
+        document.getElementById('modal-filename').textContent = name;
+        document.getElementById('modal-content').textContent = loadFile(name);
+        document.getElementById('file-modal').style.display = 'block';
+      });
+
+      // Right-click menu
+      wrapper.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        rightClickedFile = name;
+        fileMenu.style.top = `${e.clientY}px`;
+        fileMenu.style.left = `${e.clientX}px`;
+        fileMenu.style.display = 'block';
+      });
+
+      desktop.appendChild(wrapper);
+
+      y += 100;
+      if (y > window.innerHeight - 100) {
+        y = 20;
+        x += 100;
+      }
+    });
+  }
+
+  // ==== Right-click Menus ====
+
+  desktop.addEventListener('contextmenu', e => {
+    if (e.target.closest('.file-icon')) return; // ignore file icons
+    e.preventDefault();
+    createMenu.style.top = `${e.clientY}px`;
+    createMenu.style.left = `${e.clientX}px`;
+    createMenu.style.display = 'block';
+    fileMenu.style.display = 'none';
+  });
+
+  document.addEventListener('click', () => {
+    createMenu.style.display = 'none';
+    fileMenu.style.display = 'none';
+  });
+
+  createBtn.addEventListener('click', () => {
+    const name = prompt('Enter file name:');
+    if (!name) return;
+    if (localStorage.getItem(`file_${name}`)) {
+      alert('File already exists.');
+      return;
+    }
+    const content = prompt('Enter file content:', '');
+    saveFile(name, content);
+    renderFiles();
+  });
+
+  // Rename
+  document.getElementById('rename-file').addEventListener('click', () => {
+    const newName = prompt('Rename to:', rightClickedFile);
+    if (!newName || newName === rightClickedFile) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
+    renameFile(rightClickedFile, newName);
+    renderFiles();
+    fileMenu.style.display = 'none';
+  });
+
+  // Delete
+  document.getElementById('delete-file').addEventListener('click', () => {
+    if (confirm(`Delete "${rightClickedFile}"?`)) {
+      deleteFile(rightClickedFile);
+      renderFiles();
+    }
+    fileMenu.style.display = 'none';
+  });
+
+  // ==== Start ====
+  renderFiles();
+
+})();
+</script>
+
 </body>
 </html>
