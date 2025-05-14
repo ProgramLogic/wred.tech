@@ -48,7 +48,7 @@
   filter: none !important;
 }
 
-    /* macOS menu bar */
+    
     .menu-bar {
       position: fixed;
       top: 0;
@@ -97,7 +97,7 @@
       color: rgba(255, 255, 255, 0.8);
     }
 
-    /* Dock styling */
+    
     .dock-container {
       position: fixed;
       bottom: 10px;
@@ -158,7 +158,7 @@
       opacity: 1;
     }
 
-    /* App label */
+    
     .app-label {
       position: absolute;
       bottom: 80px;
@@ -179,7 +179,7 @@
       opacity: 1;
     }
 
-    /* Content sections */
+   
     .content-section {
       position: fixed;
       top: 50%;
@@ -256,7 +256,7 @@
       color: white;
     }
 
-    /* Section specific styling */
+    
     .section-header {
       margin-bottom: 20px;
       color: #ff3c00;
@@ -303,7 +303,7 @@
       text-decoration: underline;
     }
 
-    /* External links */
+    
     .external-links {
       position: fixed;
       left: 15px;
@@ -339,7 +339,7 @@
       font-size: 18px;
     }
 
-    /* Animation keyframes */
+   
     @keyframes popIn {
       0% {
         transform: translate(-50%, -50%) scale(0.9);
@@ -362,7 +362,7 @@
       }
     }
 
-    /* Responsive adjustments */
+    
     @media (max-width: 768px) {
       .dock-container {
         width: 95%;
@@ -423,9 +423,9 @@
 
 
   
-  <!-- MacOS Desktop -->
+
   <div class="desktop">
-    <!-- Menu Bar -->
+  
     <div class="menu-bar">
       <div class="left">
         <div class="apple-logo dropdown-trigger"><i class="fab fa-apple"></i></div>
@@ -469,7 +469,7 @@
     </div>
 
     
-    <!-- Dock -->
+ 
     <div class="dock-container">
       <div class="dock-item" data-section="about">
         <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff3c00, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
@@ -541,8 +541,7 @@
       </div>
     </div>
     
-  <!-- Section Windows -->
-  <!-- About Me Section -->
+ 
   <div id="about" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -563,7 +562,7 @@
     </div>
   </div>
 
-  <!-- Projects Section -->
+
   <div id="projects" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -593,7 +592,7 @@
     </div>
   </div>
 
-  <!-- Skills Section -->
+
   <div id="skills" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -629,7 +628,7 @@
     </div>
   </div>
 
-  <!-- Goals Section -->
+
   <div id="goals" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -653,7 +652,7 @@
     </div>
   </div>
 
-  <!-- Majors Section -->
+
   <div id="majors" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -685,7 +684,7 @@
     </div>
   </div>
 
-  <!-- Building With Section -->
+
   <div id="building" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -709,7 +708,7 @@
     </div>
   </div>
 
-  <!-- Learning Now Section -->
+
   <div id="learning" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -745,7 +744,7 @@
   </div>
   
 
-  <!-- Engineering More Section -->
+ 
   <div id="more" class="content-section">
     <div class="window-header">
       <div class="window-controls">
@@ -904,13 +903,13 @@
     renderFiles();
   });
 
-  // Initial render
+ 
   renderFiles();
 </script>
 
   
   <script>
-    // Update clock
+    
     function updateClock() {
       const now = new Date();
       let hours = now.getHours();
@@ -923,29 +922,29 @@
       document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
     }
     
-    // Update clock immediately and then every minute
+
     updateClock();
     setInterval(updateClock, 60000);
 
-    // Handle dock item clicks
+  
     document.querySelectorAll('.dock-item').forEach(item => {
       item.addEventListener('click', function() {
         const sectionId = this.getAttribute('data-section');
         openSection(sectionId);
         
-        // Add active indicator
+       
         document.querySelectorAll('.dock-item').forEach(di => di.classList.remove('active'));
         this.classList.add('active');
       });
     });
 
-    // Handle window controls
+    
     document.querySelectorAll('.close-button').forEach(button => {
       button.addEventListener('click', function() {
         const section = this.closest('.content-section');
         closeSection(section.id);
         
-        // Remove active indicator from dock
+        
         document.querySelectorAll('.dock-item').forEach(di => {
           if (di.getAttribute('data-section') === section.id) {
             di.classList.remove('active');
@@ -954,47 +953,47 @@
       });
     });
 
-    // Function to open a section with macOS-like animation
+
     function openSection(sectionId) {
       const desktop = document.querySelector('.desktop');
       const section = document.getElementById(sectionId);
       
-      // Close any open sections first
+     
       document.querySelectorAll('.content-section.active').forEach(openSection => {
         if (openSection.id !== sectionId) {
           closeSection(openSection.id);
         }
       });
       
-      // Add slight blur to desktop
+      
       desktop.classList.add('blur');
       
-      // Show and animate the section
+      
       section.style.display = 'flex';
       section.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
       
-      // After animation completes, add active class
+     
       setTimeout(() => {
         section.classList.add('active');
         section.style.animation = '';
       }, 300);
     }
 
-    // Function to close a section with macOS-like animation
+    
     function closeSection(sectionId) {
       const desktop = document.querySelector('.desktop');
       const section = document.getElementById(sectionId);
       
-      // Apply closing animation
+      
       section.classList.add('closing');
       section.classList.remove('active');
       
-      // After animation completes, hide the section
+      
       setTimeout(() => {
         section.style.display = 'none';
         section.classList.remove('closing');
         
-        // Remove desktop blur if no sections are open
+        
         const openSections = document.querySelectorAll('.content-section.active');
         if (openSections.length === 0) {
           desktop.classList.remove('blur');
@@ -1010,7 +1009,7 @@
     const dropdownMenu = document.querySelector('.apple-dropdown');
   
     appleLogo.addEventListener('click', (e) => {
-      e.stopPropagation(); // prevent click from bubbling to body
+      e.stopPropagation(); 
       dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
     });
   
@@ -1018,7 +1017,7 @@
       dropdownMenu.style.display = 'none';
     });
   </script>
-    <!-- Custom Context Menu -->
+    
   <div id="custom-context-menu"
        style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
     <div id="create-file" style="cursor:pointer;">Create File…</div>
@@ -1030,11 +1029,7 @@
       const menu    = document.getElementById('custom-context-menu');
       const create  = document.getElementById('create-file');
 
-      // =========================
-      // 1) CONTEXT MENU HANDLING
-      // =========================
-
-      // Disable the native right-click menu on the desktop
+      
       desktop.addEventListener('contextmenu', e => {
         e.preventDefault();
         menu.style.top     = `${e.clientY}px`;
@@ -1042,15 +1037,11 @@
         menu.style.display = 'block';
       });
 
-      // Hide our menu when clicking anywhere else
+      
       document.addEventListener('click', () => {
         menu.style.display = 'none';
       });
 
-
-      // ==================================
-      // 2) FILE STORAGE (localStorage API)
-      // ==================================
 
       function getIndex() {
         return JSON.parse(localStorage.getItem('file_index') || '[]');
@@ -1061,9 +1052,9 @@
       }
 
       function saveFile(name, content) {
-        // Save content
+        
         localStorage.setItem(`file_${name}`, content);
-        // Update index
+        
         const idx = getIndex();
         idx.push({ name, created: Date.now() });
         setIndex(idx);
@@ -1074,14 +1065,10 @@
       }
 
 
-      // =========================
-      // 3) CREATE FILE INTERFACE
-      // =========================
-
       create.addEventListener('click', () => {
         const name = prompt('Enter file name:');
         if (!name) return;
-        // Prevent overwriting existing
+       
         if (localStorage.getItem(`file_${name}`) !== null) {
           alert('A file with that name already exists.');
           return;
@@ -1092,16 +1079,11 @@
         menu.style.display = 'none';
       });
 
-
-      // =================================
-      // 4) RENDERING ICONS ON THE “DESKTOP”
-      // =================================
-
       function renderFiles() {
-        // Remove old icons
+        
         document.querySelectorAll('.file-icon').forEach(el => el.remove());
 
-        // Create new ones
+        
         const idx = getIndex();
         idx.forEach(({ name }) => {
           const icon = document.createElement('div');
@@ -1123,24 +1105,24 @@
           });
           icon.textContent = name;
 
-          // Double-click opens an alert with content
+          
           icon.addEventListener('dblclick', () => {
             const c = loadFile(name);
             alert(`📄 ${name}\n\n${c}`);
           });
 
-          // Optionally: implement drag-to-move, right-click to rename/delete, etc.
+          
 
           desktop.appendChild(icon);
         });
       }
 
-      // INITIAL RENDER
+
       renderFiles();
 
     })();
   </script>
-<!-- File Open Modal -->
+
 <div id="file-modal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
     background:#222; color:#fff; padding:20px; border-radius:8px; z-index:3000; width:300px;">
   <h3 id="modal-filename"></h3>
@@ -1149,7 +1131,7 @@
           style="margin-top:10px;">Close</button>
 </div>
 
-<!-- Right-click file menu -->
+
 <div id="file-context-menu"
      style="position:absolute; display:none; background:#333; color:#fff; padding:6px; border-radius:4px;
      z-index:2000;">
@@ -1157,7 +1139,7 @@
   <div id="delete-file" style="padding:4px; cursor:pointer;">Delete</div>
 </div>
 
-<!-- Create File Menu -->
+
 <div id="custom-context-menu"
      style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
   <div id="create-file" style="cursor:pointer;">Create File…</div>
@@ -1171,7 +1153,7 @@
   const createBtn = document.getElementById('create-file');
   let rightClickedFile = null;
 
-  // ==== Storage Layer ====
+  
 
   function getIndex() {
     return JSON.parse(localStorage.getItem('file_index') || '[]');
@@ -1207,7 +1189,7 @@
     return localStorage.getItem(`file_${name}`) || '';
   }
 
-  // ==== Render Files ====
+
 
   function renderFiles() {
     document.querySelectorAll('.file-icon').forEach(el => el.remove());
@@ -1236,14 +1218,14 @@
       wrapper.appendChild(icon);
       wrapper.appendChild(label);
 
-      // Double-click to open
+    
       wrapper.addEventListener('dblclick', () => {
         document.getElementById('modal-filename').textContent = name;
         document.getElementById('modal-content').textContent = loadFile(name);
         document.getElementById('file-modal').style.display = 'block';
       });
 
-      // Right-click menu
+    
       wrapper.addEventListener('contextmenu', e => {
         e.preventDefault();
         rightClickedFile = name;
@@ -1262,10 +1244,10 @@
     });
   }
 
-  // ==== Right-click Menus ====
+  
 
   desktop.addEventListener('contextmenu', e => {
-    if (e.target.closest('.file-icon')) return; // ignore file icons
+    if (e.target.closest('.file-icon')) return; 
     e.preventDefault();
     createMenu.style.top = `${e.clientY}px`;
     createMenu.style.left = `${e.clientX}px`;
@@ -1290,7 +1272,7 @@
     renderFiles();
   });
 
-  // Rename
+  
   document.getElementById('rename-file').addEventListener('click', () => {
     const newName = prompt('Rename to:', rightClickedFile);
     if (!newName || newName === rightClickedFile) return;
@@ -1303,7 +1285,7 @@
     fileMenu.style.display = 'none';
   });
 
-  // Delete
+  
   document.getElementById('delete-file').addEventListener('click', () => {
     if (confirm(`Delete "${rightClickedFile}"?`)) {
       deleteFile(rightClickedFile);
@@ -1312,14 +1294,14 @@
     fileMenu.style.display = 'none';
   });
 
-  // ==== Start ====
+  
   renderFiles();
 
 })();
 </script>
 
 <script>
-  // Settings Panel: Delete File
+  
   document.getElementById('deleteFileBtn').addEventListener('click', () => {
     const name = prompt('Enter the name of the file to delete:');
     if (!name) return;
@@ -1336,7 +1318,7 @@
     }
   });
 
-  // Settings Panel: Rename File
+ 
   document.getElementById('renameFileBtn').addEventListener('click', () => {
     const oldName = prompt('Enter the current file name:');
     if (!oldName || !localStorage.getItem(`file_${oldName}`)) {
