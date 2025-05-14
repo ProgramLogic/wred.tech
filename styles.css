@@ -45,7 +45,7 @@ a,
   margin-top: 2vh;
   color: #bbb;
   max-width: 90vw;
-  /* Add this ↓ to reduce spacing under text2 */
+  
   margin-bottom: 2vh;
 }
 
@@ -54,7 +54,7 @@ a,
   flex-wrap: wrap;
   justify-content: center;
   gap: 2vw;
-  /* Reduce vertical spacing from top (was 6vh) */
+  
   margin: 2vh auto 2vh;
   text-align: center;
   font-size: 1.25rem;

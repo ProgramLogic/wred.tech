@@ -2,7 +2,7 @@ const desktop = document.querySelector('.desktop');
 const menu   = document.getElementById('custom-context-menu');
 const create = document.getElementById('create-file');
 
-// 1) Prevent the browser’s default menu on right‑click
+
 desktop.addEventListener('contextmenu', e => {
   e.preventDefault();
   menu.style.top  = `${e.clientY}px`;
@@ -10,15 +10,15 @@ desktop.addEventListener('contextmenu', e => {
   menu.style.display = 'block';
 });
 
-// 2) Hide it when clicking elsewhere
+
 document.addEventListener('click', () => {
   menu.style.display = 'none';
 });
 
 function saveFile(name, content) {
-    // Store under a known key prefix
+    
     localStorage.setItem(`file_${name}`, content);
-    // Update your in‑memory index
+    
     const index = JSON.parse(localStorage.getItem('file_index') || '[]');
     index.push({ name, created: Date.now() });
     localStorage.setItem('file_index', JSON.stringify(index));
@@ -29,14 +29,14 @@ function saveFile(name, content) {
     if (!name) return;
     const content = prompt('Enter file contents (optional):', '');
     saveFile(name, content);
-    renderFiles();       // Re‑draw the desktop icons
+    renderFiles();       
     menu.style.display = 'none';
   });
   function renderFiles() {
-    // Clear existing icons
+    
     document.querySelectorAll('.file-icon').forEach(el => el.remove());
   
-    // Load index of files
+    
     const index = JSON.parse(localStorage.getItem('file_index') || '[]');
   
     index.forEach(({ name }) => {
@@ -53,7 +53,7 @@ function saveFile(name, content) {
         cursor:pointer;
       `;
       icon.textContent = name;
-      // Double‑click to view content
+     
       icon.addEventListener('dblclick', () => {
         const content = localStorage.getItem(`file_${name}`) || '';
         alert(`📄 ${name}\n\n${content}`);
@@ -62,6 +62,6 @@ function saveFile(name, content) {
     });
   }
   
-  // On initial page load:
+  
   renderFiles();
     

@@ -1,6 +1,6 @@
 function renderFiles() {
     const desktop = document.getElementById('desktop');
-    desktop.innerHTML = ''; // Clear existing icons
+    desktop.innerHTML = ''; 
   
     const fileIndex = JSON.parse(localStorage.getItem('file_index') || '[]');
     fileIndex.forEach(file => {

@@ -2,7 +2,7 @@ const spotlight = document.getElementById("spotlight");
 const input = document.getElementById("spotlightInput");
 const results = document.getElementById("spotlightResults");
 
-// Example data — link to sections or pages
+
 const commands = [
   { name: "Home", action: () => window.scrollTo(0, 0) },
   { name: "About", action: () => document.getElementById("about")?.scrollIntoView() },
