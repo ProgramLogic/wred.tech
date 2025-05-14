@@ -419,6 +419,8 @@
   </style>
 </head>
 <body>
+  
+
 
   
   <!-- MacOS Desktop -->
@@ -805,22 +807,70 @@
     </div>
     <div class="window-content">
       <div class="section-header">
-        <i class="fa-solid fa-gear style="margin-right: 8px;></i>
+        <i class="fa-solid fa-gear" style="margin-right: 8px;"></i>
         <span>Manage your Settings</span>
         <i class="fa-solid fa-gear" style="margin-left: 8px;"></i>
-
       </div>
       <div class="section-content">
         <ul>
-         <!--<li><i class="fas fa-book"></i></li>
-          <li><i class="fas fa-microchip"></i>Elegoo Mega 2560 Kit Tutorial</li>-->
+          <li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+          <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>
         </ul>
       </div>
     </div>
   </div>
-
   
-
+  <script>
+    // Handle delete all files functionality
+    document.getElementById('deleteAllFilesBtn').addEventListener('click', function() {
+      const confirmDelete = confirm("Are you sure you want to delete all files?");
+      if (confirmDelete) {
+        // Clear all files from localStorage
+        localStorage.clear();
+        alert("All files have been deleted.");
+  
+        // Re-render the desktop to remove all file icons
+        renderFiles();
+      }
+    });
+  
+    // Renders files (this function should already exist for your desktop view)
+    function renderFiles() {
+      document.querySelectorAll('.file-icon').forEach(el => el.remove());  // Remove old icons
+  
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]'); // Get file index
+      idx.forEach(({ name }) => {
+        const icon = document.createElement('div');
+        icon.className = 'file-icon';
+        Object.assign(icon.style, {
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          width: '60px',
+          height: '60px',
+          background: 'rgba(255,255,255,0.1)',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          userSelect: 'none',
+        });
+        icon.textContent = name;
+        icon.addEventListener('dblclick', () => {
+          const content = localStorage.getItem(`file_${name}`);
+          alert(`📄 ${name}\n\n${content}`);
+        });
+  
+        document.querySelector('.desktop').appendChild(icon);
+      });
+    }
+  
+    // Initial render when the page loads
+    renderFiles();
+  </script>
+  
   <script>
     // Update clock
     function updateClock() {
@@ -1228,6 +1278,51 @@
   renderFiles();
 
 })();
+</script>
+
+<script>
+  // Settings Panel: Delete File
+  document.getElementById('deleteFileBtn').addEventListener('click', () => {
+    const name = prompt('Enter the name of the file to delete:');
+    if (!name) return;
+    if (!localStorage.getItem(`file_${name}`)) {
+      alert('No such file exists.');
+      return;
+    }
+    if (confirm(`Are you sure you want to delete "${name}"?`)) {
+      localStorage.removeItem(`file_${name}`);
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+        .filter(f => f.name !== name);
+      localStorage.setItem('file_index', JSON.stringify(idx));
+      renderFiles();
+    }
+  });
+
+  // Settings Panel: Rename File
+  document.getElementById('renameFileBtn').addEventListener('click', () => {
+    const oldName = prompt('Enter the current file name:');
+    if (!oldName || !localStorage.getItem(`file_${oldName}`)) {
+      alert('No such file exists.');
+      return;
+    }
+
+    const newName = prompt('Enter the new file name:', oldName);
+    if (!newName || newName === oldName) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
+
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+      .map(f => f.name === oldName ? { ...f, name: newName } : f);
+    localStorage.setItem('file_index', JSON.stringify(idx));
+
+    renderFiles();
+  });
 </script>
 
 </body>
