@@ -813,7 +813,8 @@
       </div>
       <div class="section-content">
         <ul>
-          <li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+          <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete a File</li>
+          <li id="deleteAllFilesBtn"><i class="fas fa-trash-alt"></i> Delete all Files</li>
           <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>
         </ul>
       </div>
@@ -821,24 +822,10 @@
   </div>
   
   <script>
-    // Handle delete all files functionality
-    document.getElementById('deleteAllFilesBtn').addEventListener('click', function() {
-      const confirmDelete = confirm("Are you sure you want to delete all files?");
-      if (confirmDelete) {
-        // Clear all files from localStorage
-        localStorage.clear();
-        alert("All files have been deleted.");
-  
-        // Re-render the desktop to remove all file icons
-        renderFiles();
-      }
-    });
-  
-    // Renders files (this function should already exist for your desktop view)
     function renderFiles() {
-      document.querySelectorAll('.file-icon').forEach(el => el.remove());  // Remove old icons
+      document.querySelectorAll('.file-icon').forEach(el => el.remove());
   
-      const idx = JSON.parse(localStorage.getItem('file_index') || '[]'); // Get file index
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
       idx.forEach(({ name }) => {
         const icon = document.createElement('div');
         icon.className = 'file-icon';
@@ -867,9 +854,60 @@
       });
     }
   
-    // Initial render when the page loads
+    document.getElementById('deleteAllFilesBtn').addEventListener('click', function () {
+      const confirmDelete = confirm("Are you sure you want to delete all files?");
+      if (confirmDelete) {
+        localStorage.clear();
+        alert("All files have been deleted.");
+        renderFiles();
+      }
+    });
+  
+    document.getElementById('deleteFileBtn').addEventListener('click', function () {
+      const filename = prompt("Enter the name of the file to delete:");
+      if (!filename) return;
+  
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+      const filteredIdx = idx.filter(file => file.name !== filename);
+  
+      if (filteredIdx.length === idx.length) {
+        alert("File not found.");
+        return;
+      }
+  
+      localStorage.setItem('file_index', JSON.stringify(filteredIdx));
+      localStorage.removeItem(`file_${filename}`);
+      alert(`File "${filename}" deleted.`);
+      renderFiles();
+    });
+  
+    document.getElementById('renameFileBtn').addEventListener('click', function () {
+      const oldName = prompt("Enter the current file name:");
+      const newName = prompt("Enter the new name:");
+  
+      if (!oldName || !newName) return;
+  
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+      const file = idx.find(file => file.name === oldName);
+  
+      if (!file) {
+        alert("File not found.");
+        return;
+      }
+  
+      const content = localStorage.getItem(`file_${oldName}`);
+      file.name = newName;
+      localStorage.setItem(`file_${newName}`, content);
+      localStorage.removeItem(`file_${oldName}`);
+      localStorage.setItem('file_index', JSON.stringify(idx));
+      alert(`File renamed to "${newName}".`);
+      renderFiles();
+    });
+  
+    // Initial render
     renderFiles();
   </script>
+  
   
   <script>
     // Update clock
