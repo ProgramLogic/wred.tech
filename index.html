@@ -469,12 +469,12 @@
     </div>
 
     
-    <div class="dock-container">
+    <div class="dock-container"  onclick="openMiniBrowser()">
       <div class="dock-item" data-section="chrome">
         <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff0000, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
           <i class="fas fa-brands fa-google" style="font-size: 30px; color: white;"></i>
         </div>
-        <div class="app-label">Google Chrome</div>
+        <div class="app-label">Ember</div>
       </div>
     
       <div class="dock-item" data-section="about">
@@ -548,38 +548,30 @@
       </div>
     </div>
 
-    <div id="mini-browser" style="
-  display: none;
-  position: fixed;
-  top: 100px;
-  left: 100px;
-  width: 500px;
-  height: 200px;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  background: white;
-  z-index: 9999;
-  padding: 16px;
-  font-family: sans-serif;
-">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-    <strong>Google Search</strong>
-    <button onclick="document.getElementById('mini-browser').style.display='none'" style="border: none; background: none; font-size: 20px; cursor: pointer;">&times;</button>
+    <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
+  <div style="padding: 10px; display: flex; gap: 8px;">
+    <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+    <button onclick="loadInIframe()">Go</button>
+    <button onclick="closeMiniBrowser()">×</button>
   </div>
-  <form action="https://www.google.com/search" method="GET" target="_blank">
-    <input type="text" name="q" placeholder="Search Google..." style="width: 100%; padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
-    <button type="submit" style="margin-top: 10px; padding: 10px 20px; font-size: 16px; border: none; background: #4285F4; color: white; border-radius: 6px; cursor: pointer;">Search</button>
-  </form>
+  <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
 </div>
 
-<!-- JS to open the search window -->
 <script>
-  document.querySelector('[data-section="chrome"]').addEventListener('click', () => {
+  function openMiniBrowser() {
     document.getElementById('mini-browser').style.display = 'block';
-  });
-</script>
+  }
 
+  function closeMiniBrowser() {
+    document.getElementById('mini-browser').style.display = 'none';
+  }
+
+  function loadInIframe() {
+    const input = document.getElementById('browser-url').value;
+    const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
+    document.getElementById('browser-frame').src = proxyUrl;
+  }
+</script>
 <script>
   function renderFiles() {
     document.querySelectorAll('.file-icon').forEach(el => el.remove());
