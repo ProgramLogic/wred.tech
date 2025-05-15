@@ -818,6 +818,36 @@ function loadInIframe() {
     </div>
   </div>
     
+  <div id="settings" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Settings</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-gear style="margin-right: 8px;></i>
+        <i class="fa-solid fa-gear" style="margin-right: 8px;"></i>
+        <span>Manage your Settings</span>
+        <i class="fa-solid fa-gear" style="margin-left: 8px;"></i>
+
+      </div>
+      <div class="section-content">
+        <ul>
+         <!--<li><i class="fas fa-book"></i></li>
+          <li><i class="fas fa-microchip"></i>Elegoo Mega 2560 Kit Tutorial</li>-->
+          <li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+          <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
   <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
     <div style="padding: 10px; display: flex; gap: 8px;">
       <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
