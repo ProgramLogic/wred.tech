@@ -547,47 +547,31 @@
         <div class="app-label">Settings</div>
       </div>
     </div>
-    <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 900px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
-      <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
-        <select id="site-select" style="flex: 1; padding: 6px;">
-          <option value="https://en.wikipedia.org/w/index.php?search=">Wikipedia (embedded)</option>
-          <option value="https://www.google.com/search?q=" data-newtab="true">Google (new tab)</option>
-          <option value="https://www.youtube.com/results?search_query=" data-newtab="true">YouTube (new tab)</option>
-          <option value="https://www.reddit.com/search/?q=" data-newtab="true">Reddit (new tab)</option>
-        </select>
-        <input id="search-input" type="text" placeholder="Enter search terms" style="flex: 2; padding: 6px;" />
-        <button onclick="searchSite()">Search</button>
-        <button onclick="closeMiniBrowser()">×</button>
-      </div>
-      <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
-    </div>
-    
-    <script>
-      function openMiniBrowser() {
-        document.getElementById('mini-browser').style.display = 'block';
-      }
-    
-      function closeMiniBrowser() {
-        document.getElementById('mini-browser').style.display = 'none';
-        document.getElementById('browser-frame').src = '';
-      }
-    
-      function searchSite() {
-        const select = document.getElementById('site-select');
-        const baseUrl = select.value;
-        const selectedOption = select.options[select.selectedIndex];
-        const query = encodeURIComponent(document.getElementById('search-input').value.trim());
-        if (!query) return alert('Please enter search terms');
-        
-        if (selectedOption.dataset.newtab === "true") {
-          // Open new tab for sites that don't allow embedding
-          window.open(baseUrl + query, '_blank');
-        } else {
-          // Embed inside iframe for allowed sites like Wikipedia
-          document.getElementById('browser-frame').src = baseUrl + query;
-        }
-      }
-    </script>
+
+    <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
+  <div style="padding: 10px; display: flex; gap: 8px;">
+    <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+    <button onclick="loadInIframe()">Go</button>
+    <button onclick="closeMiniBrowser()">×</button>
+  </div>
+  <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
+</div>
+
+<script>
+  function openMiniBrowser() {
+    document.getElementById('mini-browser').style.display = 'block';
+  }
+
+  function closeMiniBrowser() {
+    document.getElementById('mini-browser').style.display = 'none';
+  }
+
+  function loadInIframe() {
+    const input = document.getElementById('browser-url').value;
+    const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
+    document.getElementById('browser-frame').src = proxyUrl;
+  }
+</script>
 <script>
   function renderFiles() {
     document.querySelectorAll('.file-icon').forEach(el => el.remove());
