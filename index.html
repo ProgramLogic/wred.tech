@@ -547,6 +547,8 @@
         <div class="app-label">Settings</div>
       </div>
     </div>
+
+    
 <!-- Section Windows -->
   <!-- About Me Section -->
   <div id="about" class="content-section">
@@ -760,30 +762,31 @@
       </div>
     </div>
   </div>
-    <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
-  <div style="padding: 10px; display: flex; gap: 8px;">
-    <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
-    <button onclick="loadInIframe()">Go</button>
-    <button onclick="closeMiniBrowser()">×</button>
+    
+  <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
+    <div style="padding: 10px; display: flex; gap: 8px;">
+      <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+      <button onclick="loadInIframe()">Go</button>
+      <button onclick="closeMiniBrowser()">×</button>
+    </div>
+    <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
   </div>
-  <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
-</div>
-
-<script>
-  function openMiniBrowser() {
-    document.getElementById('mini-browser').style.display = 'block';
-  }
-
-  function closeMiniBrowser() {
-    document.getElementById('mini-browser').style.display = 'none';
-  }
-
-  function loadInIframe() {
-    const input = document.getElementById('browser-url').value;
-    const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
-    document.getElementById('browser-frame').src = proxyUrl;
-  }
-</script>
+  
+  <script>
+    function openMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'block';
+    }
+  
+    function closeMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'none';
+    }
+  
+    function loadInIframe() {
+      const input = document.getElementById('browser-url').value;
+      const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
+      document.getElementById('browser-frame').src = proxyUrl;
+    }
+  </script>
 
 <script>
   function renderFiles() {
