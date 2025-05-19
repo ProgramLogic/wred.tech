@@ -623,32 +623,40 @@ function loadInIframe() {
 </script>
 
     
-<!-- Section Windows -->
-  <!-- About Me Section -->
-  <div id="about" class="content-section">
-    <div class="window-header">
-      <div class="window-controls">
-        <div class="window-button close-button"></div>
-        <div class="window-button minimize-button"></div>
-        <div class="window-button maximize-button"></div>
-      </div>
-      <div class="window-title">WredID</div>
-      <div style="width: 36px;"></div>
+<section id="about" class="content-section bg-white rounded-lg shadow-lg p-6 mx-auto max-w-3xl">
+  <header class="window-header flex items-center justify-between mb-4">
+    <div class="window-controls flex space-x-2">
+      <div class="window-button close-button"></div>
+      <div class="window-button minimize-button"></div>
+      <div class="window-button maximize-button"></div>
     </div>
-    <div class="window-content">
-      <div class="section-header">
-        <i class="fas fa-user"></i> Hello, I am Wred
+    <h2 class="window-title text-xl font-semibold text-gray-800">About Me</h2>
+    <div class="flex-shrink-0" style="width: 36px;"></div>
+  </header>
+
+  <div class="window-content space-y-4">
+    <div class="profile-intro flex items-center space-x-4">
+      <div>
+        <h3 class="section-header text-2xl font-bold text-gray-900 flex items-center">
+          <i class="fas fa-user text-blue-500 mr-2"></i>
+          Hello, I'm Wred</span>
+        </h3>
+        <p class="text-gray-700 mt-1">I am a passionate technologist, who likes to innvate the frontiers of whats possibles with technology. But I still have trouble liking what AI is coming to. I have Coded many Websites, Games, and I am begining to code for Electronics. I have a dog named <a href="ember.jpg" target="_blank">Ember.</a>
+        </p>
+          
       </div>
-      <div class="section-content">
-        <p>Tech Enthusiast, Innovator, Passionate Reader, Computer Programmer/Computer Scientist, and future learner of Electrical Engineering.</p>
-        <ul style="list-style:none; padding:0;">
-          <li><strong>Email:</strong> <a href="mailto:wred@example.com">wred@example.com</a></li>
-          <li><strong>Interests:</strong>Programming, Electronics, Web Development</li>
-        </ul>
+    </div>
+      <ul class="info-list mt-4 space-y-2">
+        
+        <div>
+          <li><strong class="text-gray-800">Interests:</strong> Python, JavaScript, Rust, C++ ohh and dogs, books, The imitation Game, Alan Turing, Electronics/Electrical Engineering</li>
         </div>
-      </div>
+      </ul>
+    </div>
     </div>
   </div>
+</section>
+
   
 
   <!-- Projects Section -->
