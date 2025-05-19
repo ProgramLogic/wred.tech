@@ -596,6 +596,8 @@ z-index: 9999;
   <div class="app-label">Games</div>
 </div>
 
+</div>
+
 <div class="dock-item" data-section="settings">
   <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b8a8b, #838183); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
     <i class="fas fa-gear" style="font-size: 30px; color: white;"></i>
@@ -627,9 +629,9 @@ function loadInIframe() {
 <section id="about" class="content-section max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
   <header class="window-header flex items-center justify-between bg-gray-100 px-6 py-4">
     <div class="window-controls flex space-x-2">
-      <span class="window-button bg-red-500 w-3 h-3 rounded-full"></span>
-      <span class="window-button bg-yellow-500 w-3 h-3 rounded-full"></span>
-      <span class="window-button bg-green-500 w-3 h-3 rounded-full"></span>
+      <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
     </div>
     <h2 class="window-title text-2xl font-semibold text-gray-800">About Me</h2>
     <div class="flex-shrink-0 w-9"></div>
@@ -637,14 +639,13 @@ function loadInIframe() {
 
   <div class="window-content px-6 py-8 space-y-8">
     <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
-      <img src="/assets/profile.jpg" alt="Wred profile" class="w-32 h-32 rounded-full border-4 border-gray-200 shadow-md object-cover">
       <div>
         <h3 class="section-header flex items-center text-3xl font-bold text-gray-900 mb-2">
           <i class="fas fa-user text-blue-500 mr-3"></i>
-          Hello, I'm <span class="text-blue-600">Wred</span>
+          Hello, I'm Wred</span>
         </h3>
         <p class="text-gray-700 leading-relaxed mb-6">
-          I'm a passionate technologist, fetch with my dog, <a href="ember.jpg" target="_blank" class="text-blue-600 hover:underline">Ember</a>.
+          I'm a passionate technologist, who designs websites, programs random stuff, and now Electronics. But aside from all of that the thing I enjoy most is playing fetch with my dog, <a href="ember.jpg" target="_blank" class="text-blue-600 hover:underline">Ember</a>.
         </p>
 
         <ul class="info-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
@@ -655,18 +656,18 @@ function loadInIframe() {
               <a href="mailto:wred@example.com" class="text-blue-600 hover:underline">wred@example.com</a>
             </div>
           </li>
-          <!--<<li class="flex items-start">
+          <li class="flex items-start">
             <i class="fas fa-tools text-green-500 mt-1 mr-2"></i>
             <div>
               <strong class="text-gray-800">Expertise:</strong>
-              Python, JavaScript, Rust, C++, Embedded Systems
+              Python, JavaScript, and soon Electronics
             </div>
           </li>
           <li class="flex items-start">
             <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-2"></i>
             <div>
               <strong class="text-gray-800">Interests:</strong>
-              AI Ethics, Robotics, IoT, PCB Layout
+              AI (mostly thinking about of AI taking over coding), Robotics, Electronics, Programming
             </div>
           </li>
           <li class="flex items-start">
@@ -674,7 +675,7 @@ function loadInIframe() {
             <div>
               <strong class="text-gray-800">Fun Fact:</strong>
               Big Alan Turing enthusiast & dog lover
-            </div>-->
+            </div>
           </li>
         </ul>
       </div>
@@ -880,9 +881,23 @@ function loadInIframe() {
           <li><i class="fas fa-code"></i> Code Prodicode my IDE</li>
         </ul>
       </div>
+  
+      
+      <div class="section-header">
+        <i class="fas fa-lightbulb"></i> What I Want to Learn
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fa-solid fa-file-cad"></i>CAD Design </li>
+          <!--<li><i class="fas fa-code-branch"></i></li>
+          <li><i class="fas fa-robot"></i> Robotics and automation</li>
+          <li><i class="fas fa-brain"></i> AI integration in hardware</li>
+          <li><i class="fas fa-network-wired"></i> IoT system architecture</li>
+        </ul>-->
+      </div>
     </div>
   </div>
-    
+  
   <div id="settings" class="content-section">
     <div class="window-header">
       <div class="window-controls">
