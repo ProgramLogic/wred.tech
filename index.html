@@ -588,6 +588,13 @@ z-index: 9999;
   <div class="app-label">Learning Resources</div>
 </div>
 
+<div class="dock-item" data-section="games">
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #000000, #0e0c0d); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-gamepad style="font-size: 30px; color: white;></i>
+  </div>
+  <div class="app-label">Games</div>
+</div>
+
 <div class="dock-item" data-section="settings">
   <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b8a8b, #838183); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
     <i class="fas fa-gear" style="font-size: 30px; color: white;"></i>
@@ -910,7 +917,33 @@ function loadInIframe() {
     </div>
   </div>
 
-  
+  <div id="games" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Games</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-file" style="margin-right: 8px;"></i>
+        <span>Games I'v Made</span>
+        <i class="fa-solid fa-file" style="margin-left: 8px;"></i>
+
+      </div>
+      <div class="section-content">
+        <ul>
+         <!--<li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
+
 
   <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
     <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
