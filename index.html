@@ -589,22 +589,22 @@ z-index: 9999;
 <div class="app-label">Learning Resources</div>
 </div>
 
-<div class="dock-item" data-section="games">
+<div class="dock-item" data-section="settings">
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b8a8b, #838183); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-gear" style="font-size: 30px; color: white;"></i>
+  </div>
+  <div class="app-label">Settings</div>
+ </div>
+ </div>
+
+<!--<div class="dock-item" data-section="games">
 <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #000000, #0e0c0d); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
 <i class="fas fa-gamepad style="font-size: 30px; color: white;></i>
 </div>
 <div class="app-label">Games</div>
 </div>
-
-</div>
-
-<!--<div class="dock-item" data-section="settings">
- <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b8a8b, #838183); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-   <i class="fas fa-gear" style="font-size: 30px; color: white;"></i>
- </div>
- <div class="app-label">Settings</div>
-</div>
 </div>-->
+
 
 
 
@@ -754,29 +754,99 @@ Big Alan Turing enthusiast & dog lover
 </div>
 </div>
 
-<!-- Goals Section -->
-<div id="goals" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
+<div id="building" class="content-section">
+  <div class="window-header">
+    <div class="window-controls">
+      <div class="window-button close-button"></div>
+      <div class="window-button minimize-button"></div>
+      <div class="window-button maximize-button"></div>
+    </div>
+    <div class="window-title">BuildKit</div>
+    <div style="width: 36px;"></div>
+  </div>
+
+  <div class="window-content">
+    <div class="section-header">
+      <i class="fas fa-tools"></i> Building With
+    </div>
+
+    <div class="section-content">
+      <ul class="build-list">
+        <li>
+          <i class="fas fa-code"></i>
+          <strong>Visual Studio Code</strong>
+          <span class="tool-badge">IDE</span>
+          <p class="tool-description">My primary code editor for writing web, embedded, and systems-level software.</p>
+        </li>
+
+        <li>
+          <i class="fas fa-microchip"></i>
+          <strong>Elegoo Mega 2560 Starter Kit</strong>
+          <span class="tool-badge">Electronics</span>
+          <p class="tool-description">Great for prototyping and learning embedded systems and microcontroller programming.</p>
+        </li>
+
+        <li>
+          <i class="fas fa-drafting-compass"></i>
+          <strong>Alibre CAD</strong>
+          <span class="tool-badge">3D CAD</span>
+          <p class="tool-description">Used for creating mechanical parts and enclosures for electronics projects.</p>
+        </li>
+
+        <li>
+          <i class="fas fa-microchip"></i>
+          <strong>Prusa i3 MK3S+</strong>
+          <span class="tool-badge">3D Printer</span>
+          <p class="tool-description">Trusted 3D printer for printing prototypes, cases, and mechanical components.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-<div class="window-title">Targets</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-bullseye"></i> Goals
-</div>
-<div class="section-content">
-<ul>
-<li><i class="fas fa-globe"></i> Create full-stack web apps</li>
-<li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering</li>
-</ul>
-</div>
-</div>
-</div>
+
+<style>
+  .build-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .build-list li {
+    margin-bottom: 20px;
+    background: #f4f6f8;
+    padding: 16px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .build-list li:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .tool-badge {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    font-size: 0.75em;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+  }
+
+  .tool-description {
+    margin-top: 6px;
+    font-size: 0.9em;
+    color: #555;
+  }
+
+  .section-header {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+</style>
+
 
 <!-- Majors Section -->
 <div id="majors" class="content-section">
@@ -1005,6 +1075,7 @@ Big Alan Turing enthusiast & dog lover
 </div>
 </div>
 </div>
+
 
 
 
