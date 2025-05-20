@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pac‑Man in Games Window</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #202020;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    .content-section {
+      border: 2px solid #444;
+      margin: 20px;
+      background: #2e2e2e;
+    }
+    .window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #444;
+      padding: 8px 12px;
+    }
+    .window-controls .window-button {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: #888;
+    }
+    .window-title {
+      font-weight: bold;
+    }
+    .section-header {
+      background: #333;
+      padding: 8px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .section-content {
+      position: relative;
+      padding: 12px;
+      min-height: 650px;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 2px solid #555;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="games" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Games</div>
+      <div style="width:36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <span>Games I'v Made</span>
+      </div>
+      <div class="section-content" id="game-container">
+        <!-- Canvas will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("game-container");
+    const WIDTH  = 560, HEIGHT = 620;
+    // Create canvas
+    const canvas = document.createElement("canvas");
+    canvas.width  = WIDTH;
+    canvas.height = HEIGHT;
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    const TILE = 20,
+          ROWS = 31,
+          COLS = 28;
+
+    // Map layout
+    const level = [
+      "############################",
+      "#............##............#",
+      "#.####.#####.##.#####.####.#",
+      "#o####.#####.##.#####.####o#",
+      "#.####.#####.##.#####.####.#",
+      "#..........................#",
+      "#.####.##.########.##.####.#",
+      "#.####.##.########.##.####.#",
+      "#......##....##....##......#",
+      "######.##### ## #####.######",
+      "######.##### ## #####.######",
+      "######.##          ##.######",
+      "######.## ######## ##.######",
+      "######.## ######## ##.######",
+      "      .   ########   .      ",
+      "######.## ######## ##.######",
+      "######.## ######## ##.######",
+      "######.##          ##.######",
+      "######.## ######## ##.######",
+      "######.## ######## ##.######",
+      "#............##............#",
+      "#.####.#####.##.#####.####.#",
+      "#.####.#####.##.#####.####.#",
+      "#o..##................##..o#",
+      "###.##.##.########.##.##.###",
+      "###.##.##.########.##.##.###",
+      "#......##....##....##......#",
+      "#.##########.##.##########.#",
+      "#..........................#",
+      "############################"
+    ].map(row => row.split(""));
+
+    // Pac‑Man state
+    let pac = { x:13*TILE, y:23*TILE, dx:0, dy:0, speed:2 };
+
+    // Ghosts
+    const GCOL = ["red","pink","cyan","orange"];
+    let ghosts = GCOL.map((col,i) => ({
+      x: (13 + (i-1.5))*TILE,
+      y: 14*TILE,
+      dx: TILE, dy: 0,
+      speed: 1,
+      color: col
+    }));
+
+    // Input
+    let keys = {};
+    window.addEventListener("keydown",  e => keys[e.key] = true);
+    window.addEventListener("keyup",    e => keys[e.key] = false);
+
+    function canMove(x,y) {
+      const r = y/TILE|0, c = x/TILE|0;
+      return level[r] && level[r][c] !== "#";
+    }
+
+    function updatePacman() {
+      if (keys["ArrowUp"]    && canMove(pac.x, pac.y-pac.speed)) { pac.dx=0; pac.dy=-pac.speed; }
+      if (keys["ArrowDown"]  && canMove(pac.x, pac.y+pac.speed)) { pac.dx=0; pac.dy= pac.speed; }
+      if (keys["ArrowLeft"]  && canMove(pac.x-pac.speed, pac.y)) { pac.dx=-pac.speed; pac.dy=0; }
+      if (keys["ArrowRight"] && canMove(pac.x+pac.speed, pac.y)) { pac.dx= pac.speed; pac.dy=0; }
+      let nx = pac.x + pac.dx, ny = pac.y + pac.dy;
+      if (canMove(nx, ny)) {
+        pac.x = nx; pac.y = ny;
+        // Eat pellets
+        let rr = pac.y/TILE|0, cc = pac.x/TILE|0;
+        if (level[rr][cc]==="."||level[rr][cc]==="o") level[rr][cc] = " ";
+      } else {
+        pac.dx = pac.dy = 0;
+      }
+    }
+
+    function updateGhosts() {
+      ghosts.forEach(g => {
+        if (Math.random() < 0.02) {
+          // pick a random direction
+          const dirs = [
+            {dx:g.speed,dy:0},{dx:-g.speed,dy:0},
+            {dx:0,dy:g.speed},{dx:0,dy:-g.speed}
+          ];
+          let choice = dirs[Math.random()*4|0];
+          if (canMove(g.x+choice.dx, g.y+choice.dy)) {
+            g.dx = choice.dx;
+            g.dy = choice.dy;
+          }
+        }
+        // move or bounce
+        let nx = g.x + g.dx, ny = g.y + g.dy;
+        if (canMove(nx, ny)) {
+          g.x = nx; g.y = ny;
+        } else {
+          g.dx *= -1; g.dy *= -1;
+        }
+      });
+    }
+
+    function drawMaze() {
+      for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++){
+        let ch = level[r][c];
+        let x = c*TILE, y = r*TILE;
+        if (ch === "#") {
+          ctx.fillStyle = "blue";
+          ctx.fillRect(x,y,TILE,TILE);
+        } else if (ch === "." || ch === "o") {
+          ctx.fillStyle = "white";
+          ctx.beginPath();
+          ctx.arc(x+TILE/2, y+TILE/2, ch==="."?3:6, 0,2*Math.PI);
+          ctx.fill();
+        }
+      }
+    }
+
+    function drawPacman() {
+      ctx.fillStyle = "yellow";
+      ctx.beginPath();
+      ctx.moveTo(pac.x+TILE/2, pac.y+TILE/2);
+      ctx.arc(pac.x+TILE/2, pac.y+TILE/2, TILE/2-2,
+              pac.dx<0?0.25*Math.PI:pac.dx>0?1.25*Math.PI:pac.dy<0?1.75*Math.PI:0.75*Math.PI,
+              pac.dx<0?1.75*Math.PI:pac.dx>0?0.75*Math.PI:pac.dy<0?0.25*Math.PI:1.25*Math.PI);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function drawGhosts() {
+      ghosts.forEach(g => {
+        // body
+        ctx.fillStyle = g.color;
+        ctx.beginPath();
+        ctx.arc(g.x+TILE/2, g.y+TILE/2, TILE/2-2, Math.PI, 0);
+        ctx.lineTo(g.x+TILE*1.5-2, g.y+TILE-2);
+        ctx.lineTo(g.x+2, g.y+TILE-2);
+        ctx.closePath();
+        ctx.fill();
+        // eyes
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(g.x+TILE/2-4, g.y+TILE/2-2, 3,0,2*Math.PI);
+        ctx.arc(g.x+TILE/2+4, g.y+TILE/2-2, 3,0,2*Math.PI);
+        ctx.fill();
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.arc(g.x+TILE/2-4 + (g.dx/2), g.y+TILE/2-2 + (g.dy/2), 1.5,0,2*Math.PI);
+        ctx.arc(g.x+TILE/2+4 + (g.dx/2), g.y+TILE/2-2 + (g.dy/2), 1.5,0,2*Math.PI);
+        ctx.fill();
+      });
+    }
+
+    function gameLoop() {
+      updatePacman();
+      updateGhosts();
+      ctx.clearRect(0,0,WIDTH,HEIGHT);
+      drawMaze();
+      drawPacman();
+      drawGhosts();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Start
+    gameLoop();
+  });
+  </script>
+
+</body>
+</html>
