@@ -1191,6 +1191,49 @@ function loadInIframe() {
     </div>
   </div>
 
+  <script>
+    // Wait until the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Find the container
+      const gamesSection = document.querySelector("games .section-content");
+    
+      // 2. Create and configure the canvas
+      const canvas = document.createElement("canvas");
+      canvas.id = "pacmanCanvas";
+      canvas.width = 560;
+      canvas.height = 620;
+      canvas.style.display = "block";        // so it doesn’t inline with text
+      canvas.style.margin = "0 auto";        // center it
+    
+      // 3. Append the canvas into your “Games” section
+      gamesSection.appendChild(canvas);
+    
+      // 4. Grab its 2D context
+      const ctx = canvas.getContext("2d");
+    
+      // 5. Paste your game logic below, but replace any
+      //    `document.body.appendChild(canvas)` with the above append.
+      const TILE_SIZE = 20;
+      const ROWS = 31;
+      const COLS = 28;
+      // … (rest of your JS from pacman with ghosts) …
+      
+      // For example, Pac‑Man setup:
+      let pacman = { x:13*TILE_SIZE, y:23*TILE_SIZE, dx:0, dy:0, speed:2 };
+      // Ghosts, level array, input handlers, draw/update functions, etc.
+    
+      // Finally, start the loop:
+      function gameLoop(){
+        updatePacman();
+        updateGhosts();
+        draw();
+        requestAnimationFrame(gameLoop);
+      }
+      gameLoop();
+    });
+    </script>
+    
+
 
   <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
     <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
