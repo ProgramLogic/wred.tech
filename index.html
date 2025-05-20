@@ -1192,47 +1192,586 @@ function loadInIframe() {
     </div>
   </div>
 
+  <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
+    <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
+      <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+      <button onclick="loadInIframe()">Go</button>
+      <button onclick="closeMiniBrowser()">×</button>
+    </div>
+    <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
+  </div>
+  
   <script>
-    // Wait until the DOM is fully loaded
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Find the container
-      const gamesSection = document.querySelector("#games .section-content");
-    
-      // 2. Create and configure the canvas
-      const canvas = document.createElement("canvas");
-      canvas.id = "pacmanCanvas";
-      canvas.width = 560;
-      canvas.height = 620;
-      canvas.style.display = "block";        // so it doesn’t inline with text
-      canvas.style.margin = "0 auto";        // center it
-    
-      // 3. Append the canvas into your “Games” section
-      gamesSection.appendChild(canvas);
-    
-      // 4. Grab its 2D context
-      const ctx = canvas.getContext("2d");
-    
-      // 5. Paste your game logic below, but replace any
-      //    `document.body.appendChild(canvas)` with the above append.
-      const TILE_SIZE = 20;
-      const ROWS = 31;
-      const COLS = 28;
-      // … (rest of your JS from pacman with ghosts) …
-      
-      // For example, Pac‑Man setup:
-      let pacman = { x:13*TILE_SIZE, y:23*TILE_SIZE, dx:0, dy:0, speed:2 };
-      // Ghosts, level array, input handlers, draw/update functions, etc.
-    
-      // Finally, start the loop:
-      function gameLoop(){
-        updatePacman();
-        updateGhosts();
-        draw();
-        requestAnimationFrame(gameLoop);
+    let currentUrl = '';
+  
+    function openMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'block';
+    }
+  
+    function closeMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'none';
+      document.getElementById('browser-frame').src = 'about:blank';
+    }
+  
+    function loadInIframe() {
+      let input = document.getElementById('browser-url').value.trim();
+  
+      if (!input.startsWith('http://') && !input.startsWith('https://')) {
+        input = 'https://' + input;
       }
-      gameLoop();
+  
+      currentUrl = input;
+      const iframe = document.getElementById('browser-frame');
+      iframe.src = input;
+  
+      // Set a timeout to fallback if iframe refuses to load
+      let loaded = false;
+  
+      const onLoad = () => {
+        loaded = true;
+      };
+  
+      iframe.onload = onLoad;
+  
+      setTimeout(() => {
+        if (!loaded) {
+          // Fallback: open in new tab
+          window.open(currentUrl, '_blank');
+          closeMiniBrowser();
+        }
+      }, 2500); // wait 2.5 seconds max before fallback
+    }
+  </script>
+  
+  
+<script>
+  function renderFiles() {
+    document.querySelectorAll('.file-icon').forEach(el => el.remove());
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    idx.forEach(({ name }) => {
+      const icon = document.createElement('div');
+      icon.className = 'file-icon';
+      Object.assign(icon.style, {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        width: '60px',
+        height: '60px',
+        background: 'rgba(255,255,255,0.1)',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        userSelect: 'none',
+      });
+      icon.textContent = name;
+      icon.addEventListener('dblclick', () => {
+        const content = localStorage.getItem(`file_${name}`);
+        alert(`📄 ${name}\n\n${content}`);
+      });
+
+      document.querySelector('.desktop').appendChild(icon);
     });
-    </script>
+  }
+
+  document.getElementById('deleteAllFilesBtn').addEventListener('click', function () {
+    const confirmDelete = confirm("Are you sure you want to delete all files?");
+    if (confirmDelete) {
+      localStorage.clear();
+      alert("All files have been deleted.");
+      renderFiles();
+    }
+  });
+
+  document.getElementById('deleteFileBtn').addEventListener('click', function () {
+    const filename = prompt("Enter the name of the file to delete:");
+    if (!filename) return;
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    const filteredIdx = idx.filter(file => file.name !== filename);
+
+    if (filteredIdx.length === idx.length) {
+      alert("File not found.");
+      return;
+    }
+
+    localStorage.setItem('file_index', JSON.stringify(filteredIdx));
+    localStorage.removeItem(`file_${filename}`);
+    alert(`File "${filename}" deleted.`);
+    renderFiles();
+  });
+
+  document.getElementById('renameFileBtn').addEventListener('click', function () {
+    const oldName = prompt("Enter the current file name:");
+    const newName = prompt("Enter the new name:");
+
+    if (!oldName || !newName) return;
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    const file = idx.find(file => file.name === oldName);
+
+    if (!file) {
+      alert("File not found.");
+      return;
+    }
+
+    const content = localStorage.getItem(`file_${oldName}`);
+    file.name = newName;
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+    localStorage.setItem('file_index', JSON.stringify(idx));
+    alert(`File renamed to "${newName}".`);
+    renderFiles();
+  });
+
+ 
+  renderFiles();
+</script>
+
+  
+  <script>
+    
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Convert 0 to 12
+      
+      document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+    }
+    
+
+    updateClock();
+    setInterval(updateClock, 60000);
+
+  
+    document.querySelectorAll('.dock-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const sectionId = this.getAttribute('data-section');
+        openSection(sectionId);
+        
+       
+        document.querySelectorAll('.dock-item').forEach(di => di.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    
+    document.querySelectorAll('.close-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const section = this.closest('.content-section');
+        closeSection(section.id);
+        
+        
+        document.querySelectorAll('.dock-item').forEach(di => {
+          if (di.getAttribute('data-section') === section.id) {
+            di.classList.remove('active');
+          }
+        });
+      });
+    });
+
+
+    function openSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+     
+      document.querySelectorAll('.content-section.active').forEach(openSection => {
+        if (openSection.id !== sectionId) {
+          closeSection(openSection.id);
+        }
+      });
+      
+      
+      desktop.classList.add('blur');
+      
+      
+      section.style.display = 'flex';
+      section.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+      
+     
+      setTimeout(() => {
+        section.classList.add('active');
+        section.style.animation = '';
+      }, 300);
+    }
+
+    
+    function closeSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+      
+      section.classList.add('closing');
+      section.classList.remove('active');
+      
+      
+      setTimeout(() => {
+        section.style.display = 'none';
+        section.classList.remove('closing');
+        
+        
+        const openSections = document.querySelectorAll('.content-section.active');
+        if (openSections.length === 0) {
+          desktop.classList.remove('blur');
+        }
+      }, 300);
+      
+    }
+    
+  </script>
+
+  <script>
+    const appleLogo = document.querySelector('.dropdown-trigger');
+    const dropdownMenu = document.querySelector('.apple-dropdown');
+  
+    appleLogo.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    document.body.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+  </script>
+    
+  <div id="custom-context-menu"
+       style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+    <div id="create-file" style="cursor:pointer;">Create File…</div>
+  </div>
+
+  <script>
+    (function() {
+      const desktop = document.querySelector('.desktop');
+      const menu    = document.getElementById('custom-context-menu');
+      const create  = document.getElementById('create-file');
+
+      
+      desktop.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        menu.style.top     = `${e.clientY}px`;
+        menu.style.left    = `${e.clientX}px`;
+        menu.style.display = 'block';
+      });
+
+      
+      document.addEventListener('click', () => {
+        menu.style.display = 'none';
+      });
+
+
+      function getIndex() {
+        return JSON.parse(localStorage.getItem('file_index') || '[]');
+      }
+
+      function setIndex(idx) {
+        localStorage.setItem('file_index', JSON.stringify(idx));
+      }
+
+      function saveFile(name, content) {
+        
+        localStorage.setItem(`file_${name}`, content);
+        
+        const idx = getIndex();
+        idx.push({ name, created: Date.now() });
+        setIndex(idx);
+      }
+
+      function loadFile(name) {
+        return localStorage.getItem(`file_${name}`) || '';
+      }
+
+
+      create.addEventListener('click', () => {
+        const name = prompt('Enter file name:');
+        if (!name) return;
+       
+        if (localStorage.getItem(`file_${name}`) !== null) {
+          alert('A file with that name already exists.');
+          return;
+        }
+        const content = prompt('Enter file contents (optional):', '');
+        saveFile(name, content);
+        renderFiles();
+        menu.style.display = 'none';
+      });
+
+      function renderFiles() {
+        
+        document.querySelectorAll('.file-icon').forEach(el => el.remove());
+
+        
+        const idx = getIndex();
+        idx.forEach(({ name }) => {
+          const icon = document.createElement('div');
+          icon.className = 'file-icon';
+          Object.assign(icon.style, {
+            position:  'absolute',
+            top:       '20px',
+            left:      '20px',
+            width:     '60px',
+            height:    '60px',
+            background:'rgba(255,255,255,0.1)',
+            color:     '#fff',
+            display:   'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            borderRadius:'4px',
+            cursor:    'pointer',
+            userSelect:'none'
+          });
+          icon.textContent = name;
+
+          
+          icon.addEventListener('dblclick', () => {
+            const c = loadFile(name);
+            alert(`📄 ${name}\n\n${c}`);
+          });
+
+          
+
+          desktop.appendChild(icon);
+        });
+      }
+
+
+      renderFiles();
+
+    })();
+  </script>
+
+<div id="file-modal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+    background:#222; color:#fff; padding:20px; border-radius:8px; z-index:3000; width:300px;">
+  <h3 id="modal-filename"></h3>
+  <pre id="modal-content" style="white-space:pre-wrap; max-height:200px; overflow:auto;"></pre>
+  <button onclick="document.getElementById('file-modal').style.display='none'"
+          style="margin-top:10px;">Close</button>
+</div>
+
+
+<div id="file-context-menu"
+     style="position:absolute; display:none; background:#333; color:#fff; padding:6px; border-radius:4px;
+     z-index:2000;">
+  <div id="rename-file" style="padding:4px; cursor:pointer;">Rename</div>
+  <div id="delete-file" style="padding:4px; cursor:pointer;">Delete</div>
+</div>
+
+
+<div id="custom-context-menu"
+     style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+  <div id="create-file" style="cursor:pointer;">Create File…</div>
+</div>
+
+<script>
+(function() {
+  const desktop = document.querySelector('.desktop');
+  const createMenu = document.getElementById('custom-context-menu');
+  const fileMenu = document.getElementById('file-context-menu');
+  const createBtn = document.getElementById('create-file');
+  let rightClickedFile = null;
+
+  
+
+  function getIndex() {
+    return JSON.parse(localStorage.getItem('file_index') || '[]');
+  }
+
+  function setIndex(idx) {
+    localStorage.setItem('file_index', JSON.stringify(idx));
+  }
+
+  function saveFile(name, content) {
+    localStorage.setItem(`file_${name}`, content);
+    const idx = getIndex();
+    idx.push({ name, created: Date.now() });
+    setIndex(idx);
+  }
+
+  function renameFile(oldName, newName) {
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+
+    const idx = getIndex().map(f => f.name === oldName ? { ...f, name: newName } : f);
+    setIndex(idx);
+  }
+
+  function deleteFile(name) {
+    localStorage.removeItem(`file_${name}`);
+    const idx = getIndex().filter(f => f.name !== name);
+    setIndex(idx);
+  }
+
+  function loadFile(name) {
+    return localStorage.getItem(`file_${name}`) || '';
+  }
+
+
+
+  function renderFiles() {
+    document.querySelectorAll('.file-icon').forEach(el => el.remove());
+    const idx = getIndex();
+    let x = 20, y = 20;
+
+    idx.forEach(({ name }, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'file-icon';
+      Object.assign(wrapper.style, {
+        position: 'absolute', top: `${y}px`, left: `${x}px`,
+        width: '80px', height: '80px', textAlign: 'center',
+        cursor: 'pointer', color: '#fff', userSelect: 'none'
+      });
+
+      const icon = document.createElement('div');
+      icon.innerHTML = '📄';
+      icon.style.fontSize = '32px';
+
+      const label = document.createElement('div');
+      label.textContent = name;
+      label.style.fontSize = '12px';
+      label.style.marginTop = '4px';
+      label.style.overflowWrap = 'break-word';
+
+      wrapper.appendChild(icon);
+      wrapper.appendChild(label);
+
+    
+      wrapper.addEventListener('dblclick', () => {
+        document.getElementById('modal-filename').textContent = name;
+        document.getElementById('modal-content').textContent = loadFile(name);
+        document.getElementById('file-modal').style.display = 'block';
+      });
+
+    
+      wrapper.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        rightClickedFile = name;
+        fileMenu.style.top = `${e.clientY}px`;
+        fileMenu.style.left = `${e.clientX}px`;
+        fileMenu.style.display = 'block';
+      });
+
+      desktop.appendChild(wrapper);
+
+      y += 100;
+      if (y > window.innerHeight - 100) {
+        y = 20;
+        x += 100;
+      }
+    });
+  }
+
+  
+
+  desktop.addEventListener('contextmenu', e => {
+    if (e.target.closest('.file-icon')) return; 
+    e.preventDefault();
+    createMenu.style.top = `${e.clientY}px`;
+    createMenu.style.left = `${e.clientX}px`;
+    createMenu.style.display = 'block';
+    fileMenu.style.display = 'none';
+  });
+
+  document.addEventListener('click', () => {
+    createMenu.style.display = 'none';
+    fileMenu.style.display = 'none';
+  });
+
+  createBtn.addEventListener('click', () => {
+    const name = prompt('Enter file name:');
+    if (!name) return;
+    if (localStorage.getItem(`file_${name}`)) {
+      alert('File already exists.');
+      return;
+    }
+    const content = prompt('Enter file content:', '');
+    saveFile(name, content);
+    renderFiles();
+  });
+
+  
+  document.getElementById('rename-file').addEventListener('click', () => {
+    const newName = prompt('Rename to:', rightClickedFile);
+    if (!newName || newName === rightClickedFile) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
+    renameFile(rightClickedFile, newName);
+    renderFiles();
+    fileMenu.style.display = 'none';
+  });
+
+  
+  document.getElementById('delete-file').addEventListener('click', () => {
+    if (confirm(`Delete "${rightClickedFile}"?`)) {
+      deleteFile(rightClickedFile);
+      renderFiles();
+    }
+    fileMenu.style.display = 'none';
+  });
+
+  
+  renderFiles();
+
+})();
+</script>
+
+<script>
+  
+  document.getElementById('deleteFileBtn').addEventListener('click', () => {
+    const name = prompt('Enter the name of the file to delete:');
+    if (!name) return;
+    if (!localStorage.getItem(`file_${name}`)) {
+      alert('No such file exists.');
+      return;
+    }
+    if (confirm(`Are you sure you want to delete "${name}"?`)) {
+      localStorage.removeItem(`file_${name}`);
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+        .filter(f => f.name !== name);
+      localStorage.setItem('file_index', JSON.stringify(idx));
+      renderFiles();
+    }
+  });
+
+ 
+  document.getElementById('renameFileBtn').addEventListener('click', () => {
+    const oldName = prompt('Enter the current file name:');
+    if (!oldName || !localStorage.getItem(`file_${oldName}`)) {
+      alert('No such file exists.');
+      return;
+    }
+
+    const newName = prompt('Enter the new file name:', oldName);
+    if (!newName || newName === oldName) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
+
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+      .map(f => f.name === oldName ? { ...f, name: newName } : f);
+    localStorage.setItem('file_index', JSON.stringify(idx));
+
+    renderFiles();
+  });
+</script>
+
+</body>
+</html>
+
     
 
 

@@ -4,5 +4,11 @@
   },
   "dependencies": {
     "servor": "^4.0.2"
-  }
+  },
+  "name": "wred.tech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
