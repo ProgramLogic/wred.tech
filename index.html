@@ -754,7 +754,7 @@ function loadInIframe() {
   </div>
 
   <!-- Goals Section -->
-  <div id="goals" class="content-section">
+  <!--<div id="goals" class="content-section">
     <div class="window-header">
       <div class="window-controls">
         <div class="window-button close-button"></div>
@@ -764,19 +764,134 @@ function loadInIframe() {
       <div class="window-title">Targets</div>
       <div style="width: 36px;"></div>
     </div>
+  
     <div class="window-content">
       <div class="section-header">
-        <i class="fas fa-bullseye"></i> Goals
+        <i class="fas fa-bullseye"></i> Goals Dashboard
       </div>
+  
       <div class="section-content">
-        <ul>
-          <li><i class="fas fa-globe"></i> Create full-stack web apps</li>
-          <li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering</li>
+        <ul class="goal-list">
+          <li>
+            <i class="fas fa-globe"></i>
+            <strong>Create full-stack web apps</strong>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 45%;"></div>
+            </div>
+            <ul class="sub-goals">
+              <li>🔧 Master React, TailwindCSS, Node.js</li>
+              <li>🧠 Build a portfolio project every quarter</li>
+              <li>☁️ Deploy using Vercel and DigitalOcean</li>
+            </ul>
+            <div class="goal-tags">
+              <span class="tag">Web Dev</span>
+              <span class="tag">Frontend</span>
+              <span class="tag">Backend</span>
+            </div>
+          </li>
+  
+          <li>
+            <i class="fas fa-graduation-cap"></i>
+            <strong>Learn Computer & Electrical Engineering</strong>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 30%; background-color: #ff9900;"></div>
+            </div>
+            <ul class="sub-goals">
+              <li>📚 Study digital logic, microcontrollers, embedded C</li>
+              <li>🧪 Complete weekly lab projects</li>
+              <li>🎓 Follow top EE/CE YouTubers</li>
+            </ul>
+            <div class="goal-tags">
+              <span class="tag">Engineering</span>
+              <span class="tag">Microcontrollers</span>
+              <span class="tag">Hardware</span>
+            </div>
+          </li>
+  
+          <li>
+            <i class="fas fa-rocket"></i>
+            <strong>Build personal tech brand</strong>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: 60%; background-color: #00b894;"></div>
+            </div>
+            <ul class="sub-goals">
+              <li>💼 Launch personal site with portfolio</li>
+              <li>📸 Post monthly lab/project updates</li>
+              <li>🧠 Develop a unique OS or IDE</li>
+            </ul>
+            <div class="goal-tags">
+              <span class="tag">Brand</span>
+              <span class="tag">OS Dev</span>
+              <span class="tag">Portfolio</span>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
   </div>
-
+  
+  <style>
+    .goal-list {
+      list-style: none;
+      padding-left: 0;
+    }
+  
+    .goal-list li {
+      margin-bottom: 24px;
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+  
+    .goal-list li:hover {
+      transform: scale(1.01);
+      background: #ffffff;
+    }
+  
+    .progress-container {
+      background: #e0e0e0;
+      height: 8px;
+      border-radius: 4px;
+      margin: 8px 0 12px;
+      overflow: hidden;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: #3498db;
+      transition: width 0.5s ease;
+    }
+  
+    .sub-goals {
+      list-style-type: none;
+      padding-left: 16px;
+      font-size: 0.95em;
+      color: #555;
+    }
+  
+    .goal-tags {
+      margin-top: 8px;
+    }
+  
+    .tag {
+      display: inline-block;
+      background: #d1d8e0;
+      color: #333;
+      border-radius: 20px;
+      padding: 2px 10px;
+      margin-right: 6px;
+      font-size: 0.8em;
+    }
+  
+    .section-header {
+      font-size: 1.4em;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+  </style>-->
+  
   <!-- Majors Section -->
   <div id="majors" class="content-section">
     <div class="window-header">
@@ -820,18 +935,89 @@ function loadInIframe() {
       <div class="window-title">BuildKit</div>
       <div style="width: 36px;"></div>
     </div>
+  
     <div class="window-content">
       <div class="section-header">
-        <i class="fas fa-tools"></i> Building with
+        <i class="fas fa-tools"></i> Building With
       </div>
+  
       <div class="section-content">
-        <ul>
-          <li><i class="fas fa-code"></i> Visual Studio Code</li>
-          <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
+        <ul class="build-list">
+          <li>
+            <i class="fas fa-code"></i>
+            <strong>Visual Studio Code</strong>
+            <span class="tool-badge">IDE</span>
+            <p class="tool-description">My primary code editor for writing web, embedded, and systems-level software.</p>
+          </li>
+  
+          <li>
+            <i class="fas fa-microchip"></i>
+            <strong>Elegoo Mega 2560 Starter Kit</strong>
+            <span class="tool-badge">Electronics</span>
+            <p class="tool-description">Great for prototyping and learning embedded systems and microcontroller programming.</p>
+          </li>
+  
+          <li>
+            <i class="fas fa-drafting-compass"></i>
+            <strong>Alibre CAD</strong>
+            <span class="tool-badge">3D CAD</span>
+            <p class="tool-description">Used for creating mechanical parts and enclosures for electronics projects.</p>
+          </li>
+  
+          <li>
+            <i class="fas fa-microchip"></i>
+            <strong>Prusa i3 MK3S+</strong>
+            <span class="tool-badge">3D Printer</span>
+            <p class="tool-description">Trusted 3D printer for printing prototypes, cases, and mechanical components.</p>
+          </li>
         </ul>
       </div>
     </div>
   </div>
+  
+  <style>
+    .build-list {
+      list-style: none;
+      padding-left: 0;
+    }
+  
+    .build-list li {
+      margin-bottom: 20px;
+      background: #f4f6f8;
+      padding: 16px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+  
+    .build-list li:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+    }
+  
+    .tool-badge {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      font-size: 0.75em;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+    }
+  
+    .tool-description {
+      margin-top: 6px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  
+    .section-header {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+  </style>
+  
 
   <!-- Learning Now Section -->
   <div id="learning" class="content-section">
