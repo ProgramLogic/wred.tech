@@ -1,475 +1,474 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>wred.tech</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wred.tech</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
 
-<style>
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-color: #000;
+      color: white;
+    }
 
-body, html {
-height: 100%;
-width: 100%;
-overflow: hidden;
-background-color: #000;
-color: white;
-}
-
-.desktop {
-position: relative;
-width: 100%;
-height: 100%;
-background-image: url('MacOS S.png'); 
-background-size: cover;
-background-position: center;
-overflow: hidden;
-transition: filter 0.5s ease;
+    .desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url('MacOS S.png'); 
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: filter 0.5s ease;
 }
 
 .desktop::before {
-content: "";
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
-z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
+  z-index: 1;
 }
 
 .desktop.blur {
-filter: none !important;
+  filter: none !important;
 }
 
+    
+    .menu-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 24px;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      justify-content: space-between;
+      z-index: 1000;
+    }
 
-.menu-bar {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 24px;
-background-color: rgba(0, 0, 0, 0.7);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-display: flex;
-align-items: center;
-padding: 0 15px;
-justify-content: space-between;
-z-index: 1000;
-}
+    .menu-bar .left {
+      display: flex;
+      align-items: center;
+    }
 
-.menu-bar .left {
-display: flex;
-align-items: center;
-}
+    .menu-bar .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.menu-bar .right {
-display: flex;
-align-items: center;
-gap: 10px;
-}
+    .menu-bar .apple-logo {
+      font-size: 16px;
+      margin-right: 15px;
+    }
 
-.menu-bar .apple-logo {
-font-size: 16px;
-margin-right: 15px;
-}
+    .menu-item {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
 
-.menu-item {
-color: rgba(255, 255, 255, 0.8);
-font-size: 12px;
-margin-right: 15px;
-cursor: pointer;
-}
+    .menu-item:hover {
+      color: white;
+    }
 
-.menu-item:hover {
-color: white;
-}
+    .status-icons {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+    }
 
-.status-icons {
-font-size: 12px;
-color: rgba(255, 255, 255, 0.8);
-}
+    
+    .dock-container {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 70px;
+      padding: 5px 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      z-index: 100;
+    }
 
+    .dock-item {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      overflow: hidden;
+    }
 
-.dock-container {
-position: fixed;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-justify-content: center;
-align-items: flex-end;
-height: 70px;
-padding: 5px 10px;
-background-color: rgba(255, 255, 255, 0.2);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border-radius: 16px;
-z-index: 100;
-}
+    .dock-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
 
-.dock-item {
-position: relative;
-width: 50px;
-height: 50px;
-margin: 0 5px;
-transition: all 0.2s ease;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 12px;
-overflow: hidden;
-}
+    .dock-item:hover {
+      transform: scale(1.2) translateY(-10px);
+    }
 
-.dock-item img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 12px;
-}
+    .dock-item::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
 
-.dock-item:hover {
-transform: scale(1.2) translateY(-10px);
-}
+    .dock-item.active::after {
+      opacity: 1;
+    }
 
-.dock-item::after {
-content: '';
-position: absolute;
-bottom: -8px;
-left: 50%;
-transform: translateX(-50%);
-width: 5px;
-height: 5px;
-background-color: rgba(255, 255, 255, 0.7);
-border-radius: 50%;
-opacity: 0;
-transition: opacity 0.2s ease;
-}
+    
+    .app-label {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
 
-.dock-item.active::after {
-opacity: 1;
-}
+    .dock-item:hover .app-label {
+      opacity: 1;
+    }
 
+   
+    .content-section {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 80%;
+      max-width: 1000px;
+      height: 80%;
+      background-color: rgba(30, 30, 30, 0.85);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 12px;
+      z-index: 500;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    }
 
-.app-label {
-position: absolute;
-bottom: 80px;
-left: 50%;
-transform: translateX(-50%);
-background-color: rgba(0, 0, 0, 0.7);
-color: white;
-padding: 5px 10px;
-border-radius: 5px;
-font-size: 12px;
-opacity: 0;
-transition: opacity 0.2s ease;
-pointer-events: none;
-white-space: nowrap;
-}
+    .content-section.active {
+      display: flex;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
 
-.dock-item:hover .app-label {
-opacity: 1;
-}
+    .content-section.closing {
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+    }
 
+    .window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-.content-section {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%) scale(0.9);
-width: 80%;
-max-width: 1000px;
-height: 80%;
-background-color: rgba(30, 30, 30, 0.85);
-backdrop-filter: blur(15px);
--webkit-backdrop-filter: blur(15px);
-border-radius: 12px;
-z-index: 500;
-display: none;
-flex-direction: column;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-opacity: 0;
-overflow: hidden;
-transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-}
+    .window-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
 
-.content-section.active {
-display: flex;
-opacity: 1;
-transform: translate(-50%, -50%) scale(1);
-}
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
 
-.content-section.closing {
-transform: translate(-50%, -50%) scale(0.9);
-opacity: 0;
-}
+    .window-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-.window-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 10px 15px;
-border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+    .close-button {
+      background-color: #ff5f57;
+    }
 
-.window-title {
-font-size: 16px;
-font-weight: 500;
-}
+    .minimize-button {
+      background-color: #febc2e;
+    }
 
-.window-controls {
-display: flex;
-gap: 8px;
-}
+    .maximize-button {
+      background-color: #28c940;
+    }
 
-.window-button {
-width: 12px;
-height: 12px;
-border-radius: 50%;
-cursor: pointer;
-}
+    .window-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      color: white;
+    }
 
-.close-button {
-background-color: #ff5f57;
-}
+    
+    .section-header {
+      margin-bottom: 20px;
+      color: #ff3c00;
+      font-size: 24px;
+      border-bottom: 2px solid #ff3c00;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
 
-.minimize-button {
-background-color: #febc2e;
-}
+    .section-header i {
+      margin-right: 10px;
+    }
 
-.maximize-button {
-background-color: #28c940;
-}
+    .section-content {
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-.window-content {
-flex: 1;
-padding: 20px;
-overflow-y: auto;
-color: white;
-}
+    .section-content ul {
+      list-style-type: none;
+      margin-top: 15px;
+    }
 
+    .section-content li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
 
-.section-header {
-margin-bottom: 20px;
-color: #ff3c00;
-font-size: 24px;
-border-bottom: 2px solid #ff3c00;
-padding-bottom: 10px;
-display: flex;
-align-items: center;
-}
+    .section-content li i {
+      margin-right: 10px;
+      color: #ff3c00;
+    }
 
-.section-header i {
-margin-right: 10px;
-}
+    .section-content a {
+      color: #ff3c00;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
 
-.section-content {
-font-size: 16px;
-line-height: 1.6;
-}
+    .section-content a:hover {
+      color: white;
+      text-decoration: underline;
+    }
 
-.section-content ul {
-list-style-type: none;
-margin-top: 15px;
-}
+    
+    .external-links {
+      position: fixed;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-.section-content li {
-margin-bottom: 15px;
-display: flex;
-align-items: center;
-}
+    .external-link {
+      display: flex;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #ff3c00;
+      border: 2px solid #ff3c00;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
 
-.section-content li i {
-margin-right: 10px;
-color: #ff3c00;
-}
+    .external-link:hover {
+      background-color: rgba(30, 30, 30, 0.8);
+      transform: translateX(5px);
+    }
 
-.section-content a {
-color: #ff3c00;
-text-decoration: none;
-transition: all 0.2s ease;
-}
+    .external-link i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
 
-.section-content a:hover {
-color: white;
-text-decoration: underline;
-}
+   
+    @keyframes popIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
 
+    @keyframes popOut {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+      }
+    }
 
-.external-links {
-position: fixed;
-left: 15px;
-top: 50%;
-transform: translateY(-50%);
-z-index: 50;
-display: flex;
-flex-direction: column;
-gap: 15px;
-}
-
-.external-link {
-display: flex;
-align-items: center;
-background-color: rgba(0, 0, 0, 0.7);
-color: #ff3c00;
-border: 2px solid #ff3c00;
-padding: 10px;
-border-radius: 8px;
-text-decoration: none;
-transition: all 0.3s ease;
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-}
-
-.external-link:hover {
-background-color: rgba(30, 30, 30, 0.8);
-transform: translateX(5px);
-}
-
-.external-link i {
-margin-right: 10px;
-font-size: 18px;
-}
-
-
-@keyframes popIn {
-0% {
-transform: translate(-50%, -50%) scale(0.9);
-opacity: 0;
-}
-100% {
-transform: translate(-50%, -50%) scale(1);
-opacity: 1;
-}
-}
-
-@keyframes popOut {
-0% {
-transform: translate(-50%, -50%) scale(1);
-opacity: 1;
-}
-100% {
-transform: translate(-50%, -50%) scale(0.9);
-opacity: 0;
-}
-}
-
-
-@media (max-width: 768px) {
-.dock-container {
-width: 95%;
-overflow-x: auto;
-justify-content: flex-start;
-}
-
-.content-section {
-width: 95%;
-height: 90%;
-}
-
-.external-links {
-display: none;
-}
-}
-.apple-dropdown {
-position: absolute;
-top: 24px;
-left: 15px;
-background-color: rgba(30, 30, 30, 0.95);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 6px;
-padding: 8px 0;
-width: 180px;
-font-size: 13px;
-color: white;
-box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-display: none;
-z-index: 1001;
+    
+    @media (max-width: 768px) {
+      .dock-container {
+        width: 95%;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      
+      .content-section {
+        width: 95%;
+        height: 90%;
+      }
+      
+      .external-links {
+        display: none;
+      }
+    }
+    .apple-dropdown {
+  position: absolute;
+  top: 24px;
+  left: 15px;
+  background-color: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 8px 0;
+  width: 180px;
+  font-size: 13px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: none;
+  z-index: 1001;
 }
 
 .apple-dropdown ul {
-list-style: none;
-margin: 0;
-padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .apple-dropdown li {
-padding: 8px 16px;
-cursor: pointer;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .apple-dropdown li:hover {
-background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .apple-dropdown hr {
-margin: 5px 0;
-border: none;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-</style>
+  </style>
 </head>
 <body>
+  
 
 
+  
 
-
-
-<div class="desktop">
-
-<div class="menu-bar">
-<div class="left">
-<div class="apple-logo dropdown-trigger"><img src="Logo.png" style="width: 24px; height: 24px;" /></i></div>
+  <div class="desktop">
+  
+    <div class="menu-bar">
+      <div class="left">
+        <div class="apple-logo dropdown-trigger"><img src="Logo.png" style="width: 24px; height: 24px;" /></i></div>
 <div class="apple-dropdown">
-<ul>
-<li>About This Mac</li>
-<li>System Settings...</li>
-<li>App Store...</li>
-<hr>
-<li>Recent Items</li>
-<hr>
-<li>Force Quit...</li>
-<hr>
-<li>Sleep</li>
-<li>Restart...</li>
-<li>Shut Down...</li>
-<hr>
-<li>Lock Screen</li>
-<li>Log Out</li>
-</ul>
+  <ul>
+    <li>About This Mac</li>
+    <li>System Settings...</li>
+    <li>App Store...</li>
+    <hr>
+    <li>Recent Items</li>
+    <hr>
+    <li>Force Quit...</li>
+    <hr>
+    <li>Sleep</li>
+    <li>Restart...</li>
+    <li>Shut Down...</li>
+    <hr>
+    <li>Lock Screen</li>
+    <li>Log Out</li>
+  </ul>
 </div>
 
-<a class="menu-item" href="https://github.com/ProgramLogic" target="_blank">GitHub</a>
-<a class="menu-item" href="me.html" target="_blank">About Me</a>
-<a class="menu-item" href="blog.html" target="_blank">NoteBook</a>
-<a class="menu-item" href="mailto:wredthecoder@gmail.com" target="_blank">Contact Me</a>
-</div>
-<div class="right">
-<div class="status-icons">
-<i class="fas fa-wifi"></i>
-</div>
-<div class="status-icons">
-<i class="fas fa-battery-full"></i>
-</div>
-<div class="status-icons">
-<i class="fas fa-search"></i>
-</div>
-<div class="status-icons" id="clock">12:00 PM</div>
-</div>
+        <a class="menu-item" href="https://github.com/ProgramLogic" target="_blank">GitHub</a>
+        <a class="menu-item" href="me.html" target="_blank">About Me</a>
+        <a class="menu-item" href="blog.html" target="_blank">NoteBook</a>
+        <a class="menu-item" href="mailto:wredthecoder@gmail.com" target="_blank">Contact Me</a>
+      </div>
+      <div class="right">
+        <div class="status-icons">
+          <i class="fas fa-wifi"></i>
+        </div>
+        <div class="status-icons">
+          <i class="fas fa-battery-full"></i>
+        </div>
+        <div class="status-icons">
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="status-icons" id="clock">12:00 PM</div>
+      </div>
+      
+    </div>
 
-</div>
-
-<!-- Mini-Browser -->
+    <!-- Mini-Browser -->
 <div id="mini-browser" style="
 display: none;
 position: fixed;
@@ -484,1289 +483,1062 @@ z-index: 9999;
 ">
 <div style="width: 44px; height: 44px; position: relative; top: -5px;">
 
-<input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
-<button onclick="loadInIframe()">Go</button>
-<button onclick="closeMiniBrowser()">×</button>
+  <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+  <button onclick="loadInIframe()">Go</button>
+  <button onclick="closeMiniBrowser()">×</button>
 </div>
 <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
 </div>
 
 <div class="dock-container" style="
- position: fixed;
- bottom: 20px;
- left: 50%;
- transform: translateX(-50%);
- display: flex;
- gap: 10px; /* Reduced spacing between apps */
- padding: 10px 20px;
- background: rgba(255, 255, 255, 0.08);
- border-radius: 20px;
- box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
- backdrop-filter: blur(20px);
- border: 1px solid rgba(255, 255, 255, 0.2);
- z-index: 10000;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px; /* Reduced spacing between apps */
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10000;
 ">
 
 
 <!-- Ember App (Google Chrome) -->
 <div class="dock-item" data-section="chrome" onclick="openMiniBrowser()" style="cursor: pointer;">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff0000, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-brands fa-google" style="font-size: 30px; color: white;"></i>
-</div>
-<div class="app-label">Ember</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff0000, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-brands fa-google" style="font-size: 30px; color: white;"></i>
+  </div>
+  <div class="app-label">Ember</div>
 </div>
 
 <!-- Other Apps -->
 <div class="dock-item" data-section="about">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff3c00, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-user-circle" style="font-size: 30px; color: white;"></i>
-</div>
-<div class="app-label">WredID</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff3c00, #ff8144); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-user-circle" style="font-size: 30px; color: white;"></i>
+  </div>
+  <div class="app-label">WredID</div>
 </div>
 
 <div class="dock-item" data-section="projects">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #2196F3, #00BCD4); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-project-diagram" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">ProjectHub</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #2196F3, #00BCD4); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-project-diagram" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">ProjectHub</div>
 </div>
 
 <div class="dock-item" data-section="file-menu">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #607D8B, #455A64); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-folder" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">File Menu</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #607D8B, #455A64); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-folder" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">File Menu</div>
 </div>
 
 <div class="dock-item" data-section="skills">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8BC34A, #4CAF50); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-code" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">DevTools</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8BC34A, #4CAF50); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-code" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">DevTools</div>
 </div>
 
 
 
 <div class="dock-item" data-section="goals">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF5722, #F44336); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-bullseye" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">Goals</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF5722, #F44336); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-bullseye" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">Targets</div>
 </div>
 
 <div class="dock-item" data-section="majors">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #9C27B0, #673AB7); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-graduation-cap" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">EduPath</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #9C27B0, #673AB7); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-graduation-cap" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">EduPath</div>
 </div>
 
 <div class="dock-item" data-section="building">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #607D8B, #455A64); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-tools" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">BuildKit</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #607D8B, #455A64); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-tools" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">BuildKit</div>
 </div>
 
 <div class="dock-item" data-section="learning">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF9800, #FFC107); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-brain" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">LearnLab</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #FF9800, #FFC107); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-brain" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">LearnLab</div>
 </div>
 
 <div class="dock-item" data-section="more">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #009688, #00796B); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-rocket" style="font-size: 28px; color: white;"></i>
-</div>
-<div class="app-label">Engineering More</div>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #009688, #00796B); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-rocket" style="font-size: 28px; color: white;"></i>
+  </div>
+  <div class="app-label">Engineering More</div>
 </div>
 
 <div class="dock-item" data-section="resources">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff00d9, #ff44fc); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-book-open" style="font-size: 30px; color: white;"></i>
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff00d9, #ff44fc); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-book-open" style="font-size: 30px; color: white;"></i>
+  </div>
+  <div class="app-label">Learning Resources</div>
 </div>
-<div class="app-label">Learning Resources</div>
-</div>
+
+<!--<div class="dock-item" data-section="games">
+  <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #000000, #0e0c0d); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
+    <i class="fas fa-gamepad style="font-size: 30px; color: white;></i>
+  </div>
+  <div class="app-label">Games</div>
+</div>-->
 
 <div class="dock-item" data-section="settings">
   <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b8a8b, #838183); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
     <i class="fas fa-gear" style="font-size: 30px; color: white;"></i>
   </div>
   <div class="app-label">Settings</div>
- </div>
- </div>
-
-<!--<div class="dock-item" data-section="games">
-<div style="width: 50px; height: 50px; background: linear-gradient(45deg, #000000, #0e0c0d); border-radius: 12px; display: flex; justify-content: center; align-items: center;">
-<i class="fas fa-gamepad style="font-size: 30px; color: white;></i>
 </div>
-<div class="app-label">Games</div>
 </div>
-</div>-->
-
 
 
 
 <!-- JS Functions -->
 <script>
 function openMiniBrowser() {
-document.getElementById('mini-browser').style.display = 'block';
+  document.getElementById('mini-browser').style.display = 'block';
 }
 
 function closeMiniBrowser() {
-document.getElementById('mini-browser').style.display = 'none';
+  document.getElementById('mini-browser').style.display = 'none';
 }
 
 function loadInIframe() {
-const input = document.getElementById('browser-url').value;
-const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
-document.getElementById('browser-frame').src = proxyUrl;
+  const input = document.getElementById('browser-url').value;
+  const proxyUrl = `/proxy?url=${encodeURIComponent(input)}`;
+  document.getElementById('browser-frame').src = proxyUrl;
 }
 </script>
 
+    
+<section id="about" class="content-section bg-white rounded-lg shadow-lg p-6 mx-auto max-w-3xl">
+  <header class="window-header flex items-center justify-between mb-4">
+    <div class="window-controls flex space-x-2">
+      <div class="window-button close-button"></div>
+      <div class="window-button minimize-button"></div>
+      <div class="window-button maximize-button"></div>
+    </div>
+    <h2 class="window-title text-xl font-semibold text-gray-800">About Me</h2>
+    <div class="flex-shrink-0" style="width: 36px;"></div>
+  </header>
 
-<section id="about" class="content-section max-w-3xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
-<header class="window-header flex items-center justify-between bg-gray-100 px-6 py-4">
-<div class="window-controls flex space-x-2">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<h2 class="window-title text-2xl font-semibold text-gray-800">About Me</h2>
-<div class="flex-shrink-0 w-9"></div>
-</header>
-
-<div class="window-content px-6 py-8 space-y-8">
-<div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
-<div>
-<h3 class="section-header flex items-center text-3xl font-bold text-gray-900 mb-2">
-<i class="fas fa-user text-blue-500 mr-3"></i>
-Hello, I'm Wred</span>
-</h3>
-<p class="text-gray-700 leading-relaxed mb-6">
-          I’m a passinate technologist who loves designing sleek websites, writing code that (mostly) works, and getting hands-on with electronics. But the star of my day? Playing fetch with my dog, <a href="ember.jpg" target="_blank" class="text-blue-600 hover:underline">Ember</a>. 
-</p>
-
-<ul class="info-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-<li class="flex items-start">
-<i class="fas fa-envelope text-blue-500 mt-1 mr-2"></i>
-<div>
-<strong class="text-gray-800">Email:</strong>
-<a href="mailto:wred@example.com" class="text-blue-600 hover:underline">wred@example.com</a>
-</div>
-</li>
-<li class="flex items-start">
-<i class="fas fa-tools text-green-500 mt-1 mr-2"></i>
-<div>
-<strong class="text-gray-800">Expertise:</strong>
-Python, JavaScript, and soon Electronics
-</div>
-</li>
-<li class="flex items-start">
-<i class="fas fa-lightbulb text-yellow-500 mt-1 mr-2"></i>
-<div>
-<strong class="text-gray-800">Interests:</strong>
-AI (mostly thinking about of AI taking over coding), Robotics, Electronics, Programming
-</div>
-</li>
-<li class="flex items-start">
-<i class="fas fa-paw text-pink-500 mt-1 mr-2"></i>
-<div>
-<strong class="text-gray-800">Fun Fact:</strong>
-Big Alan Turing enthusiast & dog lover
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
+  <div class="window-content space-y-4">
+    <div class="profile-intro flex items-center space-x-4">
+      <div>
+        <h3 class="section-header text-2xl font-bold text-gray-900 flex items-center">
+          <i class="fas fa-user text-blue-500 mr-2"></i>
+          Hello, I'm Wred</span>
+        </h3>
+        <p class="text-gray-700 mt-1">I am a passionate technologist, who likes to innvate the frontiers of whats possibles with technology. But I still have trouble liking what AI is coming to. I have Coded many Websites, Games, and I am begining to code for Electronics. I have a dog named <a href="ember.jpg" target="_blank">Ember.</a>
+        </p>
+          
+      </div>
+    </div>
+      <ul class="info-list mt-4 space-y-2">
+        
+        <div>
+          <li><strong class="text-gray-800">Interests:</strong> Python, JavaScript, Rust, C++ ohh and dogs, books, The imitation Game, Alan Turing, Electronics/Electrical Engineering</li>
+        </div>
+      </ul>
+    </div>
+    </div>
+  </div>
 </section>
 
+  
 
-
-
-<!-- Projects Section -->
-<div id="projects" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">ProjectHub</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-project-diagram"></i> Engineering Now
-</div>
-<div class="section-content">
-<ul>
-<li>
-<i class="fas fa-external-link"></i>
-<a href="https://thetopbake.onrender.com/" target="_blank" rel="noopener noreferrer">TheTopBake</a>
-</li>
-<li>
-<i class="fas fa-external-link"></i>
-<a href="https://frontendphonetocomputer.onrender.com/" target="_blank" rel="noopener noreferrer">FrontendComputerToPhone</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-
-<!-- Skills Section -->
-<div id="skills" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">DevTools</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-tools"></i> Skills
-</div>
-<div class="section-content">
-<ul>
-<li>
-<i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
-</li>
-<li>
-<i class="fas fa-code"></i> Backend Programming: Python
-</li>
-</ul>
-<div style="margin-top: 20px; text-align: center;">
-<img src="python.png" style="width: 150px; height: 150px;">
-<img src="js.png" style="width: 150px; height: 150px;">
-<img src="html.png" style="width: 150px; height: 150px;">
-<img src="css.png" style="width: 150px; height: 150px;">
-<img src="tcss.png" style="width: 150px; height: 150px;">
-<img src="react.png" style="width: 150px; height: 150px;">
-</div>
-</div>
-</div>
-</div>
-
-<!--<div id="building" class="content-section">
-  <div class="window-header">
-    <div class="window-controls">
-      <div class="window-button close-button"></div>
-      <div class="window-button minimize-button"></div>
-      <div class="window-button maximize-button"></div>
+  <!-- Projects Section -->
+  <div id="projects" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">ProjectHub</div>
+      <div style="width: 36px;"></div>
     </div>
-    <div class="window-title">BuildKit</div>
-    <div style="width: 36px;"></div>
-  </div>
-
-  <div class="window-content">
-    <div class="section-header">
-      <i class="fas fa-tools"></i> Building With
-    </div>
-
-    <div class="section-content">
-      <ul class="build-list">
-        <li>
-          <i class="fas fa-code"></i>
-          <strong>Visual Studio Code</strong>
-          <span class="tool-badge">IDE</span>
-          <p class="tool-description">My primary code editor for writing web, embedded, and systems-level software.</p>
-        </li>
-
-        <li>
-          <i class="fas fa-microchip"></i>
-          <strong>Elegoo Mega 2560 Starter Kit</strong>
-          <span class="tool-badge">Electronics</span>
-          <p class="tool-description">Great for prototyping and learning embedded systems and microcontroller programming.</p>
-        </li>
-
-        <li>
-          <i class="fas fa-drafting-compass"></i>
-          <strong>Alibre CAD</strong>
-          <span class="tool-badge">3D CAD</span>
-          <p class="tool-description">Used for creating mechanical parts and enclosures for electronics projects.</p>
-        </li>
-
-        <li>
-          <i class="fas fa-microchip"></i>
-          <strong>Prusa i3 MK3S+</strong>
-          <span class="tool-badge">3D Printer</span>
-          <p class="tool-description">Trusted 3D printer for printing prototypes, cases, and mechanical components.</p>
-        </li>
-      </ul>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-project-diagram"></i> Engineering Now
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <i class="fas fa-external-link"></i>
+            <a href="https://thetopbake.onrender.com/" target="_blank" rel="noopener noreferrer">TheTopBake</a>
+          </li>
+          <li>
+            <i class="fas fa-external-link"></i>
+            <a href="https://frontendphonetocomputer.onrender.com/" target="_blank" rel="noopener noreferrer">FrontendComputerToPhone</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<style>
-  .build-list {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .build-list li {
-    margin-bottom: 20px;
-    background: #f4f6f8;
-    padding: 16px;
-    border-radius: 10px;
-    transition: 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-
-  .build-list li:hover {
-    background: #ffffff;
-    transform: translateY(-2px);
-  }
-
-  .tool-badge {
-    display: inline-block;
-    background-color: #3498db;
-    color: white;
-    font-size: 0.75em;
-    padding: 2px 8px;
-    border-radius: 12px;
-    margin-left: 8px;
-  }
-
-  .tool-description {
-    margin-top: 6px;
-    font-size: 0.9em;
-    color: #555;
-  }
-
-  .section-header {
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-</style>-->
-
-
-<!-- Majors Section -->
-<div id="majors" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">EduPath</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-graduation-cap"></i> Majors
-</div>
-<div class="section-content">
-<ul>
-<li>
-<a href="https://www.usu.edu/degrees-majors/computer-science_bs" target="_blank">
-<i class="fas fa-code"></i> Computer Science
-</a>
-</li>
-<li>
-<a href="https://www.usu.edu/degrees-majors/electrical-engineering_bs" target="_blank">
-<i class="fas fa-bolt"></i> Electrical Engineering
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-
-<!--<div id="goals" class="content-section">
-  <div class="window-header">
-    <div class="window-controls">
-      <div class="window-button close-button"></div>
-      <div class="window-button minimize-button"></div>
-      <div class="window-button maximize-button"></div>
+  <!-- Skills Section -->
+  <div id="skills" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">DevTools</div>
+      <div style="width: 36px;"></div>
     </div>
-    <div class="window-title">Targets</div>
-    <div style="width: 36px;"></div>
-  </div>
-
-  <div class="window-content">
-    <div class="section-header">
-      <i class="fas fa-bullseye"></i> Goals Dashboard
-    </div>
-
-    <div class="section-content">
-      <ul class="goal-list">
-        <li>
-          <i class="fas fa-globe"></i>
-          <strong>Create full-stack web apps</strong>
-          <div class="progress-container">
-            <div class="progress-bar" style="width: 45%;"></div>
-          </div>
-          <ul class="sub-goals">
-            <li>🔧 Master React, TailwindCSS, Node.js</li>
-            <li>🧠 Build a portfolio project every quarter</li>
-            <li>☁️ Deploy using Vercel and DigitalOcean</li>
-          </ul>
-          <div class="goal-tags">
-            <span class="tag">Web Dev</span>
-            <span class="tag">Frontend</span>
-            <span class="tag">Backend</span>
-          </div>
-        </li>
-
-        <li>
-          <i class="fas fa-graduation-cap"></i>
-          <strong>Learn Computer & Electrical Engineering</strong>
-          <div class="progress-container">
-            <div class="progress-bar" style="width: 30%; background-color: #ff9900;"></div>
-          </div>
-          <ul class="sub-goals">
-            <li>📚 Study digital logic, microcontrollers, embedded C</li>
-            <li>🧪 Complete weekly lab projects</li>
-            <li>🎓 Follow top EE/CE YouTubers</li>
-          </ul>
-          <div class="goal-tags">
-            <span class="tag">Engineering</span>
-            <span class="tag">Microcontrollers</span>
-            <span class="tag">Hardware</span>
-          </div>
-        </li>
-
-        <li>
-          <i class="fas fa-rocket"></i>
-          <strong>Build personal tech brand</strong>
-          <div class="progress-container">
-            <div class="progress-bar" style="width: 60%; background-color: #00b894;"></div>
-          </div>
-          <ul class="sub-goals">
-            <li>💼 Launch personal site with portfolio</li>
-            <li>📸 Post monthly lab/project updates</li>
-            <li>🧠 Develop a unique OS or IDE</li>
-          </ul>
-          <div class="goal-tags">
-            <span class="tag">Brand</span>
-            <span class="tag">OS Dev</span>
-            <span class="tag">Portfolio</span>
-          </div>
-        </li>
-      </ul>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-tools"></i> Skills
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <i class="fas fa-code"></i> Frontend Development (HTML, CSS, JavaScript, React, Tailwind CSS)
+          </li>
+          <li>
+            <i class="fas fa-code"></i> Backend Programming: Python
+          </li>
+        </ul>
+        <div style="margin-top: 20px; text-align: center;">
+          <img src="python.png" style="width: 150px; height: 150px;">
+          <img src="js.png" style="width: 150px; height: 150px;">
+          <img src="html.png" style="width: 150px; height: 150px;">
+          <img src="css.png" style="width: 150px; height: 150px;">
+          <img src="tcss.png" style="width: 150px; height: 150px;">
+          <img src="react.png" style="width: 150px; height: 150px;">
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<style>
-  .goal-list {
-    list-style: none;
-    padding-left: 0;
-  }
+  <!-- Goals Section -->
+  <!--<div id="goals" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Targets</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-bullseye"></i> Goals
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-globe"></i> Create full-stack web apps</li>
+          <li><i class="fas fa-graduation-cap"></i> Learn Computer Engineering, Electrical Engineering</li>
+        </ul>
+      </div>
+    </div>
+  </div>-->
 
-  .goal-list li {
-    margin-bottom: 24px;
-    background: #f8f9fa;
-    padding: 16px;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    transition: 0.3s ease;
-  }
+  <!-- Majors Section -->
+  <div id="majors" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">EduPath</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-graduation-cap"></i> Majors
+      </div>
+      <div class="section-content">
+        <ul>
+          <li>
+            <a href="https://www.usu.edu/degrees-majors/computer-science_bs" target="_blank">
+              <i class="fas fa-code"></i> Computer Science
+            </a>
+          </li>
+          <li>
+            <a href="https://www.usu.edu/degrees-majors/electrical-engineering_bs" target="_blank">
+              <i class="fas fa-bolt"></i> Electrical Engineering
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  .goal-list li:hover {
-    transform: scale(1.01);
-    background: #ffffff;
-  }
+  <!-- Building With Section -->
+  <!--<div id="building" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">BuildKit</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-tools"></i> Building with
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-code"></i> Visual Studio Code</li>
+          <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
+        </ul>
+      </div>
+    </div>
+  </div>-->
 
-  .progress-container {
-    background: #e0e0e0;
-    height: 8px;
-    border-radius: 4px;
-    margin: 8px 0 12px;
-    overflow: hidden;
-  }
+  <!-- Learning Now Section -->
+  <div id="learning" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">LearnLab</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-graduation-cap"></i> Learning Now
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
+          <li><i class="fas fa-code"></i> Website Design/Programming</li>
+        </ul>
+        <div style="margin-top: 20px; text-align: center;">
+          <img src="/api/placeholder/400/300" alt="Learning Image" style="max-width: 100%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
 
-  .progress-bar {
-    height: 100%;
-    background: #3498db;
-    transition: width 0.5s ease;
-  }
+  <!-- Engineering More Section -->
+  <div id="more" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">FutureDev</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fas fa-cogs"></i> Engineering More
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><i class="fas fa-microchip"></i> Create electronic devices</li>
+          <li><i class="fas fa-code"></i> Code Prodicode my IDE</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    
+  <div id="settings" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Settings</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-gear" style="margin-right: 8px;"></i>
+        <span>Manage your Settings</span>
+        <i class="fa-solid fa-gear" style="margin-left: 8px;"></i>
 
-  .sub-goals {
-    list-style-type: none;
-    padding-left: 16px;
-    font-size: 0.95em;
-    color: #555;
-  }
+      </div>
+      <div class="section-content">
+        <ul>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  .goal-tags {
-    margin-top: 8px;
-  }
+  <div id="resources" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Learning Now</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-book-open" style="margin-right: 8px;"></i>
+        <span>What I use to learn</span>
+        <i class="fa-solid fa-laptop" style="margin-left: 8px;"></i>
 
-  .tag {
-    display: inline-block;
-    background: #d1d8e0;
-    color: #333;
-    border-radius: 20px;
-    padding: 2px 10px;
-    margin-right: 6px;
-    font-size: 0.8em;
-  }
+      </div>
+      <div class="section-content">
+        <ul>
+         <!--<li><i class="fas fa-book"></i></li>
+          <li><i class="fas fa-microchip"></i>Elegoo Mega 2560 Kit Tutorial</li>-->
+          <li id="dummies"><i class="fas fa-book"></i>Electronics for Dummies</li>
+          <li id="2560"><i class="fas fa-laptop"></i>Elegoo Mega 2560 Kit Tutorial</li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  .section-header {
-    font-size: 1.4em;
-    margin-bottom: 16px;
-    font-weight: bold;
-  }
-</style>-->
+  <div id="file-menu" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">File Menu</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-file" style="margin-right: 8px;"></i>
+        <span>File Menu</span>
+        <i class="fa-solid fa-file" style="margin-left: 8px;"></i>
 
-<!-- Learning Now Section -->
-<div id="learning" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">LearnLab</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-graduation-cap"></i> Learning Now
-</div>
-<div class="section-content">
-<ul>
-<li><i class="fas fa-microchip"></i> Elegoo Mega 2560 Starter Kit</li>
-<li><i class="fas fa-code"></i> Website Design/Programming</li>
-</ul>
-<div style="margin-top: 20px; text-align: center;">
-<img src="/api/placeholder/400/300" alt="Learning Image" style="max-width: 100%; height: auto;">
-</div>
-</div>
-</div>
-</div>
+      </div>
+      <div class="section-content">
+        <ul>
+         <li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-<!-- Engineering More Section -->
-<div id="more" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">FutureDev</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fas fa-cogs"></i> Engineering More
-</div>
-<div class="section-content">
-<ul>
-<li><i class="fas fa-microchip"></i> Create electronic devices</li>
-<li><i class="fas fa-code"></i> Code Prodicode my IDE</li>
-</ul>
-</div>
+  <div id="games" class="content-section">
+    <div class="window-header">
+      <div class="window-controls">
+        <div class="window-button close-button"></div>
+        <div class="window-button minimize-button"></div>
+        <div class="window-button maximize-button"></div>
+      </div>
+      <div class="window-title">Games</div>
+      <div style="width: 36px;"></div>
+    </div>
+    <div class="window-content">
+      <div class="section-header">
+        <i class="fa-solid fa-file" style="margin-right: 8px;"></i>
+        <span>Games I'v Made</span>
+        <i class="fa-solid fa-file" style="margin-left: 8px;"></i>
 
-
-<div class="section-header">
-<i class="fas fa-lightbulb"></i> What I Want to Learn
-</div>
-<div class="section-content">
-<ul>
-<li><i class="fa-solid fa-file-cad"></i>CAD Design </li>
-<!--<li><i class="fas fa-code-branch"></i></li>
-         <li><i class="fas fa-robot"></i> Robotics and automation</li>
-         <li><i class="fas fa-brain"></i> AI integration in hardware</li>
-         <li><i class="fas fa-network-wired"></i> IoT system architecture</li>
-       </ul>-->
-</div>
-</div>
-</div>
-
-<div id="settings" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">Settings</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fa-solid fa-gear" style="margin-right: 8px;"></i>
-<span>Manage your Settings</span>
-<i class="fa-solid fa-gear" style="margin-left: 8px;"></i>
-
-</div>
-<div class="section-content">
-<ul>
-</ul>
-</div>
-</div>
-</div>
-
-<div id="resources" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">Learning Now</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fa-solid fa-book-open" style="margin-right: 8px;"></i>
-<span>What I use to learn</span>
-<i class="fa-solid fa-laptop" style="margin-left: 8px;"></i>
-
-</div>
-<div class="section-content">
-<ul>
-<!--<li><i class="fas fa-book"></i></li>
-         <li><i class="fas fa-microchip"></i>Elegoo Mega 2560 Kit Tutorial</li>-->
-<li id="dummies"><i class="fas fa-book"></i>Electronics for Dummies</li>
-<li id="2560"><i class="fas fa-laptop"></i>Elegoo Mega 2560 Kit Tutorial</li>
-
-</ul>
-</div>
-</div>
-</div>
-
-<div id="file-menu" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">File Menu</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fa-solid fa-file" style="margin-right: 8px;"></i>
-<span>File Menu</span>
-<i class="fa-solid fa-file" style="margin-left: 8px;"></i>
-
-</div>
-<div class="section-content">
-<ul>
-<li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-<li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-<li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>
-</ul>
-</div>
-</div>
-</div>
-
-<div id="games" class="content-section">
-<div class="window-header">
-<div class="window-controls">
-<div class="window-button close-button"></div>
-<div class="window-button minimize-button"></div>
-<div class="window-button maximize-button"></div>
-</div>
-<div class="window-title">Games</div>
-<div style="width: 36px;"></div>
-</div>
-<div class="window-content">
-<div class="section-header">
-<i class="fa-solid fa-file" style="margin-right: 8px;"></i>
-<span>Games I'v Made</span>
-<i class="fa-solid fa-file" style="margin-left: 8px;"></i>
-
-</div>
-<div class="section-content">
-<ul>
-<!--<li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-        <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-        <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>-->
-</ul>
-</div>
-</div>
-</div>
+      </div>
+      <div class="section-content">
+        <ul>
+         <!--<li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
+         <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
 
 
-
-
-<div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
-<div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
-<input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
-<button onclick="loadInIframe()">Go</button>
-<button onclick="closeMiniBrowser()">×</button>
-</div>
-<iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
-</div>
-
+  <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
+    <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
+      <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
+      <button onclick="loadInIframe()">Go</button>
+      <button onclick="closeMiniBrowser()">×</button>
+    </div>
+    <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
+  </div>
+  
+  <script>
+    let currentUrl = '';
+  
+    function openMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'block';
+    }
+  
+    function closeMiniBrowser() {
+      document.getElementById('mini-browser').style.display = 'none';
+      document.getElementById('browser-frame').src = 'about:blank';
+    }
+  
+    function loadInIframe() {
+      let input = document.getElementById('browser-url').value.trim();
+  
+      if (!input.startsWith('http://') && !input.startsWith('https://')) {
+        input = 'https://' + input;
+      }
+  
+      currentUrl = input;
+      const iframe = document.getElementById('browser-frame');
+      iframe.src = input;
+  
+      // Set a timeout to fallback if iframe refuses to load
+      let loaded = false;
+  
+      const onLoad = () => {
+        loaded = true;
+      };
+  
+      iframe.onload = onLoad;
+  
+      setTimeout(() => {
+        if (!loaded) {
+          // Fallback: open in new tab
+          window.open(currentUrl, '_blank');
+          closeMiniBrowser();
+        }
+      }, 2500); // wait 2.5 seconds max before fallback
+    }
+  </script>
+  
+  
 <script>
-let currentUrl = '';
+  function renderFiles() {
+    document.querySelectorAll('.file-icon').forEach(el => el.remove());
 
-function openMiniBrowser() {
-document.getElementById('mini-browser').style.display = 'block';
-}
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    idx.forEach(({ name }) => {
+      const icon = document.createElement('div');
+      icon.className = 'file-icon';
+      Object.assign(icon.style, {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        width: '60px',
+        height: '60px',
+        background: 'rgba(255,255,255,0.1)',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        userSelect: 'none',
+      });
+      icon.textContent = name;
+      icon.addEventListener('dblclick', () => {
+        const content = localStorage.getItem(`file_${name}`);
+        alert(`📄 ${name}\n\n${content}`);
+      });
 
-function closeMiniBrowser() {
-document.getElementById('mini-browser').style.display = 'none';
-document.getElementById('browser-frame').src = 'about:blank';
-}
+      document.querySelector('.desktop').appendChild(icon);
+    });
+  }
 
-function loadInIframe() {
-let input = document.getElementById('browser-url').value.trim();
+  document.getElementById('deleteAllFilesBtn').addEventListener('click', function () {
+    const confirmDelete = confirm("Are you sure you want to delete all files?");
+    if (confirmDelete) {
+      localStorage.clear();
+      alert("All files have been deleted.");
+      renderFiles();
+    }
+  });
 
-if (!input.startsWith('http://') && !input.startsWith('https://')) {
-input = 'https://' + input;
-}
+  document.getElementById('deleteFileBtn').addEventListener('click', function () {
+    const filename = prompt("Enter the name of the file to delete:");
+    if (!filename) return;
 
-currentUrl = input;
-const iframe = document.getElementById('browser-frame');
-iframe.src = input;
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    const filteredIdx = idx.filter(file => file.name !== filename);
 
-// Set a timeout to fallback if iframe refuses to load
-let loaded = false;
+    if (filteredIdx.length === idx.length) {
+      alert("File not found.");
+      return;
+    }
 
-const onLoad = () => {
-loaded = true;
-};
+    localStorage.setItem('file_index', JSON.stringify(filteredIdx));
+    localStorage.removeItem(`file_${filename}`);
+    alert(`File "${filename}" deleted.`);
+    renderFiles();
+  });
 
-iframe.onload = onLoad;
+  document.getElementById('renameFileBtn').addEventListener('click', function () {
+    const oldName = prompt("Enter the current file name:");
+    const newName = prompt("Enter the new name:");
 
-setTimeout(() => {
-if (!loaded) {
-// Fallback: open in new tab
-window.open(currentUrl, '_blank');
-closeMiniBrowser();
-}
-}, 2500); // wait 2.5 seconds max before fallback
-}
+    if (!oldName || !newName) return;
+
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
+    const file = idx.find(file => file.name === oldName);
+
+    if (!file) {
+      alert("File not found.");
+      return;
+    }
+
+    const content = localStorage.getItem(`file_${oldName}`);
+    file.name = newName;
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+    localStorage.setItem('file_index', JSON.stringify(idx));
+    alert(`File renamed to "${newName}".`);
+    renderFiles();
+  });
+
+ 
+  renderFiles();
 </script>
 
-
-<script>
-function renderFiles() {
-document.querySelectorAll('.file-icon').forEach(el => el.remove());
-
-const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
-idx.forEach(({ name }) => {
-const icon = document.createElement('div');
-icon.className = 'file-icon';
-Object.assign(icon.style, {
-position: 'absolute',
-top: '20px',
-left: '20px',
-width: '60px',
-height: '60px',
-background: 'rgba(255,255,255,0.1)',
-color: '#fff',
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center',
-borderRadius: '4px',
-cursor: 'pointer',
-userSelect: 'none',
-});
-icon.textContent = name;
-icon.addEventListener('dblclick', () => {
-const content = localStorage.getItem(`file_${name}`);
-alert(`📄 ${name}\n\n${content}`);
-});
-
-document.querySelector('.desktop').appendChild(icon);
-});
-}
-
-document.getElementById('deleteAllFilesBtn').addEventListener('click', function () {
-const confirmDelete = confirm("Are you sure you want to delete all files?");
-if (confirmDelete) {
-localStorage.clear();
-alert("All files have been deleted.");
-renderFiles();
-}
-});
-
-document.getElementById('deleteFileBtn').addEventListener('click', function () {
-const filename = prompt("Enter the name of the file to delete:");
-if (!filename) return;
-
-const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
-const filteredIdx = idx.filter(file => file.name !== filename);
-
-if (filteredIdx.length === idx.length) {
-alert("File not found.");
-return;
-}
-
-localStorage.setItem('file_index', JSON.stringify(filteredIdx));
-localStorage.removeItem(`file_${filename}`);
-alert(`File "${filename}" deleted.`);
-renderFiles();
-});
-
-document.getElementById('renameFileBtn').addEventListener('click', function () {
-const oldName = prompt("Enter the current file name:");
-const newName = prompt("Enter the new name:");
-
-if (!oldName || !newName) return;
-
-const idx = JSON.parse(localStorage.getItem('file_index') || '[]');
-const file = idx.find(file => file.name === oldName);
-
-if (!file) {
-alert("File not found.");
-return;
-}
-
-const content = localStorage.getItem(`file_${oldName}`);
-file.name = newName;
-localStorage.setItem(`file_${newName}`, content);
-localStorage.removeItem(`file_${oldName}`);
-localStorage.setItem('file_index', JSON.stringify(idx));
-alert(`File renamed to "${newName}".`);
-renderFiles();
-});
-
-
-renderFiles();
-</script>
-
-
-<script>
-
-function updateClock() {
-const now = new Date();
-let hours = now.getHours();
-const minutes = String(now.getMinutes()).padStart(2, '0');
-const ampm = hours >= 12 ? 'PM' : 'AM';
-
-hours = hours % 12;
-hours = hours ? hours : 12; // Convert 0 to 12
-
-document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
-}
-
-
-updateClock();
-setInterval(updateClock, 60000);
-
-
-document.querySelectorAll('.dock-item').forEach(item => {
-item.addEventListener('click', function() {
-const sectionId = this.getAttribute('data-section');
-openSection(sectionId);
-
-
-document.querySelectorAll('.dock-item').forEach(di => di.classList.remove('active'));
-this.classList.add('active');
-});
-});
-
-
-document.querySelectorAll('.close-button').forEach(button => {
-button.addEventListener('click', function() {
-const section = this.closest('.content-section');
-closeSection(section.id);
-
-
-document.querySelectorAll('.dock-item').forEach(di => {
-if (di.getAttribute('data-section') === section.id) {
-di.classList.remove('active');
-}
-});
-});
-});
-
-
-function openSection(sectionId) {
-const desktop = document.querySelector('.desktop');
-const section = document.getElementById(sectionId);
-
-
-document.querySelectorAll('.content-section.active').forEach(openSection => {
-if (openSection.id !== sectionId) {
-closeSection(openSection.id);
-}
-});
-
-
-desktop.classList.add('blur');
-
-
-section.style.display = 'flex';
-section.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-
-
-setTimeout(() => {
-section.classList.add('active');
-section.style.animation = '';
-}, 300);
-}
-
-
-function closeSection(sectionId) {
-const desktop = document.querySelector('.desktop');
-const section = document.getElementById(sectionId);
-
-
-section.classList.add('closing');
-section.classList.remove('active');
-
-
-setTimeout(() => {
-section.style.display = 'none';
-section.classList.remove('closing');
-
-
-const openSections = document.querySelectorAll('.content-section.active');
-if (openSections.length === 0) {
-desktop.classList.remove('blur');
-}
-}, 300);
-
-}
-
-</script>
-
-<script>
-const appleLogo = document.querySelector('.dropdown-trigger');
-const dropdownMenu = document.querySelector('.apple-dropdown');
-
-appleLogo.addEventListener('click', (e) => {
-e.stopPropagation(); 
-dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-});
-
-document.body.addEventListener('click', () => {
-dropdownMenu.style.display = 'none';
-});
-</script>
-
-<div id="custom-context-menu"
-style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
-<div id="create-file" style="cursor:pointer;">Create File…</div>
-</div>
-
-<script>
-(function() {
-const desktop = document.querySelector('.desktop');
-const menu    = document.getElementById('custom-context-menu');
-const create  = document.getElementById('create-file');
-
-
-desktop.addEventListener('contextmenu', e => {
-e.preventDefault();
-menu.style.top     = `${e.clientY}px`;
-menu.style.left    = `${e.clientX}px`;
-menu.style.display = 'block';
-});
-
-
-document.addEventListener('click', () => {
-menu.style.display = 'none';
-});
-
-
-function getIndex() {
-return JSON.parse(localStorage.getItem('file_index') || '[]');
-}
-
-function setIndex(idx) {
-localStorage.setItem('file_index', JSON.stringify(idx));
-}
-
-function saveFile(name, content) {
-
-localStorage.setItem(`file_${name}`, content);
-
-const idx = getIndex();
-idx.push({ name, created: Date.now() });
-setIndex(idx);
-}
-
-function loadFile(name) {
-return localStorage.getItem(`file_${name}`) || '';
-}
-
-
-create.addEventListener('click', () => {
-const name = prompt('Enter file name:');
-if (!name) return;
-
-if (localStorage.getItem(`file_${name}`) !== null) {
-alert('A file with that name already exists.');
-return;
-}
-const content = prompt('Enter file contents (optional):', '');
-saveFile(name, content);
-renderFiles();
-menu.style.display = 'none';
-});
-
-function renderFiles() {
-
-document.querySelectorAll('.file-icon').forEach(el => el.remove());
-
-
-const idx = getIndex();
-idx.forEach(({ name }) => {
-const icon = document.createElement('div');
-icon.className = 'file-icon';
-Object.assign(icon.style, {
-position:  'absolute',
-top:       '20px',
-left:      '20px',
-width:     '60px',
-height:    '60px',
-background:'rgba(255,255,255,0.1)',
-color:     '#fff',
-display:   'flex',
-alignItems:'center',
-justifyContent:'center',
-borderRadius:'4px',
-cursor:    'pointer',
-userSelect:'none'
-});
-icon.textContent = name;
-
-
-icon.addEventListener('dblclick', () => {
-const c = loadFile(name);
-alert(`📄 ${name}\n\n${c}`);
-});
-
-
-
-desktop.appendChild(icon);
-});
-}
-
-
-renderFiles();
-
-})();
-</script>
+  
+  <script>
+    
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Convert 0 to 12
+      
+      document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+    }
+    
+
+    updateClock();
+    setInterval(updateClock, 60000);
+
+  
+    document.querySelectorAll('.dock-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const sectionId = this.getAttribute('data-section');
+        openSection(sectionId);
+        
+       
+        document.querySelectorAll('.dock-item').forEach(di => di.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    
+    document.querySelectorAll('.close-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const section = this.closest('.content-section');
+        closeSection(section.id);
+        
+        
+        document.querySelectorAll('.dock-item').forEach(di => {
+          if (di.getAttribute('data-section') === section.id) {
+            di.classList.remove('active');
+          }
+        });
+      });
+    });
+
+
+    function openSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+     
+      document.querySelectorAll('.content-section.active').forEach(openSection => {
+        if (openSection.id !== sectionId) {
+          closeSection(openSection.id);
+        }
+      });
+      
+      
+      desktop.classList.add('blur');
+      
+      
+      section.style.display = 'flex';
+      section.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+      
+     
+      setTimeout(() => {
+        section.classList.add('active');
+        section.style.animation = '';
+      }, 300);
+    }
+
+    
+    function closeSection(sectionId) {
+      const desktop = document.querySelector('.desktop');
+      const section = document.getElementById(sectionId);
+      
+      
+      section.classList.add('closing');
+      section.classList.remove('active');
+      
+      
+      setTimeout(() => {
+        section.style.display = 'none';
+        section.classList.remove('closing');
+        
+        
+        const openSections = document.querySelectorAll('.content-section.active');
+        if (openSections.length === 0) {
+          desktop.classList.remove('blur');
+        }
+      }, 300);
+      
+    }
+    
+  </script>
+
+  <script>
+    const appleLogo = document.querySelector('.dropdown-trigger');
+    const dropdownMenu = document.querySelector('.apple-dropdown');
+  
+    appleLogo.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    document.body.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
+  </script>
+    
+  <div id="custom-context-menu"
+       style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+    <div id="create-file" style="cursor:pointer;">Create File…</div>
+  </div>
+
+  <script>
+    (function() {
+      const desktop = document.querySelector('.desktop');
+      const menu    = document.getElementById('custom-context-menu');
+      const create  = document.getElementById('create-file');
+
+      
+      desktop.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        menu.style.top     = `${e.clientY}px`;
+        menu.style.left    = `${e.clientX}px`;
+        menu.style.display = 'block';
+      });
+
+      
+      document.addEventListener('click', () => {
+        menu.style.display = 'none';
+      });
+
+
+      function getIndex() {
+        return JSON.parse(localStorage.getItem('file_index') || '[]');
+      }
+
+      function setIndex(idx) {
+        localStorage.setItem('file_index', JSON.stringify(idx));
+      }
+
+      function saveFile(name, content) {
+        
+        localStorage.setItem(`file_${name}`, content);
+        
+        const idx = getIndex();
+        idx.push({ name, created: Date.now() });
+        setIndex(idx);
+      }
+
+      function loadFile(name) {
+        return localStorage.getItem(`file_${name}`) || '';
+      }
+
+
+      create.addEventListener('click', () => {
+        const name = prompt('Enter file name:');
+        if (!name) return;
+       
+        if (localStorage.getItem(`file_${name}`) !== null) {
+          alert('A file with that name already exists.');
+          return;
+        }
+        const content = prompt('Enter file contents (optional):', '');
+        saveFile(name, content);
+        renderFiles();
+        menu.style.display = 'none';
+      });
+
+      function renderFiles() {
+        
+        document.querySelectorAll('.file-icon').forEach(el => el.remove());
+
+        
+        const idx = getIndex();
+        idx.forEach(({ name }) => {
+          const icon = document.createElement('div');
+          icon.className = 'file-icon';
+          Object.assign(icon.style, {
+            position:  'absolute',
+            top:       '20px',
+            left:      '20px',
+            width:     '60px',
+            height:    '60px',
+            background:'rgba(255,255,255,0.1)',
+            color:     '#fff',
+            display:   'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            borderRadius:'4px',
+            cursor:    'pointer',
+            userSelect:'none'
+          });
+          icon.textContent = name;
+
+          
+          icon.addEventListener('dblclick', () => {
+            const c = loadFile(name);
+            alert(`📄 ${name}\n\n${c}`);
+          });
+
+          
+
+          desktop.appendChild(icon);
+        });
+      }
+
+
+      renderFiles();
+
+    })();
+  </script>
 
 <div id="file-modal" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
-   background:#222; color:#fff; padding:20px; border-radius:8px; z-index:3000; width:300px;">
-<h3 id="modal-filename"></h3>
-<pre id="modal-content" style="white-space:pre-wrap; max-height:200px; overflow:auto;"></pre>
-<button onclick="document.getElementById('file-modal').style.display='none'"
-style="margin-top:10px;">Close</button>
+    background:#222; color:#fff; padding:20px; border-radius:8px; z-index:3000; width:300px;">
+  <h3 id="modal-filename"></h3>
+  <pre id="modal-content" style="white-space:pre-wrap; max-height:200px; overflow:auto;"></pre>
+  <button onclick="document.getElementById('file-modal').style.display='none'"
+          style="margin-top:10px;">Close</button>
 </div>
 
 
 <div id="file-context-menu"
-style="position:absolute; display:none; background:#333; color:#fff; padding:6px; border-radius:4px;
-    z-index:2000;">
-<div id="rename-file" style="padding:4px; cursor:pointer;">Rename</div>
-<div id="delete-file" style="padding:4px; cursor:pointer;">Delete</div>
+     style="position:absolute; display:none; background:#333; color:#fff; padding:6px; border-radius:4px;
+     z-index:2000;">
+  <div id="rename-file" style="padding:4px; cursor:pointer;">Rename</div>
+  <div id="delete-file" style="padding:4px; cursor:pointer;">Delete</div>
 </div>
 
 
 <div id="custom-context-menu"
-style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
-<div id="create-file" style="cursor:pointer;">Create File…</div>
+     style="position:absolute; display:none; background:#222; color:#fff; padding:8px; border-radius:4px; z-index:2000;">
+  <div id="create-file" style="cursor:pointer;">Create File…</div>
 </div>
 
 <script>
 (function() {
-const desktop = document.querySelector('.desktop');
-const createMenu = document.getElementById('custom-context-menu');
-const fileMenu = document.getElementById('file-context-menu');
-const createBtn = document.getElementById('create-file');
-let rightClickedFile = null;
+  const desktop = document.querySelector('.desktop');
+  const createMenu = document.getElementById('custom-context-menu');
+  const fileMenu = document.getElementById('file-context-menu');
+  const createBtn = document.getElementById('create-file');
+  let rightClickedFile = null;
+
+  
+
+  function getIndex() {
+    return JSON.parse(localStorage.getItem('file_index') || '[]');
+  }
+
+  function setIndex(idx) {
+    localStorage.setItem('file_index', JSON.stringify(idx));
+  }
+
+  function saveFile(name, content) {
+    localStorage.setItem(`file_${name}`, content);
+    const idx = getIndex();
+    idx.push({ name, created: Date.now() });
+    setIndex(idx);
+  }
+
+  function renameFile(oldName, newName) {
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
+
+    const idx = getIndex().map(f => f.name === oldName ? { ...f, name: newName } : f);
+    setIndex(idx);
+  }
+
+  function deleteFile(name) {
+    localStorage.removeItem(`file_${name}`);
+    const idx = getIndex().filter(f => f.name !== name);
+    setIndex(idx);
+  }
+
+  function loadFile(name) {
+    return localStorage.getItem(`file_${name}`) || '';
+  }
 
 
 
-function getIndex() {
-return JSON.parse(localStorage.getItem('file_index') || '[]');
-}
+  function renderFiles() {
+    document.querySelectorAll('.file-icon').forEach(el => el.remove());
+    const idx = getIndex();
+    let x = 20, y = 20;
 
-function setIndex(idx) {
-localStorage.setItem('file_index', JSON.stringify(idx));
-}
+    idx.forEach(({ name }, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'file-icon';
+      Object.assign(wrapper.style, {
+        position: 'absolute', top: `${y}px`, left: `${x}px`,
+        width: '80px', height: '80px', textAlign: 'center',
+        cursor: 'pointer', color: '#fff', userSelect: 'none'
+      });
 
-function saveFile(name, content) {
-localStorage.setItem(`file_${name}`, content);
-const idx = getIndex();
-idx.push({ name, created: Date.now() });
-setIndex(idx);
-}
+      const icon = document.createElement('div');
+      icon.innerHTML = '📄';
+      icon.style.fontSize = '32px';
 
-function renameFile(oldName, newName) {
-const content = localStorage.getItem(`file_${oldName}`);
-localStorage.setItem(`file_${newName}`, content);
-localStorage.removeItem(`file_${oldName}`);
+      const label = document.createElement('div');
+      label.textContent = name;
+      label.style.fontSize = '12px';
+      label.style.marginTop = '4px';
+      label.style.overflowWrap = 'break-word';
 
-const idx = getIndex().map(f => f.name === oldName ? { ...f, name: newName } : f);
-setIndex(idx);
-}
+      wrapper.appendChild(icon);
+      wrapper.appendChild(label);
 
-function deleteFile(name) {
-localStorage.removeItem(`file_${name}`);
-const idx = getIndex().filter(f => f.name !== name);
-setIndex(idx);
-}
+    
+      wrapper.addEventListener('dblclick', () => {
+        document.getElementById('modal-filename').textContent = name;
+        document.getElementById('modal-content').textContent = loadFile(name);
+        document.getElementById('file-modal').style.display = 'block';
+      });
 
-function loadFile(name) {
-return localStorage.getItem(`file_${name}`) || '';
-}
+    
+      wrapper.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        rightClickedFile = name;
+        fileMenu.style.top = `${e.clientY}px`;
+        fileMenu.style.left = `${e.clientX}px`;
+        fileMenu.style.display = 'block';
+      });
 
+      desktop.appendChild(wrapper);
 
+      y += 100;
+      if (y > window.innerHeight - 100) {
+        y = 20;
+        x += 100;
+      }
+    });
+  }
 
-function renderFiles() {
-document.querySelectorAll('.file-icon').forEach(el => el.remove());
-const idx = getIndex();
-let x = 20, y = 20;
+  
 
-idx.forEach(({ name }, i) => {
-const wrapper = document.createElement('div');
-wrapper.className = 'file-icon';
-Object.assign(wrapper.style, {
-position: 'absolute', top: `${y}px`, left: `${x}px`,
-width: '80px', height: '80px', textAlign: 'center',
-cursor: 'pointer', color: '#fff', userSelect: 'none'
-});
+  desktop.addEventListener('contextmenu', e => {
+    if (e.target.closest('.file-icon')) return; 
+    e.preventDefault();
+    createMenu.style.top = `${e.clientY}px`;
+    createMenu.style.left = `${e.clientX}px`;
+    createMenu.style.display = 'block';
+    fileMenu.style.display = 'none';
+  });
 
-const icon = document.createElement('div');
-icon.innerHTML = '📄';
-icon.style.fontSize = '32px';
+  document.addEventListener('click', () => {
+    createMenu.style.display = 'none';
+    fileMenu.style.display = 'none';
+  });
 
-const label = document.createElement('div');
-label.textContent = name;
-label.style.fontSize = '12px';
-label.style.marginTop = '4px';
-label.style.overflowWrap = 'break-word';
+  createBtn.addEventListener('click', () => {
+    const name = prompt('Enter file name:');
+    if (!name) return;
+    if (localStorage.getItem(`file_${name}`)) {
+      alert('File already exists.');
+      return;
+    }
+    const content = prompt('Enter file content:', '');
+    saveFile(name, content);
+    renderFiles();
+  });
 
-wrapper.appendChild(icon);
-wrapper.appendChild(label);
+  
+  document.getElementById('rename-file').addEventListener('click', () => {
+    const newName = prompt('Rename to:', rightClickedFile);
+    if (!newName || newName === rightClickedFile) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
+    renameFile(rightClickedFile, newName);
+    renderFiles();
+    fileMenu.style.display = 'none';
+  });
 
+  
+  document.getElementById('delete-file').addEventListener('click', () => {
+    if (confirm(`Delete "${rightClickedFile}"?`)) {
+      deleteFile(rightClickedFile);
+      renderFiles();
+    }
+    fileMenu.style.display = 'none';
+  });
 
-wrapper.addEventListener('dblclick', () => {
-document.getElementById('modal-filename').textContent = name;
-document.getElementById('modal-content').textContent = loadFile(name);
-document.getElementById('file-modal').style.display = 'block';
-});
-
-
-wrapper.addEventListener('contextmenu', e => {
-e.preventDefault();
-rightClickedFile = name;
-fileMenu.style.top = `${e.clientY}px`;
-fileMenu.style.left = `${e.clientX}px`;
-fileMenu.style.display = 'block';
-});
-
-desktop.appendChild(wrapper);
-
-y += 100;
-if (y > window.innerHeight - 100) {
-y = 20;
-x += 100;
-}
-});
-}
-
-
-
-desktop.addEventListener('contextmenu', e => {
-if (e.target.closest('.file-icon')) return; 
-e.preventDefault();
-createMenu.style.top = `${e.clientY}px`;
-createMenu.style.left = `${e.clientX}px`;
-createMenu.style.display = 'block';
-fileMenu.style.display = 'none';
-});
-
-document.addEventListener('click', () => {
-createMenu.style.display = 'none';
-fileMenu.style.display = 'none';
-});
-
-createBtn.addEventListener('click', () => {
-const name = prompt('Enter file name:');
-if (!name) return;
-if (localStorage.getItem(`file_${name}`)) {
-alert('File already exists.');
-return;
-}
-const content = prompt('Enter file content:', '');
-saveFile(name, content);
-renderFiles();
-});
-
-
-document.getElementById('rename-file').addEventListener('click', () => {
-const newName = prompt('Rename to:', rightClickedFile);
-if (!newName || newName === rightClickedFile) return;
-if (localStorage.getItem(`file_${newName}`)) {
-alert('A file with that name already exists.');
-return;
-}
-renameFile(rightClickedFile, newName);
-renderFiles();
-fileMenu.style.display = 'none';
-});
-
-
-document.getElementById('delete-file').addEventListener('click', () => {
-if (confirm(`Delete "${rightClickedFile}"?`)) {
-deleteFile(rightClickedFile);
-renderFiles();
-}
-fileMenu.style.display = 'none';
-});
-
-
-renderFiles();
+  
+  renderFiles();
 
 })();
 </script>
 
 <script>
+  
+  document.getElementById('deleteFileBtn').addEventListener('click', () => {
+    const name = prompt('Enter the name of the file to delete:');
+    if (!name) return;
+    if (!localStorage.getItem(`file_${name}`)) {
+      alert('No such file exists.');
+      return;
+    }
+    if (confirm(`Are you sure you want to delete "${name}"?`)) {
+      localStorage.removeItem(`file_${name}`);
+      const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+        .filter(f => f.name !== name);
+      localStorage.setItem('file_index', JSON.stringify(idx));
+      renderFiles();
+    }
+  });
 
-document.getElementById('deleteFileBtn').addEventListener('click', () => {
-const name = prompt('Enter the name of the file to delete:');
-if (!name) return;
-if (!localStorage.getItem(`file_${name}`)) {
-alert('No such file exists.');
-return;
-}
-if (confirm(`Are you sure you want to delete "${name}"?`)) {
-localStorage.removeItem(`file_${name}`);
-const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
-.filter(f => f.name !== name);
-localStorage.setItem('file_index', JSON.stringify(idx));
-renderFiles();
-}
-});
+ 
+  document.getElementById('renameFileBtn').addEventListener('click', () => {
+    const oldName = prompt('Enter the current file name:');
+    if (!oldName || !localStorage.getItem(`file_${oldName}`)) {
+      alert('No such file exists.');
+      return;
+    }
 
+    const newName = prompt('Enter the new file name:', oldName);
+    if (!newName || newName === oldName) return;
+    if (localStorage.getItem(`file_${newName}`)) {
+      alert('A file with that name already exists.');
+      return;
+    }
 
-document.getElementById('renameFileBtn').addEventListener('click', () => {
-const oldName = prompt('Enter the current file name:');
-if (!oldName || !localStorage.getItem(`file_${oldName}`)) {
-alert('No such file exists.');
-return;
-}
+    const content = localStorage.getItem(`file_${oldName}`);
+    localStorage.setItem(`file_${newName}`, content);
+    localStorage.removeItem(`file_${oldName}`);
 
-const newName = prompt('Enter the new file name:', oldName);
-if (!newName || newName === oldName) return;
-if (localStorage.getItem(`file_${newName}`)) {
-alert('A file with that name already exists.');
-return;
-}
+    const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
+      .map(f => f.name === oldName ? { ...f, name: newName } : f);
+    localStorage.setItem('file_index', JSON.stringify(idx));
 
-const content = localStorage.getItem(`file_${oldName}`);
-localStorage.setItem(`file_${newName}`, content);
-localStorage.removeItem(`file_${oldName}`);
-
-const idx = JSON.parse(localStorage.getItem('file_index') || '[]')
-.map(f => f.name === oldName ? { ...f, name: newName } : f);
-localStorage.setItem('file_index', JSON.stringify(idx));
-
-renderFiles();
-});
+    renderFiles();
+  });
 </script>
 
 </body>
