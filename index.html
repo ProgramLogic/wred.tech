@@ -1150,83 +1150,217 @@ function loadInIframe() {
     </div>
   </div>
 
-  <div id="games" class="content-section">
-    <div class="window-header">
-      <div class="window-controls">
-        <div class="window-button close-button"></div>
-        <div class="window-button minimize-button"></div>
-        <div class="window-button maximize-button"></div>
-      </div>
-      <div class="window-title">Games</div>
-      <div style="width: 36px;"></div>
+  <!-- Games Section -->
+        <div id="games" class="content-section">
+            <div class="window-header">
+                <div class="window-controls">
+                    <div class="window-button close-button"></div>
+                    <div class="window-button minimize-button"></div>
+                    <div class="window-button maximize-button"></div>
+                </div>
+                <div class="window-title">Games</div>
+                <div style="width: 36px;"></div>
+            </div>
+            <div class="window-content">
+                <div class="section-header">
+                    <i class="fa-solid fa-gamepad" style="margin-right: 8px;"></i>
+                    <span>Games I've Made</span>
+                    <i class="fa-solid fa-gamepad" style="margin-left: 8px;"></i>
+                </div>
+                <div class="section-content">
+                    <div style="margin-bottom: 20px;">
+                        <label for="pacmanImageUpload" style="color: #00ff00; margin-right: 10px;">Upload Custom Pac-Man Image:</label>
+                        <input type="file" id="pacmanImageUpload" accept="image/*" style="background-color: #000; color: #00ff00; border: 1px solid #00ff00;">
+                        <button id="resetPacmanImage" style="background-color: #000; color: #00ff00; border: 1px solid #00ff00; margin-left: 10px; padding: 5px 10px;">Reset to Default</button>
+                    </div>
+                    <canvas id="pacmanGame" width="600" height="600" style="border: 2px solid #00ff00; background-color: #000;"></canvas>
+                    <div style="margin-top: 10px; color: #00ff00;">
+                        <p>Score: <span id="gameScore">0</span></p>
+                        <p>Use WASD or Arrow Keys to move</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="window-content">
-      <div class="section-header">
-        <i class="fa-solid fa-file" style="margin-right: 8px;"></i>
-        <span>Games I'v Made</span>
-        <i class="fa-solid fa-file" style="margin-left: 8px;"></i>
+</body>
+</html>
 
-      </div>
-      <div class="section-content">
-        <ul>
-         <!--<li id="deleteAllFilesBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-         <li id="deleteFileBtn"><i class="fas fa-trash"></i> Delete all Files</li>
-         <li id="renameFileBtn"><i class="fas fa-pen"></i> Rename a File</li>-->
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-  <div id="mini-browser" style="display: none; position: fixed; top: 100px; left: 100px; width: 800px; height: 600px; border: 1px solid #ccc; border-radius: 10px; background: white; z-index: 9999;">
-    <div style="padding: 10px; display: flex; gap: 8px; align-items: center;">
-      <input id="browser-url" type="text" placeholder="https://example.com" style="flex: 1; padding: 6px;" />
-      <button onclick="loadInIframe()">Go</button>
-      <button onclick="closeMiniBrowser()">×</button>
-    </div>
-    <iframe id="browser-frame" style="width: 100%; height: 90%; border: none;"></iframe>
-  </div>
+<script>
+  const canvas = document.getElementById("pacmanGame");
+  const ctx = canvas.getContext("2d");
+  const tileSize = 24;
   
-  <script>
-    let currentUrl = '';
+  const map = [
+    "####################",
+    "#........#.........#",
+    "#.####.#.#.#######.#",
+    "#.#....#.#.......#.#",
+    "#.#.##.#.#####.#.#.#",
+    "#.#......P....#.#..#",
+    "#.######.###.#.####.",
+    "#........#....#....#",
+    "#######.#.####.###.#",
+    "#.......#......#...#",
+    "####################"
+  ];
   
-    function openMiniBrowser() {
-      document.getElementById('mini-browser').style.display = 'block';
-    }
+  let pacman = {
+    x: 5,
+    y: 5,
+    dx: 0,
+    dy: 0,
+    nextDx: 0,
+    nextDy: 0,
+    angle: 0,
+    moveCooldown: 0
+  };
   
-    function closeMiniBrowser() {
-      document.getElementById('mini-browser').style.display = 'none';
-      document.getElementById('browser-frame').src = 'about:blank';
-    }
+  let ghosts = [
+    { x: 9, y: 5, dx: 0, dy: 1, color: "red", moveCooldown: 0 },
+    { x: 10, y: 5, dx: 1, dy: 0, color: "cyan", moveCooldown: 0 },
+    { x: 9, y: 6, dx: 0, dy: -1, color: "orange", moveCooldown: 0 },
+    { x: 10, y: 6, dx: -1, dy: 0, color: "pink", moveCooldown: 0 }
+  ];
   
-    function loadInIframe() {
-      let input = document.getElementById('browser-url').value.trim();
+  let score = 0;
+  let lastTime = performance.now();
   
-      if (!input.startsWith('http://') && !input.startsWith('https://')) {
-        input = 'https://' + input;
-      }
-  
-      currentUrl = input;
-      const iframe = document.getElementById('browser-frame');
-      iframe.src = input;
-  
-      // Set a timeout to fallback if iframe refuses to load
-      let loaded = false;
-  
-      const onLoad = () => {
-        loaded = true;
-      };
-  
-      iframe.onload = onLoad;
-  
-      setTimeout(() => {
-        if (!loaded) {
-          // Fallback: open in new tab
-          window.open(currentUrl, '_blank');
-          closeMiniBrowser();
+  function drawMap() {
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        const tile = map[y][x];
+        if (tile === "#") {
+          ctx.fillStyle = "#003300";
+          ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+        } else if (tile === "." || tile === "P") {
+          ctx.fillStyle = "#00ff00";
+          ctx.beginPath();
+          ctx.arc(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, 3, 0, 2 * Math.PI);
+          ctx.fill();
         }
-      }, 2500); // wait 2.5 seconds max before fallback
+      }
     }
+  }
+  
+  function drawPacman() {
+    ctx.fillStyle = "yellow";
+    const cx = pacman.x * tileSize + tileSize / 2;
+    const cy = pacman.y * tileSize + tileSize / 2;
+    const angleOffset = Math.abs(Math.sin(pacman.angle)) * 0.3 * Math.PI;
+  
+    let start = 0,
+      end = 2 * Math.PI;
+    if (pacman.dx === 1) {
+      start = angleOffset;
+      end = 2 * Math.PI - angleOffset;
+    } else if (pacman.dx === -1) {
+      start = Math.PI + angleOffset;
+      end = Math.PI - angleOffset;
+    } else if (pacman.dy === -1) {
+      start = 1.5 * Math.PI + angleOffset;
+      end = 1.5 * Math.PI - angleOffset;
+    } else if (pacman.dy === 1) {
+      start = 0.5 * Math.PI + angleOffset;
+      end = 0.5 * Math.PI - angleOffset;
+    }
+  
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, 10, start, end, false);
+    ctx.fill();
+  }
+  
+  function drawGhosts() {
+    for (const ghost of ghosts) {
+      ctx.fillStyle = ghost.color;
+      ctx.beginPath();
+      ctx.arc(ghost.x * tileSize + tileSize / 2, ghost.y * tileSize + tileSize / 2, 10, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+  
+  function updatePacman(delta) {
+    pacman.angle += delta * 0.02;
+  
+    pacman.moveCooldown -= delta;
+    if (pacman.moveCooldown <= 0) {
+      if (canMove(pacman.x + pacman.nextDx, pacman.y + pacman.nextDy)) {
+        pacman.dx = pacman.nextDx;
+        pacman.dy = pacman.nextDy;
+      }
+      if (canMove(pacman.x + pacman.dx, pacman.y + pacman.dy)) {
+        pacman.x += pacman.dx;
+        pacman.y += pacman.dy;
+      }
+      pacman.moveCooldown = 1000 / 6; // 6 tiles per second
+    }
+  
+    const current = map[pacman.y][pacman.x];
+    if (current === "." || current === "P") {
+      map[pacman.y] = map[pacman.y].substring(0, pacman.x) + " " + map[pacman.y].substring(pacman.x + 1);
+      score++;
+      document.getElementById("gameScore").textContent = score;
+      if (!map.flatMap(r => [...r]).includes(".") && !map.flatMap(r => [...r]).includes("P")) {
+        alert("You win!");
+        location.reload();
+      }
+    }
+  }
+  
+  function updateGhosts(delta) {
+    for (const ghost of ghosts) {
+      ghost.moveCooldown -= delta;
+      if (ghost.moveCooldown <= 0) {
+        const options = [
+          { dx: 0, dy: 1 },
+          { dx: 0, dy: -1 },
+          { dx: 1, dy: 0 },
+          { dx: -1, dy: 0 }
+        ].filter(dir => canMove(ghost.x + dir.dx, ghost.y + dir.dy));
+  
+        const move = options[Math.floor(Math.random() * options.length)];
+        ghost.x += move.dx;
+        ghost.y += move.dy;
+        ghost.moveCooldown = 1000 / 4; // 4 tiles per second
+      }
+    }
+  }
+  
+  function canMove(x, y) {
+    return map[y] && map[y][x] !== "#" && map[y][x] !== undefined;
+  }
+  
+  function gameLoop(time) {
+    const delta = time - lastTime;
+    lastTime = time;
+  
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
+    drawPacman();
+    drawGhosts();
+    updatePacman(delta);
+    updateGhosts(delta);
+  
+    requestAnimationFrame(gameLoop);
+  }
+  
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp" || e.key === "w") {
+      pacman.nextDx = 0;
+      pacman.nextDy = -1;
+    } else if (e.key === "ArrowDown" || e.key === "s") {
+      pacman.nextDx = 0;
+      pacman.nextDy = 1;
+    } else if (e.key === "ArrowLeft" || e.key === "a") {
+      pacman.nextDx = -1;
+      pacman.nextDy = 0;
+    } else if (e.key === "ArrowRight" || e.key === "d") {
+      pacman.nextDx = 1;
+      pacman.nextDy = 0;
+    }
+  });
+  
+  requestAnimationFrame(gameLoop);
   </script>
   
   
