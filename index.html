@@ -1178,7 +1178,7 @@ function loadInIframe() {
       <i class="fas fa-laptop-code"></i> Overview
     </div>
     <div class="section-content">
-      <p>A high-performance, Ubuntu-based laptop running WillowOS, purpose-built for creative, professional, and secure computing.</p>
+      <p>The WillowBook is a high-performance, Ubuntu-based laptop running WillowOS, purpose-built for creative, professional, and secure computing.</p>
     </div>
 
     <div class="section-header">
@@ -1186,7 +1186,7 @@ function loadInIframe() {
     </div>
     <div class="section-content">
       <h4>Operating System</h4>
-      <p><strong>WillowOS</strong> – Built on Ubuntu Desktop, enhanced with a full suite of proprietary Willow-native applications.</p>
+      <p><strong>WillowOS</strong> – Based on Ubuntu Desktop, extended with a full suite of proprietary Willow-native applications.</p>
 
       <h4>Core WillowOS Applications</h4>
       <table>
@@ -1233,10 +1233,12 @@ function loadInIframe() {
       <h4>Core Components</h4>
       <ul>
         <li><strong>CPU:</strong> Rockchip RK3576</li>
-        <li><strong>GPU:</strong> 4D Systems Embedded Graphics</li>
+        <li><strong>GPU:</strong> Efinix T8F81C (FPGA-based)</li>
         <li><strong>Motherboard:</strong> Custom ultra-thin PCB</li>
-        <li><strong>RAM:</strong> TeamGroup DDR4/DDR5 modules</li>
-        <li><strong>Storage:</strong> 2× PNY CS2342 1TB Gen 4 NVMe SSDs</li>
+        <li><strong>RAM:</strong> 32GB DDR5 Laptop Memory</li>
+        <li><strong>Storage:</strong> 2× PNY CS2342 1TB NVMe Gen 4 SSD</li>
+        <li><strong>Antenna:</strong> Tri-band antennas (low-profile)</li>
+        <li><strong>Microphone:</strong> Infineon IM72D128V MEMS</li>
       </ul>
 
       <h4>Connectivity</h4>
@@ -1247,28 +1249,28 @@ function loadInIframe() {
 
       <h4>Display</h4>
       <ul>
-        <li><strong>Panel:</strong> Samsung 14.0" OLED Display (ATNA40YN04-0)</li>
+        <li><strong>Panel:</strong> 14.0" Samsung OLED (3840×2400)</li>
       </ul>
 
       <h4>Audio & Video</h4>
       <ul>
-        <li><strong>Speakers:</strong> Peerless TYM197</li>
-        <li><strong>Camera:</strong> Leopard Imaging LI-IMX274MIPI-FMC</li>
-        <li><strong>Audio Jack:</strong> 3.5mm combo for headset/microphone</li>
+        <li><strong>Speakers:</strong> Custom ultra-thin speaker module</li>
+        <li><strong>Camera:</strong> Leopard Imaging LI-IMX477</li>
+        <li><strong>Audio Jack:</strong> 3.5mm combo headset/mic port</li>
       </ul>
 
       <h4>Input</h4>
       <ul>
-        <li><strong>Trackpad:</strong> Cirque TPS65-201A-S</li>
-        <li><strong>Keyboard:</strong> Custom ultra-thin PCB with Cherry MX Black switches and 3D-printed keycaps</li>
+        <li><strong>Trackpad:</strong> Azoteq TPS65-201A-S</li>
+        <li><strong>Keyboard:</strong> Custom ultra-thin PCB with 3D-printed keycaps</li>
       </ul>
 
       <h4>Cooling System</h4>
       <ul>
-        <li><strong>Active:</strong> 2–4× Frore AirJet Mini G2</li>
-        <li><strong>Passive:</strong> Copper heatsinks, vapor chamber</li>
-        <li><strong>Thermal Interface:</strong> Thermal Grizzly Conductonaut Liquid Metal</li>
-        <li><strong>Heat Distribution:</strong> Large internal copper plate (Copper Plate Material)</li>
+        <li><strong>Active Cooling:</strong> 2–4× Frore Snowflake Microfans</li>
+        <li><strong>Passive Cooling:</strong> Copper Heatsink Module</li>
+        <li><strong>Thermal Interface Material:</strong> Thermal Grizzly Conductonaut</li>
+        <li><strong>Heat Distribution:</strong> Copper Plate (0.187” thick)</li>
       </ul>
 
       <h4>I/O Ports</h4>
@@ -1279,47 +1281,166 @@ function loadInIframe() {
         <tbody>
           <tr>
             <td>Left</td>
-            <td>2× USB-C (Thunderbolt 4), 1× HDMI 2.1, 1× 3.5mm jack</td>
-            <td>Charging & high-speed peripherals, external display, headset/audio</td>
+            <td>2× USB-C (Thunderbolt 4), 1× HDMI 2.1, 1× 3.5mm combo jack</td>
+            <td>Charging, peripherals, external display, headset/audio</td>
           </tr>
           <tr>
             <td>Right</td>
             <td>2× USB-A 3.2, 1× SD Card Reader</td>
-            <td>Legacy peripheral support, media workflow (creators)</td>
+            <td>Legacy peripheral support, media workflow</td>
           </tr>
           <tr>
-            <td>Front</td>
-            <td>Power Button (chassis-integrated)</td>
-            <td>Ultra-thin custom PCB</td>
+            <td>Top</td>
+            <td>1× Power Button (chassis-integrated)</td>
+            <td>Custom ultra-thin PCB</td>
           </tr>
         </tbody>
       </table>
 
       <h4>Power</h4>
       <ul>
-        <li><strong>Battery:</strong> 4× Rechargeable Packs</li>
+        <li><strong>Battery:</strong> 4× RRC Smart Battery Packs</li>
         <li><strong>Charger:</strong> Custom "WillowConnect" charger</li>
-        <li><strong>Charge Management:</strong> Integrated battery stop module for longevity</li>
+        <li><strong>Battery Management:</strong> TI BQ40Z50-R2</li>
       </ul>
 
       <h4>Security</h4>
       <ul>
-        <li><strong>Hardware Authentication:</strong> YubiKey 5Ci</li>
-        <li><strong>Video Kill Switch:</strong> Omron D2F-L toggle switch</li>
+        <li><strong>Camera Kill Switch:</strong> Omron Toggle Switch D2F-L</li>
+        <li><strong>Security Module:</strong> YubiKey 5Ci (USB-C + Lightning)</li>
       </ul>
 
       <h4>Mechanical Design</h4>
       <ul>
-        <li><strong>Chassis:</strong> Slim, precision-machined metal unibody</li>
-        <li><strong>Hinge:</strong> Deal4GO (HP OEM-type)</li>
-        <li><strong>Thickness:</strong> 15–18mm (closed)</li>
+        <li><strong>Chassis:</strong> Precision-machined metal unibody</li>
+        <li><strong>Hinge:</strong> Framework Hinge Kit</li>
+        <li><strong>Thickness:</strong> 15–18 mm (closed)</li>
       </ul>
 
       <h4>Estimated Production Cost</h4>
-      <p>Total Build: ~$8,000 USD (Premium components, custom engineering)</p>
+      <p>Total Build: ~$8,000 USD<br><small>(Premium components + Custom engineering &amp; prototyping)</small></p>
     </div>
   </div>
 </div>
+
+<script>
+  // Create a style element
+  const style = document.createElement('style');
+  style.type = 'text/css';
+
+  // Define CSS rules as a string
+  const css = `
+    #willowbook-specs {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f9f5;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 20px auto;
+      color: #264d3e;
+    }
+
+    #willowbook-specs .window-header {
+      background: #2a6f45;
+      color: #e6f2ea;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: inset 0 -3px 8px rgba(0,0,0,0.15);
+    }
+
+    #willowbook-specs .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    #willowbook-specs .window-button {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .close-button { background: #e05c4c; }
+    .minimize-button { background: #f0c849; }
+    .maximize-button { background: #4ace54; }
+
+    #willowbook-specs .window-content {
+      padding: 20px 25px;
+      line-height: 1.6;
+      background: #ffffff;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    #willowbook-specs .section-header {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #2a6f45;
+      padding-bottom: 5px;
+      color: #1f4f33;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #willowbook-specs .section-content p {
+      font-size: 0.95rem;
+      color: #3a5a40;
+    }
+
+    #willowbook-specs table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    #willowbook-specs th, #willowbook-specs td {
+      border: 1px solid #c1d7c4;
+      padding: 8px 12px;
+      text-align: left;
+      color: #2e5d3e;
+    }
+
+    #willowbook-specs th {
+      background-color: #d3ecd5;
+    }
+
+    #willowbook-specs ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      color: #355e3b;
+      font-size: 0.95rem;
+    }
+
+    #willowbook-specs h4 {
+      color: #2a6f45;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+  `;
+
+  // Add the CSS string to the style element
+  if (style.styleSheet){
+    style.styleSheet.cssText = css;  // for IE8 and below
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+
+  // Append the style element to the document head
+  document.head.appendChild(style);
+</script>
+
+
 
 
   <!-- Games Section -->
