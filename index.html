@@ -1210,7 +1210,7 @@ function loadInIframe() {
   <ul>
     <li>Wi-Fi 7 (802.11be)</li>
     <li>Bluetooth 6.0 with LE Audio</li>
-    <li>Integrated 5G Modem (Sub-6 GHz and mmWave)</li>
+    <!--<li>Integrated 5G Modem (Sub-6 GHz and mmWave)</li>-->
     <li>GPS and location services</li>
   </ul>
 
@@ -1285,7 +1285,124 @@ function loadInIframe() {
 </div>
 
 
-  
+<Style>
+  /* === WillowBook Specs Section Styling === */
+
+#willowbook-specs {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdfdfd;
+  color: #000; /* Set default text color to black */
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+#willowbook-specs h1,
+#willowbook-specs h2,
+#willowbook-specs h3,
+#willowbook-specs p,
+#willowbook-specs li,
+#willowbook-specs strong {
+  color: #000; /* Ensure all headings, paragraphs, and list items are black */
+}
+
+#willowbook-specs h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#willowbook-specs h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+#willowbook-specs h3 {
+  font-size: 1.2rem;
+  margin-top: 24px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+#willowbook-specs p {
+  margin: 0 0 10px;
+}
+
+#willowbook-specs ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+#willowbook-specs li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.window-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #e0e0e0;
+  padding: 6px 12px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 20px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.close-button {
+  background-color: #ff5f56;
+}
+
+.minimize-button {
+  background-color: #ffbd2e;
+}
+
+.maximize-button {
+  background-color: #27c93f;
+}
+
+strong {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  #willowbook-specs {
+    padding: 16px;
+  }
+
+  #willowbook-specs h1 {
+    font-size: 1.6rem;
+  }
+
+  #willowbook-specs h2 {
+    font-size: 1.2rem;
+  }
+}
+
+#willowbook-specs {
+  /* existing styles... */
+  max-height: 600px; /* or any height you prefer */
+  overflow-y: auto;
+  scroll-behavior: smooth; /* smooth scrolling effect */
+  /* Optional: add some padding-right to avoid scrollbar overlaying content */
+  padding-right: 12px;
+}
+
+</Style>
 
 
   <!-- Games Section -->
